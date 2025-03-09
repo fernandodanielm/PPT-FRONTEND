@@ -29,7 +29,7 @@ export class TuNombre extends HTMLElement {
             const nombre = (form.nombre as any).value;
             if (this.roomId) {
                 try {
-                    console.log("Llamando a la API con roomId:", this.roomId, "y nombre:", nombre); // Agrega este log
+                    console.log("Llamando a la API con roomId:", this.roomId, "y nombre:", nombre);
                     const response = await fetch(
                         `https://ppt-backend-three.vercel.app/api/rooms/${this.roomId}/join`,
                         {
@@ -40,7 +40,7 @@ export class TuNombre extends HTMLElement {
                             body: JSON.stringify({ playerName: nombre }),
                         }
                     );
-                    console.log("Respuesta de la API:", response); // Agrega este log
+                    console.log("Respuesta de la API:", response);
 
                     if (!response.ok) {
                         throw new Error(`Error al unirse a la sala: ${response.statusText}`);
@@ -49,18 +49,16 @@ export class TuNombre extends HTMLElement {
                     const data = await response.json();
                     console.log(data);
 
-                    // Obtener el número de jugador de la respuesta
                     const playerNumber = data.playerNumber;
 
-                    // Guardar el nombre del jugador en el estado
                     state.setPlayerName(nombre);
 
                     if (playerNumber === 1) {
                         // Si es el owner, redirigir a /short-id/:roomId
                         (window as any).goTo(`/short-id/${this.roomId}`);
                     } else {
-                        // Si es el guest, redirigir a /play
-                        (window as any).goTo("/play");
+                        // Si es el guest, redirigir a /instructions
+                        (window as any).goTo("/instructions");
                     }
                 } catch (error) {
                     console.error("Error al unirse a la sala:", error);
