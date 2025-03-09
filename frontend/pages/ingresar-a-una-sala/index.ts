@@ -14,18 +14,22 @@ export class IngresarAsala extends HTMLElement {
     }
 
     render() {
+        if (!this.shadowRoot) {
+            return;
+        }
+
         this.shadowRoot.innerHTML = `
             <div class="ingresar-asala-container">
-                <h2>Ingresa el código de la sala</h2>
+                <h2>Ingresar a una sala</h2>
                 <form class="sala-form">
-                    <input type="text" name="roomId" placeholder="Código de la sala">
+                    <input type="text" name="roomId" placeholder="Código de sala">
                     <button class="button" type="submit">Ingresar</button>
                 </form>
             </div>
         `;
 
-        const form = this.shadowRoot.querySelector(".sala-form") as HTMLFormElement;
         this.roomIdInput = this.shadowRoot.querySelector("input[name='roomId']") as HTMLInputElement;
+        const form = this.shadowRoot.querySelector(".sala-form") as HTMLFormElement;
 
         form.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -117,7 +121,7 @@ export class IngresarAsala extends HTMLElement {
     ingresarASala() {
         const roomId = this.roomIdInput.value;
         state.setRoomId(roomId); // Almacenar el roomId en el estado
-        (window as any).goTo('/ingresar-nombre');
+        (window as any).goTo('/tu-nombre');
     }
 }
 
