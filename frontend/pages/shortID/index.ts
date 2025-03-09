@@ -30,33 +30,8 @@ export class ShortId extends HTMLElement {
             return;
         }
 
-        console.log("ShortId: roomId válido. Continuando con la espera de jugadores.");
-
-        await this.waitForBothPlayers();
+        console.log("ShortId: roomId válido. Continuando con la renderización.");
         this.render();
-    }
-
-    async waitForBothPlayers() {
-        return new Promise((resolve) => {
-            const intervalId = setInterval(async () => {
-                try {
-                    const currentState = state.getState();
-                    const roomData = currentState.currentGame.data;
-                    const ownerName = roomData.player1Name;
-                    const guestName = roomData.player2Name;
-
-                    console.log("ShortId: Esperando jugadores. Owner:", ownerName, "Guest:", guestName);
-
-                    if (ownerName && guestName) {
-                        clearInterval(intervalId);
-                        console.log("ShortId: Ambos jugadores listos.");
-                        resolve(true);
-                    }
-                } catch (error) {
-                    console.error("Error en waitForBothPlayers:", error);
-                }
-            }, 1000);
-        });
     }
 
     render() {
@@ -64,46 +39,33 @@ export class ShortId extends HTMLElement {
             const currentState = state.getState();
             const roomId = this.roomId || currentState.currentGame.shortId;
             const ownerName = currentState.currentGame.data.player1Name;
-            const guestName = currentState.currentGame.data.player2Name;
 
             console.log("ShortId: Renderizando con roomId:", roomId);
-            console.log("ShortId: Owner:", ownerName, "Guest:", guestName);
+            console.log("ShortId: Owner:", ownerName);
 
-            // Verificar si los nombres de los jugadores están disponibles antes de renderizar
-            if (ownerName && guestName) {
-                this.shadow.innerHTML = `
-                    <div class="short-id-container">
-                        <div class="header">
-                            <div class="players">
-                                <p>${ownerName}</p>
-                                <p>${guestName}</p>
-                            </div>
-                            <div class="room-info">
-                                <p>Sala</p>
-                                <p>${roomId}</p>
-                            </div>
+            // Renderizar la interfaz gráfica inmediatamente después de que el primer jugador se une
+            this.shadow.innerHTML = `
+                <div class="short-id-container">
+                    <div class="header">
+                        <div class="players">
+                            <p>${ownerName || "Esperando..."}</p>
+                            <p>Contrincante en espera...</p> 
                         </div>
-                        <div class="share-code">Compartí el código:</div>
-                        <div class="room-id">${roomId}</div>
-                        <div class="share-with">Con tu contrincante</div>
-                        <div class="moves">
-                            <img src="${piedraImage}" alt="Piedra">
-                            <img src="${papelImage}" alt="Papel">
-                            <img src="${tijeraImage}" alt="Tijera">
+                        <div class="room-info">
+                            <p>Sala</p>
+                            <p>${roomId}</p>
                         </div>
                     </div>
-                `;
-
-                console.log("ShortId: Ambos jugadores listos. Redirigiendo a /instructions.");
-                (window as any).goTo('/instructions');
-            } else {
-                // Mostrar un mensaje de espera si los nombres de los jugadores no están disponibles
-                this.shadow.innerHTML = `
-                    <div class="short-id-container">
-                        <p>Esperando a que ambos jugadores se unan a la sala...</p>
+                    <div class="share-code">Compartí el código:</div>
+                    <div class="room-id">${roomId}</div>
+                    <div class="share-with">Con tu contrincante</div>
+                    <div class="moves">
+                        <img src="${piedraImage}" alt="Piedra">
+                        <img src="${papelImage}" alt="Papel">
+                        <img src="${tijeraImage}" alt="Tijera">
                     </div>
-                `;
-            }
+                </div>
+            `;
 
             const style = document.createElement("style");
             style.textContent = `
