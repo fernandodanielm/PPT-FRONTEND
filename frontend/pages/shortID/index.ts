@@ -46,7 +46,6 @@ export class ShortId extends HTMLElement {
                 if (guestName) {
                     clearInterval(intervalId);
                     console.log("ShortId: Guest conectado:", guestName);
-                    this.render(); // Actualizar la interfaz con el nombre del guest
                     setTimeout(() => {
                         (window as any).goTo("/instructions");
                     }, 2000); // Redirigir a Instructions después de unos segundos

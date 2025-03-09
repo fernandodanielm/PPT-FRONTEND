@@ -1,4 +1,4 @@
-6159
+6184
 117C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\core\node_modules\semver\functions\eq.js133860144211172859 0
 86C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\typescript\lib\ko133860209482548228 1
 68C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\package.json133860120499303943 0
@@ -23,7 +23,7 @@
 90C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\universalify\index.js133860144207506295 0
 107C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\cosmiconfig\dist\ExplorerSync.d.ts.map133860144212762250 0
 102C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\reporter-cli\src\emoji.js133860144210990489 0
-60C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist133860254030865335 1
+60C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist133860256421481527 1
 79C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\filenamify133860209428250375 1
 103C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\src\_to_primitive.mjs133860144220015056 0
 115C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\core\node_modules\semver\ranges\gtr.js133860144211747117 0
@@ -214,6 +214,7 @@
 95C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\entities\lib\esm\decode.js133860144211006096 0
 80C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\detect-libc133860209441959723 1
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\utils\src\objectHash.js133860144215484019 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8a\7aadbcbfece6080dcf032f91d6e3fddc62686d133860254531909056 0
 145C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\msgpackr-extract\node_modules\node-gyp-build-optional-packages\build-test.js133860144208025255 0
 99C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\htmlparser2\lib\Tokenizer.d.ts133860144214173738 0
 84C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\tslib\README.md133860144210337172 0
@@ -377,6 +378,7 @@
 94C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\watcher\prebuilds133860209413022648 1
 116C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\deviceorientation.js133860144218847423 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\e2\1c6f1fc83927cd0891b43c4455c8fb3013e175133860213637880359 0
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\dc133860254532051369 1
 125C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\node-resolver-core\node_modules\semver\range.bnf133860144207506295 0
 88C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\react-error-overlay133860209449037043 1
 107C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\_\_using_ctx\package.json133860144219243454 0
@@ -385,7 +387,6 @@
 94C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\counter\package.json133860144208669334 0
 130C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\core\test\fixtures\config-extends-not-found\.parcelrc133860144207330689 0
 76C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\js-yaml133860209444332433 1
-152C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\index.01281ca8.js133860252004933221 0
 139C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\node-gyp-build-optional-packages\node_modules\detect-libc\package.json133860144209344922 0
 89C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\scripts133860209472353513 1
 118C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\cjs\_possible_constructor_return.cjs133860144215844479 0
@@ -436,7 +437,7 @@
 113C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\typescript\lib\lib.es2016.array.include.d.ts133860144219013989 0
 118C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\css-backdrop-filter.js133860144217012193 0
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\regions\WF.js133860144225522906 0
-87C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\frontend\pages\shortID\index.ts133860253913540390 0
+87C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\frontend\pages\shortID\index.ts133860256302346414 0
 77C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\make-dir133860209430835959 1
 92C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\types\package.json133860144208656426 0
 78C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\path-type133860209431894003 1
@@ -550,7 +551,7 @@
 137C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-svg\node_modules\semver\ranges\to-comparators.js133860144214843394 0
 103C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\type-fest\source\set-required.d.ts133860144213508711 0
 109C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\websockets.js133860144225354198 0
-150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\refs\heads133860252006679464 1
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\refs\heads133860254537997203 1
 89C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\tslib\tslib.es6.html133860144206872021 0
 118C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\posthtml\node_modules\entities\lib\encode-trie.js133860144210246443 0
 109C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\fast-glob\out\providers\filters\entry.js133860144210337172 0
@@ -954,6 +955,7 @@
 113C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-postcss\src\constants.js133860144208422381 0
 96C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\undici-types\mock-pool.d.ts133860144213175257 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\42\0ac696735d353596e2d6e33919071162d66591133860213637769341 0
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\c9133860254532051369 1
 104C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\_\_object_spread_props133860209503748506 1
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\htmlparser2\lib\esm\Parser.d.ts133860144213407204 0
 92C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\to-regex-range\index.js133860144207361490 0
@@ -1066,6 +1068,7 @@
 110C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\electron-to-chromium\chromium-versions.js133860144207361490 0
 119C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\lmdb\dependencies\lmdb\libraries\liblmdb\chacha8.h133860144216679037 0
 89C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\semver\bin\semver.js133860144208351889 0
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\f2133860254530000506 1
 129C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\cjs\_class_static_private_field_destructure.cjs133860144213407204 0
 104C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\typescript\lib\lib.es2023.intl.d.ts133860144219728776 0
 110C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\optimizer-swc\lib\SwcOptimizer.js133860144207506295 0
@@ -1162,6 +1165,7 @@
 107C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\htmlnano\docs\docs\010-introduction.md133860144215345717 0
 98C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\esm\_decorate.js133860144217012193 0
 128C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\lmdb\dependencies\lmdb-data-v1\libraries\liblmdb\mdb_dump.c133860144214741466 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\0a\beca11a180b3896e2bf0ab8e492c830039d665133860254530156640 0
 99C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-js\LICENSE133860144206954932 0
 98C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\workers\src\Handle.js133860144212297594 0
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-css\LICENSE133860144206954932 0
@@ -1259,7 +1263,6 @@
 89C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\reusify\package.json133860144210246443 0
 104C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\regions\alt-ww.js133860144212674887 0
 85C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\lmdb\src\env.cpp133860144216398953 0
-156C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\index.01281ca8.js.map133860252004933221 0
 106C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\typescript\lib\lib.es2024.object.d.ts133860144219728776 0
 95C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\workers\src\bus.js133860144209344922 0
 91C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\domelementtype\LICENSE133860144206797810 0
@@ -1278,6 +1281,7 @@
 106C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\typescript\lib\lib.es2024.string.d.ts133860144219847836 0
 124C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\htmlnano\docs\versioned_docs\version-2.0.0\020-usage.md133860144215608988 0
 96C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\typescript\lib\lib.es5.d.ts133860144219847836 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8e\82190268cf7832d7bb03c5d500707d07d92d00133860254532051369 0
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\4e133860215117612228 1
 135C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-posthtml\node_modules\semver\classes\semver.js133860144214706654 0
 101C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\msgpackr\dist\unpack-no-eval.cjs133860144210128520 0
@@ -1399,7 +1403,7 @@
 82C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\fast-glob\out133860209476242769 1
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\type-fest\ts41\pascal-case.d.ts133860144212841528 0
 101C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\htmlparser2\lib\esm\index.js.map133860144211506811 0
-154C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\piedra.2b6b2e59.png133860252004933221 0
+154C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\piedra.2b6b2e59.png133860254536283930 0
 124C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\esm\_class_apply_descriptor_destructure.js133860144216789593 0
 94C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\tslib\CopyrightNotice.txt133860144211340765 0
 110C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\input-color.js133860144220348068 0
@@ -1579,7 +1583,7 @@
 88C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\safe-buffer\LICENSE133860144206872021 0
 119C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\runtime-js\src\helpers\worker\js-loader.js133860144213407204 0
 92C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@types\node\sqlite.d.ts133860144215608988 0
-92C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist\piedrapapelotijera.a2838792.jpg133860254030370715 0
+92C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist\piedrapapelotijera.a2838792.jpg133860256421021645 0
 89C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\run-parallel\LICENSE133860144207019386 0
 84C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\reusify\.github133860209481486690 1
 113C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\css-first-line.js133860144217512862 0
@@ -1612,6 +1616,7 @@
 85C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\async\timeout.js133860144216845902 0
 138C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-postcss\node_modules\semver\ranges\min-version.js133860144213008124 0
 91C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\react-refresh\babel.js133860144207361490 0
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\9b133860254537997203 1
 103C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\avif.js133860144215010082 0
 121C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-postcss\node_modules\.bin\semver133860144227603701 0
 103C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\dist\lib\supported.js133860144223852947 0
@@ -1665,7 +1670,7 @@
 99C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\watcher\src\Watcher.cc133860144211747117 0
 90C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\p-locate\package.json133860144206819606 0
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\posthtml-render\dist\index.d.ts133860144209696308 0
-150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8e133860213639000463 1
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8e133860254532051369 1
 119C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\lightningcss\node_modules\detect-libc\package.json133860144209452647 0
 101C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\posthtml\node_modules\domhandler133860209510824204 1
 98C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\posthtml-render\dist\index.js133860144207506295 0
@@ -1683,7 +1688,7 @@
 104C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\mpeg4.js133860144221686910 0
 99C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\electron-to-chromium\README.md133860144211340765 0
 98C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\posthtml-parser\dist\index.js133860144207506295 0
-79C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist\papel.7c3d639f.png133860254030370715 0
+79C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist\papel.7c3d639f.png133860256421052139 0
 111C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\posthtml-parser\dist\location-tracker.d.ts133860144209952965 0
 116C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\esm\_object_destructuring_empty.js133860144217345591 0
 101C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@nodelib\fs.scandir\package.json133860144211172859 0
@@ -1794,7 +1799,7 @@
 108C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\posthtml\node_modules\entities\lib\maps133860209524990349 1
 121C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-html\node_modules\semver\classes133860209519414165 1
 98C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\domutils\lib\esm\traversal.js133860144211747117 0
-150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\21133860209415904901 1
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\21133860254537997203 1
 140C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\posthtml\node_modules\dom-serializer\node_modules\entities\lib\index.js133860144209344922 0
 122C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\posthtml\node_modules\entities\lib\maps\entities.json133860144211006096 0
 135C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\posthtml\node_modules\entities\lib\generated\decode-data-html.d.ts133860144212625748 0
@@ -2091,6 +2096,7 @@
 86C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\parcel\lib\cli.js133860144209002224 0
 99C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\core\src\loadDotEnv.js133860144216398953 0
 83C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\p-try\index.js133860144207840454 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\03\ce3fd62459c30153acb9a38f4e88fbe7efd9dc133860254532208141 0
 87C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\p-try\package.json133860144206807814 0
 84C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\p-try\readme.md133860144209002224 0
 110C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\packager-wasm\src\WasmPackager.js133860144209696308 0
@@ -2098,7 +2104,7 @@
 121C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\msgpackr-extract\node_modules\detect-libc\index.d.ts133860144210074821 0
 115C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\htmlnano\lib\modules\removeEmptyAttributes.mjs133860144216511883 0
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\regions\FM.js133860144219513985 0
-80C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist\tijera.4b8c96df.png133860254030370715 0
+80C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist\tijera.4b8c96df.png133860256421052139 0
 88C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\p-locate\index.d.ts133860144207361490 0
 87C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\p-locate\readme.md133860144209002224 0
 84C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\p-limit\license133860144206807814 0
@@ -2172,7 +2178,7 @@
 121C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\_\_iterable_to_array_limit\package.json133860144218680660 0
 113C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\node-gyp-build-optional-packages\optional.js133860144209158275 0
 98C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\watcher\src\Signal.hh133860144213577923 0
-150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\03133860209414382866 1
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\03133860254532208141 1
 93C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\graceful-fs\package.json133860144209503285 0
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\regions\NZ.js133860144222016495 0
 114C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\node-gyp-build-optional-packages\package.json133860144209503285 0
@@ -3116,7 +3122,6 @@
 91C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\entities\lib\decode.js133860144210671905 0
 103C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\entities\lib\decode_codepoint.d.ts133860144215449208 0
 101C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\entities\lib\decode_codepoint.js133860144207506295 0
-78C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist\index.cc615b5e.js133860254030810044 0
 136C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\package-manager\test\fixtures\has-foo\node_modules\index.js133860144210839311 0
 105C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\entities\lib\decode_codepoint.js.map133860144212696830 0
 110C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\geolocation.js133860144219843170 0
@@ -3486,6 +3491,7 @@
 93C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@mischnic\json-sourcemap133860209454307673 1
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\regions\GN.js133860144219847836 0
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\cjs\_construct.cjs133860144214342652 0
+78C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist\index.c97cd77e.js133860256421427903 0
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\regions\GP.js133860144219847836 0
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\regions\GR.js133860144220000420 0
 99C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\cjs\_to_array.cjs133860144216011568 0
@@ -3682,7 +3688,7 @@
 104C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\const.js133860144216845902 0
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\bundler-default\LICENSE133860144206990451 0
 103C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\cors.js133860144216845902 0
-203C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\pack\pack-cd888ace9f13d4763a884403cecc35bb74c55a78.pack133860252005250548 0
+203C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\pack\pack-cd888ace9f13d4763a884403cecc35bb74c55a78.pack133860254536665846 0
 116C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\createimagebitmap.js133860144216845902 0
 132C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-babel\node_modules\semver\functions\diff.js133860144211085462 0
 120C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\credential-management.js133860144217000270 0
@@ -3769,6 +3775,7 @@
 110C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\css-lch-lab.js133860144217754549 0
 108C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\watcher\src\wasm\WasmBackend.cc133860144211506811 0
 116C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\css-logical-props.js133860144217846627 0
+82C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist\index.c97cd77e.js.map133860256421470254 0
 91C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\optimizer-svgo133860209460828571 1
 108C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\css-masks.js133860144217846627 0
 117C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\css-matches-pseudo.js133860144217846627 0
@@ -4112,6 +4119,7 @@
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\ce\925a56617db779b7a684539ca64769a7f8657e133860193611642850 0
 138C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-postcss\node_modules\semver\classes\comparator.js133860144209696308 0
 110C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\user-timing.js133860144224685356 0
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\97133860254532208141 1
 110C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\caniuse-lite\data\features\videotracks.js133860144224855589 0
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\30133860213638940115 1
 109C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\source-map\parcel_sourcemap_node133860209489535267 1
@@ -4275,7 +4283,7 @@
 99C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\_\_async_iterator133860209495635069 1
 93C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\async\internal\reject.js133860144216679037 0
 88C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\async\dist\async.js133860144211506811 0
-150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\d1133860213644543832 1
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\d1133860254532051369 1
 92C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\async\dist\async.min.js133860144211747117 0
 89C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\async\dist\async.mjs133860144217178989 0
 88C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\array-union\license133860144208669334 0
@@ -4307,9 +4315,10 @@
 93C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@types\node\process.d.ts133860144215345717 0
 89C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@types\node\readline133860209473142862 1
 90C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@types\node\repl.d.ts133860144215511975 0
+156C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\index.cc615b5e.js.map133860254536283930 0
 89C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@types\node\sea.d.ts133860144215511975 0
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@types\node\string_decoder.d.ts133860144215677906 0
-149C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\ORIG_HEAD133860252004137552 0
+149C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\ORIG_HEAD133860254535339406 0
 90C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@types\node\test.d.ts133860144215795670 0
 89C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@types\node\tty.d.ts133860144215844479 0
 134C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-svg\node_modules\semver\ranges\min-version.js133860144213008124 0
@@ -4381,7 +4390,7 @@
 120C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\_\_create_for_of_iterator_helper_loose133860209499225657 1
 93C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\_\_defaults133860209499543952 1
 113C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\_\_define_enumerable_properties133860209499721738 1
-159C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\refs\heads\gh-pages133860252006679464 0
+159C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\refs\heads\gh-pages133860254537997203 0
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\_\_define_property133860209499792416 1
 88C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\_\_get133860209500403114 1
 93C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@swc\helpers\_\_identity133860209500559682 1
@@ -4858,7 +4867,7 @@
 99C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\types-internal\scripts133860209471624208 1
 107C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\types-internal\src\FilePath.js133860144209696308 0
 103C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\types-internal\src\Glob.js133860144210246443 0
-164C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\refs\remotes\origin\main133860252001618621 0
+164C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\refs\remotes\origin\main133860254532682558 0
 113C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\types-internal\src\PackageManager.js133860144210839311 0
 115C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\core\node_modules\semver\bin\semver.js133860144214675704 0
 110C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\types-internal\src\PackageName.js133860144211085462 0
@@ -4869,7 +4878,7 @@
 112C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\types-internal\lib\SemverRange.d.ts133860144212841528 0
 95C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\types\package.json133860144208173683 0
 96C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-svg\lib133860209470607817 1
-164C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\logs\refs\heads\gh-pages133860252006679464 0
+164C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\logs\refs\heads\gh-pages133860254537997203 0
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-svg\LICENSE133860144206944859 0
 114C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-svg\src\SVGTransformer.js133860144210337172 0
 110C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-svg\node_modules\.bin133860209492188008 1
@@ -4893,7 +4902,7 @@
 134C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-svg\node_modules\semver\classes\comparator.js133860144209696308 0
 126C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-svg\node_modules\semver\bin\semver.js133860144214509939 0
 120C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-react-refresh-wrap\package.json133860144210337172 0
-154C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\COMMIT_EDITMSG133860252006514738 0
+154C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\COMMIT_EDITMSG133860254537997203 0
 142C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-react-refresh-wrap\src\ReactRefreshWrapTransformer.js133860144209900742 0
 134C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-react-refresh-wrap\src\helpers\.eslintrc.json133860144210185608 0
 119C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-react-refresh-wrap\lib\helpers133860209491868147 1
@@ -4948,7 +4957,7 @@
 130C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-postcss\node_modules\semver\bin\semver.js133860144214509939 0
 136C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-posthtml\node_modules\semver\functions\rsort.js133860144214509939 0
 140C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-posthtml\node_modules\semver\functions\satisfies.js133860144214509939 0
-134C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git133860252004933221 1
+134C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git133860254536283930 1
 135C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-posthtml\node_modules\semver\functions\sort.js133860144214843394 0
 136C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-posthtml\node_modules\semver\functions\valid.js133860144215010082 0
 139C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\transformer-posthtml\node_modules\semver\classes\comparator.js133860144209696308 0
@@ -5272,7 +5281,7 @@
 119C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\runtime-js\lib\helpers\node\html-loader.js133860144212507689 0
 117C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\runtime-js\lib\helpers\node\js-loader.js133860144213008124 0
 119C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\runtime-js\lib\helpers\node\wasm-loader.js133860144214675704 0
-150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\3c133860253160478172 1
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\3c133860254530156640 1
 130C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\runtime-js\lib\helpers\browser\esm-js-loader-retry.js133860144211729712 0
 124C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\runtime-js\lib\helpers\browser\esm-js-loader.js133860144211840331 0
 122C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\runtime-js\lib\helpers\browser\html-loader.js133860144212341160 0
@@ -5285,6 +5294,7 @@
 104C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\runtime-browser-hmr\LICENSE133860144206965006 0
 100C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\runtime-browser-hmr\src133860209489221107 1
 108C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\runtime-browser-hmr\src\loaders133860209489378262 1
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\9a\d1fc48f9b8b099770cb5a61767269ad1f0ce3e133860254536665846 0
 123C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\runtime-browser-hmr\src\loaders\.eslintrc.json133860144210333751 0
 107C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\packager-js\src\.eslintrc.json133860144212341160 0
 123C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\runtime-browser-hmr\src\loaders\hmr-runtime.js133860144208989020 0
@@ -5342,7 +5352,7 @@
 117C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\packager-wasm\src\wasm-sourcemap.js.flow133860144207506295 0
 122C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@msgpackr-extract\msgpackr-extract-win32-x64\index.js133860144205936910 0
 112C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\packager-wasm\lib\wasm-sourcemap.js133860144208442506 0
-153C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\papel.7c3d639f.png133860252004933221 0
+153C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\papel.7c3d639f.png133860254536283930 0
 102C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\packager-svg\package.json133860144208835133 0
 93C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\packager-svg\src133860209463544424 1
 97C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\packager-raw\LICENSE133860144206965006 0
@@ -5406,7 +5416,7 @@
 87C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@lezer\common\dist133860209453908866 1
 120C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\package-manager\node_modules\semver\classes133860209516357418 1
 120C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\package-manager\node_modules\semver\LICENSE133860144207019386 0
-149C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\logs\HEAD133860252006679464 0
+149C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\logs\HEAD133860254537997203 0
 125C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\package-manager\node_modules\semver\package.json133860144215010082 0
 123C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\package-manager\node_modules\semver\preload.js133860144213508711 0
 122C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@parcel\package-manager\node_modules\semver\range.bnf133860144207506295 0
@@ -5853,36 +5863,38 @@
 116C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@babel\helper-validator-identifier\lib\index.js133860144209344922 0
 122C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\@babel\helper-validator-identifier\lib\keyword.js.map133860144210246443 0
 84C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages133860209411844729 1
-139C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git133860252006679464 1
+139C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git133860254538154219 1
 145C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.gitignore133860149223672667 0
-145C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\index.html133860252004933221 0
-166C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\piedrapapelotijera.a2838792.jpg133860252004933221 0
-154C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\tijera.4b8c96df.png133860252004933221 0
+152C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\index.cc615b5e.js133860254536283930 0
+145C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\index.html133860254536283930 0
+166C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\piedrapapelotijera.a2838792.jpg133860254536283930 0
+154C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\tijera.4b8c96df.png133860254536283930 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\65\cb69fbe7615ac5c0e870308f120a22ba618f51133860160629209915 0
 177C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.parcel-cache\84a6d3b7578fe227-BundleGraph133860149223672667 0
 178C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.parcel-cache\9777434aeb95a532-RequestGraph133860149223672667 0
 157C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.parcel-cache\lock.mdb133860149223672667 0
-146C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\config133860252005882531 0
+146C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\config133860254537343574 0
 151C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\description133860149212759434 0
-150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\FETCH_HEAD133860252001673267 0
-144C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\HEAD133860252003344307 0
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\FETCH_HEAD133860254532839397 0
+144C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\HEAD133860254534569817 0
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\e1133860209424768005 1
-145C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\index133860252006514738 0
+145C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\index133860254537997203 0
 144C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\info133860209511789455 1
 144C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\logs133860209527517523 1
-147C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects133860252007022007 1
+147C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects133860254538396507 1
 144C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\refs133860209525260073 1
 149C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\refs\tags133860209525445561 1
-159C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\refs\remotes\origin133860252023335325 1
-168C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\refs\remotes\origin\gh-pages133860252023015427 0
+159C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\refs\remotes\origin133860254554296789 1
+168C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\refs\remotes\origin\gh-pages133860254554296789 0
 164C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\refs\remotes\origin\HEAD133860149223516135 0
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\02133860209414226133 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\04133860209414542387 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\05133860225732624116 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\08133860213638766595 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\09133860209414855968 1
-150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\0a133860253160320990 1
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\0a133860254530156640 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\0d133860213638693656 1
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\0f133860254530156640 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\10133860252001151081 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\17133860209415458230 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\1f133860249688522672 1
@@ -5906,7 +5918,7 @@
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\65133860252001028117 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\66133860209418393914 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\67133860249689196668 1
-150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\6c133860209418699907 1
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\6c133860254530312983 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\6e133860248521388194 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\70133860209418919755 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\71133860209419031146 1
@@ -5917,13 +5929,13 @@
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\81133860215117953355 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\84133860249689196668 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\85133860248520878209 1
-150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8a133860209420585818 1
-150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8c133860215118174761 1
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8a133860254531909056 1
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8c133860254532208141 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\92133860209420824004 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\96133860209421140109 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\98133860215118287621 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\99133860209421209661 1
-150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\9a133860209421329711 1
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\9a133860254532051369 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\a1133860209421661078 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\a4133860215118405461 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\aa133860248521510134 1
@@ -5931,7 +5943,7 @@
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\b2133860209422188372 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\b5133860209422410653 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\b8133860209422567018 1
-150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\c0133860209422815845 1
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\c0133860254530275368 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\c2133860225734612347 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\c3133860253161155048 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\c4133860209423354984 1
@@ -5950,6 +5962,8 @@
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\e9133860215119330415 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\ed133860215119449479 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\ee133860253161327524 1
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\df\da67e9fb4aa57553e91e132febf1e8a1f73728133860225734777179 0
+150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\f5133860254532208141 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\f6133860209425397312 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\f7133860209425553764 1
 150C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\f8133860253161485031 1
@@ -5964,6 +5978,8 @@
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\f7\c0ea10e9f6cae71b51f4d3fe0cca05fe00e92c133860173235874478 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\f6\3576bbdebbbb9e8adbd6b4205dad2dce69b577133860160629128862 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\f6\ab8ddb50760b19bdb616d686fa4a6ea5c146c2133860183481761205 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\f5\505a10ee3d3361f3a0848d0cf647cc703df73d133860254532051369 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\f2\4c06de3a2593d8d0ef3db6b304fd4e21fe9333133860254530000506 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\f1\183e62b22f7e367a4e0b0dae45b018f23e84c9133860248521622229 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\ee\6d230952ce1f4cbac6a5d6cbcaddc6bb77641e133860252001161131 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\ed\d3fdcce2e5666709104cbdfd0f19303d917826133860213644594579 0
@@ -5972,7 +5988,7 @@
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\e7\b7130fea993b10aa6d0c50b236c3536faaec2f133860213638703708 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\e5\159bdadaebf3d07c862a5f87d8b1403a686e1b133860173235619702 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\e3\f366d84b84f335b55925d8bf164c3bcc011321133860173236169877 0
-189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\df\da67e9fb4aa57553e91e132febf1e8a1f73728133860225734777179 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\dc\340aa15b78f963fdfeb912233f6c6d6c2b2423133860254536665846 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\d9\f5558182113a3fb3e915c706b1d794c4dd4ecc133860213638234547 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\d6\7760d5048987396be71070bf1370da80d62632133860189645663740 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\d6\af725a361172f1767cd012482d46e9d1560e0a133860213638723808 0
@@ -5980,9 +5996,12 @@
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\d6\f723cb40d95113cd67eef5d280ccaef3b81be2133860173241499756 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\d5\3b8179bd5447ee564d36b8494775469580fe00133860160629486495 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\d4\05349512faf1c4b6be549b952b2a3eeaf3327f133860183482570695 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\d1\0c30dcf53be4613b7609bac8de7b95f5e9a6b0133860254532026911 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\c9\4db56b2b1e3efe038c92bf5090125454db72b3133860254536665846 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\c6\d3ea0f72dd74a913efff4b58949c0a940a22ea133860213637728261 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\c2\17040bd948b99822fcef176aaccde3dc947755133860225734592071 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\c1\7b24a03a38fb67802350873f750cd28c05dcad133860173235844376 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\c0\db18276a0dc3a5dd97311095205488f321e097133860254530275368 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\c0\ffb9dfcda7bfb6e26f421892ece2aead172323133860183481781320 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\bc\7c20b12b00463569b06d191f54e44a27f953ff133860225734561903 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\b8\cb8d7fadd453622639ee38bce816729afc9c96133860183481791368 0
@@ -5998,8 +6017,10 @@
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\a4\6f3f46653fb212462d350ed552de6091681acb133860213638858063 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\a2\f32801296bcb4ea4132bd36490d25787677ff6133860213639051900 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\9f\9f6519ce4279247894b724285e5ab1039aa7ae133860160629267509 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\9b\f5dcce12db3cb752b49076f14f8b1d255b0eb4133860254537997203 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\99\31866a1920f99998fc3e480b98578b24a82689133860193612853830 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\99\b097d1560785585d93fc667db958992bb13cc2133860189641131896 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\97\74f016fac3d8aa8510054e1afa8c5476900954133860254532208141 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\96\a660a89752ff5963e3220118239687b92af012133860183482987629 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8e\08400e360227ce0c408aea2fe86c3d24e89222133860189640500341 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8e\352784107456c52006b87ba61edc1b26e441b5133860183482764172 0
@@ -6008,6 +6029,7 @@
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8e\d6dd22250a7a1e7cd2b254ddd0175d6fb5662a133860213638990359 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\5c\6108e2591180070452c470f25c3977ee74da19133860189640470009 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8c\43b7c2bd15d35457f64410a20c6312422ae4eb133860213643245459 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8c\d36f7e109c92f836851226283c26861ebad161133860254532208141 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8b\04d4652e4df103e7bae9a16adf9f0b0c43f426133860160628522414 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8b\f7ea5af676f1c9ebea1dce8fac8ae636723904133860173236149562 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\8a\eaa3d54479b47d9339dec4ff638f5a17810b49133860173235268974 0
@@ -6026,6 +6048,7 @@
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\70\be02a6f4b0a23002cfa4fb608ca9d3551035c7133860193607017561 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\6e\75118f33f088b560d2474e1b7f23f896520d5c133860193607373059 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\6e\cc797f5b832fd8f997e0f6c0e782789220552e133860183482520421 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\6c\a0952a4071ccf3980c5d4027aa9b37efcbf2f8133860254530312983 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\6b\ffd08aa448891e796cd41dc0a131f0069142cb133860193611632723 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\66\57e3dbcf3c69f3723e1c2489227e5e4c35e008133860173240256503 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\65\219b36a08191a637f94250b1d67c54a1a916aa133860252001007907 0
@@ -6046,6 +6069,7 @@
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\42\56bf8b4f174f4b240e1af42453f2c4dae70cbf133860252006514738 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\40\042e92b13eebf24bb8330bcb6517c7520e3b0c133860213637566010 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\3d\407654903713259ba9c9b4ea1a1e694e99b1c6133860225732807730 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\3c\445a455498b50d99c2d7993c788327dca0cff9133860254530156640 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\3c\6e5c5971dce80eabf86614fa9dfaf601b2179f133860252005250548 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\37\8e6624c96da4c8147353be340c23160b5d1645133860248525904432 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\37\b6b760e7de510064cf4c09793efd5758b66dcc133860213637636432 0
@@ -6061,6 +6085,7 @@
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\24\da45d88a95ef120acaf39f0a7b3df9d842369c133860248521351111 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\21\25c96f7d84e23de0d751bb7aacb093f1dc3be4133860160629146268 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\21\570cc2631fa945504978bfb1171fa385ca93f7133860160633204593 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\21\dfaef4a262e7efd2c87b6b09bce06484fa4245133860254537997203 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\20\1fb3e9caf396af7879ccc2b5308ee2046d6d96133860183486867778 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\20\816970a056de2ddc24f0576ad73e09b535ec98133860213639010498 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\1f\f58608e3e6a64129882bcf76bf839d884c09f0133860248520719338 0
@@ -6068,6 +6093,7 @@
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\18\30f6896af0ad75ecccf2413f6a52a88df21cdd133860183486877826 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\15\b67099f1fd7d4f2a9a3a116176849ccc7c8849133860213639112211 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\14\148c589c97ee8965e37d98419117eed9d31089133860225739086891 0
+189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\0f\724b771b0842af78c6248c637f485754414b2c133860254530000506 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\0d\3a97c98c9a7313710be40a2e0180cd33c21d39133860173235772319 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\0d\d27584bd5abbe1718a34e0637eed3113511858133860213638673525 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\08\82482af7ba3cb9fdc6e6cabc6115ce45efd3a4133860173236403575 0
@@ -6076,8 +6102,8 @@
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\04\f0314f086bba26fd1eeea1154b426e9cb4786e133860173236343026 0
 189C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\objects\02\858979c2903265ea4218b1ece7b70e9a208d8f133860160628367228 0
 155C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\logs\refs\heads133860209527815889 1
-173C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\logs\refs\remotes\origin\gh-pages133860252023015427 0
-169C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\logs\refs\remotes\origin\main133860252001628688 0
+173C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\logs\refs\remotes\origin\gh-pages133860254554296789 0
+169C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\logs\refs\remotes\origin\main133860254532682558 0
 152C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\info\exclude133860149212918550 0
 167C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\hooks\pre-applypatch.sample133860149212759434 0
 169C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\node_modules\.cache\gh-pages\https!github.com!fernandodanielm!PPT-FRONTEND.git\.git\hooks\pre-merge-commit.sample133860149212759434 0
@@ -6155,6 +6181,5 @@
 83C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\frontend\assets\assets.d.ts133859983571805934 0
 94C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\frontend\assets\piedrapapelotijera.jpg133851037252712349 0
 82C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\frontend\assets\tijera.png133850921070860489 0
-82C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist\index.cc615b5e.js.map133860254030854899 0
-71C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist\index.html133860254030810044 0
-80C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist\piedra.2b6b2e59.png133860254030370715 0
+71C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist\index.html133860256421427903 0
+80C:\Users\ferna\OneDrive\Escritorio\Nivel-2\PPT-FRONTEND\dist\piedra.2b6b2e59.png133860256421052139 0
