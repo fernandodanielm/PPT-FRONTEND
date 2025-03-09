@@ -4,11 +4,17 @@ import { PlayPage } from "./pages/play";
 import { TuNombre } from "./pages/tu-nombre";
 import { ResultPage } from "./pages/result";
 import { Welcome } from "./pages/welcome";
-import { IngresarASala } from "./pages/ingresar-a-una-sala"
+import { IngresarASala } from "./pages/ingresar-a-una-sala";
 
 interface RouterPath {
     pathRegex: RegExp;
     render: (params?: any) => HTMLElement | Promise<HTMLElement>;
+}
+
+// Función para extraer el roomId de la URL
+function extractRoomId(path: string): string | null {
+    const match = /^\/short-id\/(\d+)$/.exec(path);
+    return match ? match[1] : null;
 }
 
 const routes: RouterPath[] = [
@@ -37,13 +43,16 @@ const routes: RouterPath[] = [
         render: () => new IngresarASala(),
     },
     {
-        pathRegex: /^\/short-id$/,
+        pathRegex: /^\/short-id\/(\d+)$/, // Ruta con roomId
         render: (params) => {
-            const shortIdPage = new ShortId();
-            // Pasar el roomId a ShortId si existe en los parámetros
-            if (params && params[1]) {
-                shortIdPage.setRoomId(params[1]);
+            const roomId = params && params[1];
+            if (!roomId) {
+                console.error("roomId no encontrado en la URL.");
+                return new Welcome(); // Volver a la página principal si no hay roomId.
             }
+
+            const shortIdPage = new ShortId();
+            shortIdPage.setRoomId(roomId);
             return shortIdPage;
         },
     },
@@ -81,6 +90,7 @@ async function renderPath(path: string, params?: any): Promise<void> {
         }
     } else {
         console.warn(`El path '${path}' no fue encontrado.`);
+        goTo('/'); // Redirigir a la página principal si la ruta no existe.
     }
 }
 
@@ -97,4 +107,3 @@ export function initRouter(): void {
     const initialPath = getCleanPathFromURL();
     renderPath(initialPath);
 }
-  

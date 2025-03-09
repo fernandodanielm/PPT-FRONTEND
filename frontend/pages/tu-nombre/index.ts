@@ -29,13 +29,18 @@ export class TuNombre extends HTMLElement {
             const nombre = (form.nombre as any).value;
             if (this.roomId) {
                 try {
-                    const response = await fetch(`https://ppt-backend-three.vercel.app/api/rooms/${this.roomId}/join`, {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({ playerName: nombre }),
-                    });
+                    console.log("Llamando a la API con roomId:", this.roomId, "y nombre:", nombre); // Agrega este log
+                    const response = await fetch(
+                        `https://ppt-backend-three.vercel.app/api/rooms/${this.roomId}/join`,
+                        {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ playerName: nombre }),
+                        }
+                    );
+                    console.log("Respuesta de la API:", response); // Agrega este log
 
                     if (!response.ok) {
                         throw new Error(`Error al unirse a la sala: ${response.statusText}`);
@@ -57,7 +62,6 @@ export class TuNombre extends HTMLElement {
                         // Si es el guest, redirigir a /play
                         (window as any).goTo("/play");
                     }
-
                 } catch (error) {
                     console.error("Error al unirse a la sala:", error);
                     alert("Hubo un error al unirse a la sala. Inténtalo de nuevo.");

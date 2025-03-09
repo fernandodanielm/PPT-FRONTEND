@@ -18,12 +18,12 @@ export class ShortId extends HTMLElement {
     }
 
     async connectedCallback() {
-        if (!this.roomId) {
-            const params = new URLSearchParams(window.location.search);
-            this.roomId = params.get("roomId");
-        }
+        this.roomId = window.location.pathname.split('/').pop() ?? null; // Corrección aquí
+
+        console.log("ShortId: roomId recibido:", this.roomId); // Log de depuración
 
         if (!this.roomId) {
+            console.error("ShortId: roomId no encontrado en la URL.");
             (window as any).goTo("/");
             return;
         }
@@ -37,7 +37,12 @@ export class ShortId extends HTMLElement {
             const intervalId = setInterval(async () => {
                 const currentState = state.getState();
                 const roomData = currentState.currentGame.data;
-                if (roomData.player1Name && roomData.player2Name) {
+                const ownerName = roomData.player1Name;
+                const guestName = roomData.player2Name;
+
+                console.log("ShortId: Esperando jugadores. Owner:", ownerName, "Guest:", guestName); // Log de depuración
+
+                if (ownerName && guestName) {
                     clearInterval(intervalId);
                     resolve(true);
                 }
@@ -76,6 +81,7 @@ export class ShortId extends HTMLElement {
             `;
 
             if (ownerName && guestName) {
+                console.log("ShortId: Ambos jugadores listos. Redirigiendo a /instructions."); // Log de depuración
                 (window as any).goTo('/instructions');
             }
 
@@ -88,7 +94,7 @@ export class ShortId extends HTMLElement {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    justify-content: space-around; // Distribuir elementos verticalmente
+                    justify-content: space-around;
                     padding: 20px;
                     text-align: center;
                     font-family: 'Arial Rounded MT Bold', sans-serif;
