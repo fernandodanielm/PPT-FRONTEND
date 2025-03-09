@@ -7,7 +7,6 @@ import papelImage from "../../assets/papel.png";
 export class ShortId extends HTMLElement {
     shadow: ShadowRoot | null;
     roomId: string | null = null;
-    isLoading: boolean = true; // Estado de carga inicial
 
     constructor() {
         super();
@@ -18,7 +17,7 @@ export class ShortId extends HTMLElement {
         this.roomId = roomId;
     }
 
-    async connectedCallback() {
+    connectedCallback() {
         // Obtener el roomId de la URL
         const pathSegments = window.location.pathname.split('/');
         this.roomId = pathSegments[pathSegments.length - 1] || null;
@@ -33,73 +32,60 @@ export class ShortId extends HTMLElement {
 
         console.log("ShortId: roomId válido. Continuando con la espera de jugadores.");
 
-        await this.waitForBothPlayers();
-        this.isLoading = false; // Carga completada
-        this.render();
+        this.render(); // Renderizar la interfaz inicial
+        this.checkGuestConnection(); // Iniciar la verificación de la conexión del guest
     }
 
-    async waitForBothPlayers() {
-        return new Promise((resolve) => {
-            const intervalId = setInterval(async () => {
-                try {
-                    const currentState = state.getState();
-                    const roomData = currentState.currentGame.data;
-                    const ownerName = roomData.player1Name;
-                    const guestName = roomData.player2Name;
+    async checkGuestConnection() {
+        const intervalId = setInterval(async () => {
+            try {
+                const currentState = state.getState();
+                const roomData = currentState.currentGame.data;
+                const guestName = roomData.player2Name;
 
-                    console.log("ShortId: Esperando jugadores. Owner:", ownerName, "Guest:", guestName);
-
-                    if (ownerName && guestName) {
-                        clearInterval(intervalId);
-                        console.log("ShortId: Ambos jugadores listos.");
-                        resolve(true);
-                        // Redirigir a Instructions después de unos segundos
-                        setTimeout(() => {
-                            (window as any).goTo("/instructions");
-                        }, 2000); // 2 segundos de espera
-                    }
-                } catch (error) {
-                    console.error("Error en waitForBothPlayers:", error);
+                if (guestName) {
+                    clearInterval(intervalId);
+                    console.log("ShortId: Guest conectado:", guestName);
+                    this.render(); // Actualizar la interfaz con el nombre del guest
+                    setTimeout(() => {
+                        (window as any).goTo("/instructions");
+                    }, 2000); // Redirigir a Instructions después de unos segundos
                 }
-            }, 1000);
-        });
+            } catch (error) {
+                console.error("Error en checkGuestConnection:", error);
+            }
+        }, 1000);
     }
 
     render() {
         if (this.shadow) {
             const currentState = state.getState();
-            const roomId = this.roomId || currentState.currentGame.shortId; // Obtener el roomId del estado o de la URL
+            const roomId = this.roomId || currentState.currentGame.shortId;
             const ownerName = currentState.currentGame.data.player1Name;
             const guestName = currentState.currentGame.data.player2Name;
 
-            console.log("ShortId: Renderizando con roomId:", roomId);
-            console.log("ShortId: Owner:", ownerName, "Guest:", guestName);
-
-            // Actualizar la interfaz gráfica con el nombre del guest
             const guestDisplayName = guestName ? guestName : "Contrincante en espera...";
 
             this.shadow.innerHTML = `
                 <div class="short-id-container">
-                    ${this.isLoading ? '<p>Cargando...</p>' : `
-                        <div class="header">
-                            <div class="players">
-                                <p>${ownerName || "Esperando..."}</p>
-                                <p>${guestDisplayName}</p>
-                            </div>
-                            <div class="room-info">
-                                <p>Sala</p>
-                                <p>${roomId}</p>
-                            </div>
+                    <div class="header">
+                        <div class="players">
+                            <p>${ownerName || "Esperando..."}</p>
+                            <p>${guestDisplayName}</p>
                         </div>
-                        <div class="share-code">Compartí el código:</div>
-                        <div class="room-id">${roomId}</div>
-                        <div class="share-with">Con tu contrincante</div>
-                        <div class="moves">
-                            <img src="${piedraImage}" alt="Piedra">
-                            <img src="${papelImage}" alt="Papel">
-                            <img src="${tijeraImage}" alt="Tijera">
+                        <div class="room-info">
+                            <p>Sala</p>
+                            <p>${roomId}</p>
                         </div>
-                    `}
+                    </div>
+                    <div class="share-code">Compartí el código:</div>
+                    <div class="room-id">${roomId}</div>
+                    <div class="share-with">Con tu contrincante</div>
+                    <div class="moves">
+                        <img src="${piedraImage}" alt="Piedra">
+                        <img src="${papelImage}" alt="Papel">
+                        <img src="${tijeraImage}" alt="Tijera">
+                    </div>
                 </div>
             `;
 
