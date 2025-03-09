@@ -18,7 +18,7 @@ export class ShortId extends HTMLElement {
     }
 
     async connectedCallback() {
-        this.roomId = window.location.pathname.split('/').pop() ?? null; // Corrección aquí
+        this.roomId = window.location.pathname.split('/').pop() ?? null;
 
         console.log("ShortId: roomId recibido:", this.roomId); // Log de depuración
 
@@ -94,7 +94,7 @@ export class ShortId extends HTMLElement {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    justify-content: space-around;
+                    justify-content: center; /* Centrar vertical y horizontalmente */
                     padding: 20px;
                     text-align: center;
                     font-family: 'Arial Rounded MT Bold', sans-serif;
