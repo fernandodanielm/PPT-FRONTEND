@@ -7,6 +7,7 @@ import papelImage from "../../assets/papel.png";
 export class ShortId extends HTMLElement {
     shadow: ShadowRoot | null;
     roomId: string | null = null;
+    isLoading: boolean = true; // Estado de carga inicial
 
     constructor() {
         super();
@@ -33,6 +34,7 @@ export class ShortId extends HTMLElement {
         console.log("ShortId: roomId válido. Continuando con la espera de jugadores.");
 
         await this.waitForBothPlayers();
+        this.isLoading = false; // Carga completada
         this.render();
     }
 
@@ -78,24 +80,26 @@ export class ShortId extends HTMLElement {
 
             this.shadow.innerHTML = `
                 <div class="short-id-container">
-                    <div class="header">
-                        <div class="players">
-                            <p>${ownerName || "Esperando..."}</p>
-                            <p>${guestDisplayName}</p>
+                    ${this.isLoading ? '<p>Cargando...</p>' : `
+                        <div class="header">
+                            <div class="players">
+                                <p>${ownerName || "Esperando..."}</p>
+                                <p>${guestDisplayName}</p>
+                            </div>
+                            <div class="room-info">
+                                <p>Sala</p>
+                                <p>${roomId}</p>
+                            </div>
                         </div>
-                        <div class="room-info">
-                            <p>Sala</p>
-                            <p>${roomId}</p>
+                        <div class="share-code">Compartí el código:</div>
+                        <div class="room-id">${roomId}</div>
+                        <div class="share-with">Con tu contrincante</div>
+                        <div class="moves">
+                            <img src="${piedraImage}" alt="Piedra">
+                            <img src="${papelImage}" alt="Papel">
+                            <img src="${tijeraImage}" alt="Tijera">
                         </div>
-                    </div>
-                    <div class="share-code">Compartí el código:</div>
-                    <div class="room-id">${roomId}</div>
-                    <div class="share-with">Con tu contrincante</div>
-                    <div class="moves">
-                        <img src="${piedraImage}" alt="Piedra">
-                        <img src="${papelImage}" alt="Papel">
-                        <img src="${tijeraImage}" alt="Tijera">
-                    </div>
+                    `}
                 </div>
             `;
 
