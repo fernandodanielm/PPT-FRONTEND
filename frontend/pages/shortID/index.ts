@@ -35,16 +35,20 @@ export class ShortId extends HTMLElement {
     async waitForBothPlayers() {
         return new Promise((resolve) => {
             const intervalId = setInterval(async () => {
-                const currentState = state.getState();
-                const roomData = currentState.currentGame.data;
-                const ownerName = roomData.player1Name;
-                const guestName = roomData.player2Name;
+                try {
+                    const currentState = state.getState();
+                    const roomData = currentState.currentGame.data;
+                    const ownerName = roomData.player1Name;
+                    const guestName = roomData.player2Name;
 
-                console.log("ShortId: Esperando jugadores. Owner:", ownerName, "Guest:", guestName);
+                    console.log("ShortId: Esperando jugadores. Owner:", ownerName, "Guest:", guestName);
 
-                if (ownerName && guestName) {
-                    clearInterval(intervalId);
-                    resolve(true);
+                    if (ownerName && guestName) {
+                        clearInterval(intervalId);
+                        resolve(true);
+                    }
+                } catch (error) {
+                    console.error("Error en waitForBothPlayers:", error);
                 }
             }, 1000);
         });
@@ -56,6 +60,8 @@ export class ShortId extends HTMLElement {
             const roomId = this.roomId || currentState.currentGame.shortId;
             const ownerName = currentState.currentGame.data.player1Name;
             const guestName = currentState.currentGame.data.player2Name;
+
+            console.log("ShortId: Renderizando con roomId:", roomId);
 
             this.shadow.innerHTML = `
                 <div class="short-id-container">
