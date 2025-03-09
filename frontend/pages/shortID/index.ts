@@ -20,7 +20,7 @@ export class ShortId extends HTMLElement {
     async connectedCallback() {
         this.roomId = window.location.pathname.split('/').pop() ?? null;
 
-        console.log("ShortId: roomId recibido:", this.roomId); // Log de depuración
+        console.log("ShortId: roomId recibido:", this.roomId);
 
         if (!this.roomId) {
             console.error("ShortId: roomId no encontrado en la URL.");
@@ -40,7 +40,7 @@ export class ShortId extends HTMLElement {
                 const ownerName = roomData.player1Name;
                 const guestName = roomData.player2Name;
 
-                console.log("ShortId: Esperando jugadores. Owner:", ownerName, "Guest:", guestName); // Log de depuración
+                console.log("ShortId: Esperando jugadores. Owner:", ownerName, "Guest:", guestName);
 
                 if (ownerName && guestName) {
                     clearInterval(intervalId);
@@ -81,7 +81,7 @@ export class ShortId extends HTMLElement {
             `;
 
             if (ownerName && guestName) {
-                console.log("ShortId: Ambos jugadores listos. Redirigiendo a /instructions."); // Log de depuración
+                console.log("ShortId: Ambos jugadores listos. Redirigiendo a /instructions.");
                 (window as any).goTo('/instructions');
             }
 
@@ -94,7 +94,7 @@ export class ShortId extends HTMLElement {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    justify-content: center; /* Centrar vertical y horizontalmente */
+                    justify-content: center;
                     padding: 20px;
                     text-align: center;
                     font-family: 'Arial Rounded MT Bold', sans-serif;
@@ -134,6 +134,7 @@ export class ShortId extends HTMLElement {
                 .moves {
                     display: flex;
                     justify-content: center;
+                    margin-top: 30px;
                 }
 
                 .moves img {
