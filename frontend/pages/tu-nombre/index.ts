@@ -51,8 +51,8 @@ export class TuNombre extends HTMLElement {
                     state.setPlayerName(nombre);
 
                     if (playerNumber === 1) {
-                        // Si es el owner, redirigir a /short-id con el roomId como parámetro
-                        (window as any).goTo(`/short-id`, { roomId: this.roomId }); 
+                        // Si es el owner, redirigir a /short-id/:roomId
+                        (window as any).goTo(`/short-id/${this.roomId}`);
                     } else {
                         // Si es el guest, redirigir a /play
                         (window as any).goTo("/play");

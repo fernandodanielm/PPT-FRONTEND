@@ -88,7 +88,7 @@ export class ShortId extends HTMLElement {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    justify-content: center;
+                    justify-content: space-around; // Distribuir elementos verticalmente
                     padding: 20px;
                     text-align: center;
                     font-family: 'Arial Rounded MT Bold', sans-serif;
