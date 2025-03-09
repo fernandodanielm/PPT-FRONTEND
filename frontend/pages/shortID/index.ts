@@ -18,7 +18,9 @@ export class ShortId extends HTMLElement {
     }
 
     async connectedCallback() {
-        this.roomId = window.location.pathname.split('/').pop() ?? null;
+        // Obtener el roomId de la URL
+        const pathSegments = window.location.pathname.split('/');
+        this.roomId = pathSegments[pathSegments.length - 1] || null;
 
         console.log("ShortId: roomId recibido:", this.roomId);
 
@@ -27,6 +29,8 @@ export class ShortId extends HTMLElement {
             (window as any).goTo("/");
             return;
         }
+
+        console.log("ShortId: roomId válido. Continuando con la espera de jugadores.");
 
         await this.waitForBothPlayers();
         this.render();
@@ -45,6 +49,7 @@ export class ShortId extends HTMLElement {
 
                     if (ownerName && guestName) {
                         clearInterval(intervalId);
+                        console.log("ShortId: Ambos jugadores listos.");
                         resolve(true);
                     }
                 } catch (error) {
@@ -62,6 +67,7 @@ export class ShortId extends HTMLElement {
             const guestName = currentState.currentGame.data.player2Name;
 
             console.log("ShortId: Renderizando con roomId:", roomId);
+            console.log("ShortId: Owner:", ownerName, "Guest:", guestName);
 
             this.shadow.innerHTML = `
                 <div class="short-id-container">
