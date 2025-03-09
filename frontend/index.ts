@@ -6,7 +6,7 @@ import { ShortId } from "./pages/shortID";
 import { ResultPage } from "./pages/result";
 import { PlayPage } from "./pages/play";
 import { InstructionsPage } from "./pages/instructions";
-import { IngresarASala } from "./pages/ingresar-a-una-sala";
+import { IngresarAsala } from "./pages/ingresar-a-una-sala";
 
 
 initRouter();

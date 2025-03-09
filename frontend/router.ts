@@ -4,7 +4,7 @@ import { PlayPage } from "./pages/play";
 import { TuNombre } from "./pages/tu-nombre";
 import { ResultPage } from "./pages/result";
 import { Welcome } from "./pages/welcome";
-import { IngresarASala } from "./pages/ingresar-a-una-sala";
+import { IngresarAsala } from "./pages/ingresar-a-una-sala";
 
 interface RouterPath {
     pathRegex: RegExp;
@@ -17,7 +17,7 @@ function extractRoomId(path: string): string | null {
     return match ? match[1] : null;
 }
 
-const routes: RouterPath[] = [
+const routes: RouterPath[] = [ // Corrección: RouterPath[] (array de RouterPath)
     {
         pathRegex: /^\/$/,
         render: () => new Welcome(),
@@ -40,7 +40,7 @@ const routes: RouterPath[] = [
     },
     {
         pathRegex: /^\/ingresar-a-sala$/,
-        render: () => new IngresarASala(),
+        render: () => new IngresarAsala(),
     },
     {
         pathRegex: /^\/short-id\/(\d+)$/, // Ruta con roomId
@@ -60,9 +60,8 @@ const routes: RouterPath[] = [
         pathRegex: /^\/rooms\/(\d+)\/join$/,
         render: async (params) => {
             const roomId = params[1];
-            const tuNombrePage = new TuNombre();
-            await tuNombrePage.setRoomId(roomId);
-            return tuNombrePage;
+            // No es necesario llamar a setRoomId en TuNombre
+            return new TuNombre();
         },
     },
 ];
@@ -75,7 +74,7 @@ function goTo(path: string, params?: any) {
 (window as any).goTo = goTo;
 
 async function renderPath(path: string, params?: any): Promise<void> {
-    const route = routes.find((route) => route.pathRegex.test(path));
+    const route = routes.find((route) => route.pathRegex.test(path)); // Corrección: routes.find (usar find en el array)
 
     if (route) {
         const app = document.getElementById("app");

@@ -30,6 +30,7 @@ type State = {
   joinRoom: (roomId: string, playerName: string) => Promise<number>;
   setMove: (roomId: string, playerNumber: number, move: Play) => Promise<void>;
   resetGame: () => Promise<void>;
+  setRoomId: (roomId: string) => void;
 };
 
 const state: State = {
@@ -52,6 +53,9 @@ const state: State = {
   getState() {
     return this;
   },
+  setRoomId(roomId: string) {
+    this.data.roomId = roomId;
+},
   setState(newState: State) {
     this.currentGame = newState.currentGame;
     for (const cb of this.listeners) {

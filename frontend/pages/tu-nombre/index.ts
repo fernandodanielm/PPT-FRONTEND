@@ -4,16 +4,22 @@ import backgroundImage from "../../assets/piedrapapelotijera.jpg";
 export class TuNombre extends HTMLElement {
     roomId: string | null = null;
 
-    setRoomId(roomId: string) {
-        this.roomId = roomId;
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
     }
 
     connectedCallback() {
+        this.roomId = state.getState().currentGame.shortId; // Obtener el roomId del estado
         this.render();
     }
 
     render() {
-        this.innerHTML = `
+        if (!this.shadowRoot) {
+            return; // Salir si shadowRoot es null
+        }
+
+        this.shadowRoot.innerHTML = `
             <div class="tu-nombre-container">
                 <h2>Ingresa tu nombre</h2>
                 <form class="nombre-form">
@@ -23,15 +29,14 @@ export class TuNombre extends HTMLElement {
             </div>
         `;
 
-        const form = this.querySelector(".nombre-form") as HTMLFormElement;
+        const form = this.shadowRoot.querySelector(".nombre-form") as HTMLFormElement;
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
             const nombre = (form.nombre as any).value;
             if (this.roomId) {
                 try {
-                    console.log("Llamando a la API con roomId:", this.roomId, "y nombre:", nombre);
                     const response = await fetch(
-                        `https://ppt-backend-three.vercel.app/api/rooms/${this.roomId}/join`,
+                        `https://ppt-backend-three.vercel.app/api/rooms/${this.roomId}/join`, // Usar el roomId del estado
                         {
                             method: "PUT",
                             headers: {
@@ -40,24 +45,21 @@ export class TuNombre extends HTMLElement {
                             body: JSON.stringify({ playerName: nombre }),
                         }
                     );
-                    console.log("Respuesta de la API:", response);
 
                     if (!response.ok) {
-                        throw new Error(`Error al unirse a la sala: ${response.statusText}`);
+                        console.error("Error al unirse a la sala:", response.statusText);
+                        alert("Hubo un error al unirse a la sala. Inténtalo de nuevo.");
+                        return; // Detener la ejecución si hay un error
                     }
 
                     const data = await response.json();
-                    console.log(data);
-
                     const playerNumber = data.playerNumber;
 
                     state.setPlayerName(nombre);
 
                     if (playerNumber === 1) {
-                        // Si es el owner, redirigir a /short-id/:roomId
                         (window as any).goTo(`/short-id/${this.roomId}`);
                     } else {
-                        // Si es el guest, redirigir a /instructions
                         (window as any).goTo("/instructions");
                     }
                 } catch (error) {
@@ -146,7 +148,7 @@ export class TuNombre extends HTMLElement {
                 }
             }
         `;
-        this.appendChild(style);
+        this.shadowRoot.appendChild(style);
     }
 }
 
