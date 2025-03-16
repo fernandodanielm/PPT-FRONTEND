@@ -50,7 +50,7 @@ export class PlayPage extends HTMLElement {
                         <p>Jugada del oponente: <span id="jugada-oponente"></span></p>
                         <p>Resultado: <span id="resultado"></span></p>
                     </div>
-                    <button id="goToResultButton" style="display: none;">Ir a Resultado</button>
+                    <button id="goToResultButton">Ir a Resultado</button>
                 </div>
             `;
 
@@ -202,61 +202,66 @@ export class PlayPage extends HTMLElement {
 
     updateUI() {
         const currentState = stateFunctions.getState();
-
-        // Mostrar nombres de los jugadores
-        if (currentState.player1Name) {
-            const player1NameElement = this.shadow?.querySelector("#player1-name");
-            if (player1NameElement) {
-                player1NameElement.textContent = currentState.player1Name;
-            }
-        }
-
-        if (currentState.player2Name) {
-            const player2NameElement = this.shadow?.querySelector("#player2-name");
-            if (player2NameElement) {
-                player2NameElement.textContent = currentState.player2Name;
-            }
-        } else {
-            const player2NameElement = this.shadow?.querySelector("#player2-name");
-            if (player2NameElement) {
-                player2NameElement.textContent = "Esperando Jugador 2...";
-            }
-        }
-
+    
         // Mostrar jugadas de los jugadores
         const tuJugadaElement = this.shadow?.querySelector("#tu-jugada");
         const jugadaOponenteElement = this.shadow?.querySelector("#jugada-oponente");
         const resultadoElement = this.shadow?.querySelector("#resultado");
-
-        if (currentState.currentGame) {
-            const player1Move = currentState.currentGame.data.player1Move;
-            const player2Move = currentState.currentGame.data.player2Move;
-
-            if (this.playerNumber === 1) {
-                if (tuJugadaElement) tuJugadaElement.textContent = player1Move ? player1Move : "Esperando...";
-                if (jugadaOponenteElement) jugadaOponenteElement.textContent = player2Move ? player2Move : "Esperando...";
-            } else {
-                if (tuJugadaElement) tuJugadaElement.textContent = player2Move ? player2Move : "Esperando...";
-                if (jugadaOponenteElement) jugadaOponenteElement.textContent = player1Move ? player1Move : "Esperando...";
-            }
-
-            // Mostrar resultado del juego
-            if (resultadoElement && player1Move && player2Move) {
-                const winner = currentState.currentGame.statistics;
-                if (winner) {
-                    if (winner.player1.wins > winner.player2.wins) {
-                        resultadoElement.textContent = this.playerNumber === 1 ? "Ganaste!" : "Perdiste!";
-                    } else if (winner.player2.wins > winner.player1.wins) {
-                        resultadoElement.textContent = this.playerNumber === 2 ? "Ganaste!" : "Perdiste!";
+    
+        if (currentState.currentGame && currentState.currentGame.data) {
+            const gameData = currentState.currentGame.data; // Guardar currentState.currentGame.data en una variable
+    
+            if (gameData.player1Move && gameData.player2Move) { // Verificar que ambas jugadas existan
+                if (this.playerNumber === 1) {
+                    if (tuJugadaElement) tuJugadaElement.textContent = gameData.player1Move;
+                    if (jugadaOponenteElement) jugadaOponenteElement.textContent = gameData.player2Move;
+                } else {
+                    if (tuJugadaElement) tuJugadaElement.textContent = gameData.player2Move;
+                    if (jugadaOponenteElement) jugadaOponenteElement.textContent = gameData.player1Move;
+                }
+    
+                // Mostrar resultado del juego
+                if (resultadoElement) {
+                    const result = this.calculateResult(gameData.player1Move, gameData.player2Move);
+                    if (result === "draw") {
+                        resultadoElement.textContent = "Empate!";
+                    } else if (result === (this.playerNumber === 1 ? "player1" : "player2")) {
+                        resultadoElement.textContent = "Ganaste!";
                     } else {
-                        resultadoElement.textContent = "Empate";
+                        resultadoElement.textContent = "Perdiste!";
                     }
                 }
-            } else if (resultadoElement) {
-                resultadoElement.textContent = "Jugando...";
+            } else {
+                if (this.playerNumber === 1) {
+                    if (tuJugadaElement) tuJugadaElement.textContent = gameData.player1Move || "Esperando...";
+                    if (jugadaOponenteElement) jugadaOponenteElement.textContent = gameData.player2Move || "Esperando...";
+                } else {
+                    if (tuJugadaElement) tuJugadaElement.textContent = gameData.player2Move || "Esperando...";
+                    if (jugadaOponenteElement) jugadaOponenteElement.textContent = gameData.player1Move || "Esperando...";
+                }
+                if (resultadoElement) {
+                    resultadoElement.textContent = "Jugando...";
+                }
             }
         }
     }
+
+    calculateResult(player1Move: Play, player2Move: Play): "player1" | "player2" | "draw" {
+        if (player1Move === player2Move) {
+            return "draw";
+        }
+    
+        if (
+            (player1Move === "piedra" && player2Move === "tijera") ||
+            (player1Move === "papel" && player2Move === "piedra") ||
+            (player1Move === "tijera" && player2Move === "papel")
+        ) {
+            return "player1";
+        } else {
+            return "player2";
+        }
+    }
+
     checkAndHideMoves(moves: HTMLElement | null) {
         const currentGame = stateFunctions.getState().currentGame;
         if (currentGame) {
