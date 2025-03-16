@@ -33,8 +33,9 @@ export class PlayPage extends HTMLElement {
         }
     }
 
-    subscribeToState() { // Agregar esta función
+    subscribeToState() {
         this.unsubscribe = stateFunctions.subscribe(() => {
+            console.log("El estado ha cambiado, actualizando UI...");
             this.updateUI();
         });
     }
