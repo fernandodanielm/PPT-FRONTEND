@@ -3,6 +3,8 @@ import backgroundImage from "../../assets/piedrapapelotijera.jpg";
 import { state, stateFunctions } from "../../state";
 import { rtdb } from "../../utils/rtdb";
 import { ref, onValue } from "firebase/database";
+import {router} from "../../router";
+
 
 export class ShortId extends HTMLElement {
   unsubscribe: (() => void) | null = null;
@@ -204,7 +206,7 @@ listenRoomChanges(roomId: string) {
       const instructionsButton = this.shadow.getElementById("instructions-button");
       if (instructionsButton) {
         instructionsButton.addEventListener("click", () => {
-          window.location.href = "/instructions";
+          router.goTo("/instructions");
         });
       }
     }
