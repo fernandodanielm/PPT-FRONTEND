@@ -24,6 +24,7 @@ export class PlayPage extends HTMLElement {
     // instructionsPage.ts y playPage.ts
     connectedCallback() {
         this.render();
+        this.subscribeToState(); // Agregar esta línea
     }
 
     disconnectedCallback() {
@@ -31,6 +32,13 @@ export class PlayPage extends HTMLElement {
             this.unsubscribe();
         }
     }
+
+    subscribeToState() { // Agregar esta función
+        this.unsubscribe = stateFunctions.subscribe(() => {
+            this.updateUI();
+        });
+    }
+
     render() {
         const shadowRoot = this.shadow;
         if (shadowRoot) {
@@ -202,16 +210,15 @@ export class PlayPage extends HTMLElement {
 
     updateUI() {
         const currentState = stateFunctions.getState();
-    
-        // Mostrar jugadas de los jugadores
+
         const tuJugadaElement = this.shadow?.querySelector("#tu-jugada");
         const jugadaOponenteElement = this.shadow?.querySelector("#jugada-oponente");
         const resultadoElement = this.shadow?.querySelector("#resultado");
-    
+
         if (currentState.currentGame && currentState.currentGame.data) {
-            const gameData = currentState.currentGame.data; // Guardar currentState.currentGame.data en una variable
-    
-            if (gameData.player1Move && gameData.player2Move) { // Verificar que ambas jugadas existan
+            const gameData = currentState.currentGame.data;
+
+            if (gameData.player1Move && gameData.player2Move) {
                 if (this.playerNumber === 1) {
                     if (tuJugadaElement) tuJugadaElement.textContent = gameData.player1Move;
                     if (jugadaOponenteElement) jugadaOponenteElement.textContent = gameData.player2Move;
@@ -219,8 +226,7 @@ export class PlayPage extends HTMLElement {
                     if (tuJugadaElement) tuJugadaElement.textContent = gameData.player2Move;
                     if (jugadaOponenteElement) jugadaOponenteElement.textContent = gameData.player1Move;
                 }
-    
-                // Mostrar resultado del juego
+
                 if (resultadoElement) {
                     const result = this.calculateResult(gameData.player1Move, gameData.player2Move);
                     if (result === "draw") {
@@ -250,7 +256,7 @@ export class PlayPage extends HTMLElement {
         if (player1Move === player2Move) {
             return "draw";
         }
-    
+
         if (
             (player1Move === "piedra" && player2Move === "tijera") ||
             (player1Move === "papel" && player2Move === "piedra") ||
