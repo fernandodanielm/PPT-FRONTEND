@@ -3,6 +3,7 @@ import piedraImage from "../../assets/piedra.png";
 import tijeraImage from "../../assets/tijera.png";
 import papelImage from "../../assets/papel.png";
 import backgroundImage from "../../assets/piedrapapelotijera.jpg";
+import { getDatabase, ref, onValue } from "firebase/database";
 
 type Play = "piedra" | "papel" | "tijera";
 
@@ -206,36 +207,47 @@ export class PlayPage extends HTMLElement {
             shadowRoot.appendChild(style);
         }
     }
-    updateUI() {
+    async updateUI() {
         const currentState = stateFunctions.getState();
+        const roomId = currentState.currentGame?.roomId;
+        if (roomId) {
+            const db = getDatabase();
+            const gameRef = ref(db, `games/${roomId}`);
+            onValue(gameRef, (snapshot) => {
+                const gameData = snapshot.val();
+                if (gameData) {
+                    if (gameData.gameOver) {
+                        const result = gameData.result;
+                        const tuJugadaElement = this.shadow?.querySelector("#tu-jugada");
+                        const jugadaOponenteElement = this.shadow?.querySelector("#jugada-oponente");
+                        const resultadoElement = this.shadow?.querySelector("#resultado");
     
-        const tuJugadaElement = this.shadow?.querySelector("#tu-jugada");
-        const jugadaOponenteElement = this.shadow?.querySelector("#jugada-oponente");
-        const resultadoElement = this.shadow?.querySelector("#resultado");
+                        if (tuJugadaElement) tuJugadaElement.textContent = this.playerNumber === 1 ? gameData.player1Move : gameData.player2Move;
+                        if (jugadaOponenteElement) jugadaOponenteElement.textContent = this.playerNumber === 1 ? gameData.player2Move : gameData.player1Move;
     
-        if (currentState.currentGame && currentState.currentGame.data) {
-            const gameData = currentState.currentGame.data;
-    
-            if (gameData.player1Move && gameData.player2Move) {
-                if (this.playerNumber === 1) {
-                    if (tuJugadaElement) tuJugadaElement.textContent = gameData.player1Move;
-                    if (jugadaOponenteElement) jugadaOponenteElement.textContent = gameData.player2Move;
-                } else {
-                    if (tuJugadaElement) tuJugadaElement.textContent = gameData.player2Move;
-                    if (jugadaOponenteElement) jugadaOponenteElement.textContent = gameData.player1Move;
-                }
-    
-                const result = this.determineWinner(gameData.player1Move, gameData.player2Move);
-                if (resultadoElement) {
-                    if (result === 0) {
-                        resultadoElement.textContent = "Empate";
-                    } else if (this.playerNumber === result) {
-                        resultadoElement.textContent = "Ganaste";
+                        if (resultadoElement) {
+                            if (result === 0) {
+                                resultadoElement.textContent = "Empate";
+                            } else if (this.playerNumber === result) {
+                                resultadoElement.textContent = "Ganaste";
+                            } else {
+                                resultadoElement.textContent = "Perdiste";
+                            }
+                        }
                     } else {
-                        resultadoElement.textContent = "Perdiste";
+                         const tuJugadaElement = this.shadow?.querySelector("#tu-jugada");
+                        const jugadaOponenteElement = this.shadow?.querySelector("#jugada-oponente");
+                        if (tuJugadaElement) tuJugadaElement.textContent = this.playerNumber === 1 ? gameData.player1Move || '' : gameData.player2Move || '';
+                        if (jugadaOponenteElement) jugadaOponenteElement.textContent = this.playerNumber === 1 ? gameData.player2Move || '' : gameData.player1Move || '';
                     }
+                } else {
+                    console.error("No se encontraron datos de la partida.");
+                    // Mostrar mensaje de error al usuario
                 }
-            }
+            }, (error) => {
+                console.error("Error al obtener datos de la partida:", error);
+                // Mostrar mensaje de error al usuario
+            });
         }
     }
 
