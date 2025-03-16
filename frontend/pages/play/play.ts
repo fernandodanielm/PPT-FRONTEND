@@ -1,4 +1,3 @@
-// PlayPage.ts
 import { state, stateFunctions } from "../../state";
 import piedraImage from "../../assets/piedra.png";
 import tijeraImage from "../../assets/tijera.png";
@@ -21,10 +20,9 @@ export class PlayPage extends HTMLElement {
         this.shadow = this.attachShadow({ mode: "open" });
     }
 
-    // instructionsPage.ts y playPage.ts
     connectedCallback() {
         this.render();
-        this.subscribeToState(); // Agregar esta línea
+        this.subscribeToState();
     }
 
     disconnectedCallback() {
@@ -66,7 +64,7 @@ export class PlayPage extends HTMLElement {
             const moves = shadowRoot.querySelector(".moves") as HTMLElement | null;
             const timerElement = shadowRoot.querySelector("#timer") as HTMLElement;
             const timerContainer = shadowRoot.querySelector(".timer") as HTMLElement;
-            const goToResultButton = shadowRoot.getElementById("goToResultButton") as HTMLButtonElement; // Obtener el botón aquí
+            const goToResultButton = shadowRoot.getElementById("goToResultButton") as HTMLButtonElement;
 
             let timeLeft = 7;
             timerContainer.style.animation = `countdown ${timeLeft}s linear forwards`;
@@ -208,17 +206,16 @@ export class PlayPage extends HTMLElement {
             shadowRoot.appendChild(style);
         }
     }
-
     updateUI() {
         const currentState = stateFunctions.getState();
-
+    
         const tuJugadaElement = this.shadow?.querySelector("#tu-jugada");
         const jugadaOponenteElement = this.shadow?.querySelector("#jugada-oponente");
         const resultadoElement = this.shadow?.querySelector("#resultado");
-
+    
         if (currentState.currentGame && currentState.currentGame.data) {
             const gameData = currentState.currentGame.data;
-
+    
             if (gameData.player1Move && gameData.player2Move) {
                 if (this.playerNumber === 1) {
                     if (tuJugadaElement) tuJugadaElement.textContent = gameData.player1Move;
@@ -227,61 +224,38 @@ export class PlayPage extends HTMLElement {
                     if (tuJugadaElement) tuJugadaElement.textContent = gameData.player2Move;
                     if (jugadaOponenteElement) jugadaOponenteElement.textContent = gameData.player1Move;
                 }
-
+    
+                const result = this.determineWinner(gameData.player1Move, gameData.player2Move);
                 if (resultadoElement) {
-                    const result = this.calculateResult(gameData.player1Move, gameData.player2Move);
-                    if (result === "draw") {
-                        resultadoElement.textContent = "Empate!";
-                    } else if (result === (this.playerNumber === 1 ? "player1" : "player2")) {
-                        resultadoElement.textContent = "Ganaste!";
+                    if (result === 0) {
+                        resultadoElement.textContent = "Empate";
+                    } else if (this.playerNumber === result) {
+                        resultadoElement.textContent = "Ganaste";
                     } else {
-                        resultadoElement.textContent = "Perdiste!";
+                        resultadoElement.textContent = "Perdiste";
                     }
-                }
-            } else {
-                if (this.playerNumber === 1) {
-                    if (tuJugadaElement) tuJugadaElement.textContent = gameData.player1Move || "Esperando...";
-                    if (jugadaOponenteElement) jugadaOponenteElement.textContent = gameData.player2Move || "Esperando...";
-                } else {
-                    if (tuJugadaElement) tuJugadaElement.textContent = gameData.player2Move || "Esperando...";
-                    if (jugadaOponenteElement) jugadaOponenteElement.textContent = gameData.player1Move || "Esperando...";
-                }
-                if (resultadoElement) {
-                    resultadoElement.textContent = "Jugando...";
                 }
             }
         }
     }
 
-    calculateResult(player1Move: Play, player2Move: Play): "player1" | "player2" | "draw" {
+    determineWinner(player1Move: Play, player2Move: Play): 1 | 2 | 0 {
         if (player1Move === player2Move) {
-            return "draw";
-        }
-
-        if (
+            return 0; // Empate
+        } else if (
             (player1Move === "piedra" && player2Move === "tijera") ||
             (player1Move === "papel" && player2Move === "piedra") ||
             (player1Move === "tijera" && player2Move === "papel")
         ) {
-            return "player1";
+            return 1; // Jugador 1 gana
         } else {
-            return "player2";
+            return 2; // Jugador 2 gana
         }
     }
 
     checkAndHideMoves(moves: HTMLElement | null) {
-        const currentGame = stateFunctions.getState().currentGame;
-        if (currentGame) {
-            const player1Move = currentGame.data.player1Move;
-            const player2Move = currentGame.data.player2Move;
-
-            if (moves) {
-                if (player1Move && player2Move) {
-                    moves.style.display = "none";
-                    this.animateMoves(this.playerNumber === 1 ? player1Move : player2Move);
-                    this.showGoToResultButton(); // Mostrar el botón "Ir a Resultado"
-                }
-            }
+        if (moves) {
+            moves.style.display = "none";
         }
     }
 
@@ -334,16 +308,16 @@ export class PlayPage extends HTMLElement {
         }
     }
     redirectToResultPage() {
-        (window as any).goTo("/result");
-    }
-
-    showGoToResultButton() {
-        const goToResultButton = this.shadow?.getElementById("goToResultButton") as HTMLButtonElement;
-        if (goToResultButton) {
-            goToResultButton.style.display = "block";
+        const currentState = stateFunctions.getState();
+        if (currentState.currentGame && currentState.currentGame.data) {
+            const gameData = currentState.currentGame.data;
+            if (gameData.player1Move && gameData.player2Move) {
+                window.location.href = "/result";
+            }
         }
     }
-    
 }
+
+    
 
 customElements.define("play-page", PlayPage);
