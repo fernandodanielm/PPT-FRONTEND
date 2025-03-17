@@ -6,7 +6,7 @@ import { ref, onValue } from "firebase/database";
 import {router} from "../../router";
 
 
-export class ShortId extends HTMLElement {
+export class ShortId extends HTMLElement { 
   unsubscribe: (() => void) | null = null;
   shadow: ShadowRoot;
   roomId: string | null = null;
@@ -18,31 +18,43 @@ export class ShortId extends HTMLElement {
   }
 
   async connectedCallback() {
-    this.roomId = stateFunctions.getState().roomId;
-    if (this.roomId) {
-      try {
-        const roomData = await stateFunctions.getRoomData(this.roomId);
-        if (roomData) {
-          stateFunctions.setState({
-            ...stateFunctions.getState(),
-            currentGame: {
-              ...stateFunctions.getState().currentGame,
-              data: roomData,
-              statistics: roomData.statistics,
-            },
-          });
-        } else {
-          console.error("short-id.ts:33 No se encontraron datos de la sala.");
+    try {
+        const roomData = await this.getRoomData(); // Asumiendo que tienes una función getRoomData
+        let roomId = stateFunctions.getState().currentGame?.roomId;
+        if (!roomId) {
+            roomId = "";
         }
-      } catch (error) {
-        console.error("Error al obtener datos de la sala:", error);
-      }
-      this.listenRoomChanges(this.roomId);
+
+        stateFunctions.setState({
+            currentGame: {
+                ...stateFunctions.getState().currentGame,
+                roomId: roomId,
+                data: roomData,
+                statistics: roomData.statistics,
+            },
+        });
+    } catch (error) {
+        console.error("Error al obtener roomData:", error);
     }
-    this.loading = false; // Datos iniciales cargados
-    this.render();
-    this.subscribeToState();
-  }
+}
+
+// Asumiendo que tienes una función getRoomData que obtiene los datos de la sala
+async getRoomData() {
+    // Aquí iría tu lógica para obtener los datos de la sala
+    // Por ejemplo, una llamada a una API o a una base de datos
+    // ...
+    // Retorna los datos de la sala
+    return {
+        // Datos de ejemplo
+        player1Name: "Player 1",
+        player2Name: "Player 2",
+        // ... otros datos
+        statistics: {
+            player1: { wins: 0, losses: 0, draws: 0 },
+            player2: { wins: 0, losses: 0, draws: 0 },
+        },
+    };
+}
 
   disconnectedCallback() {
     this.unsubscribeFromState();
@@ -52,39 +64,51 @@ export class ShortId extends HTMLElement {
   // short-id.ts
 // ... (resto del código)
 
-listenRoomChanges(roomId: string) {
-  onValue(ref(rtdb, `rooms/${roomId}/users`), (snapshot) => {
-    const usersData = snapshot.val();
-    if (usersData) {
-      const users = Object.values(usersData);
-      if (users.length === 1) {
-        const player1 = users[0] as { userName: string };
-        stateFunctions.setState({
-          ...stateFunctions.getState(),
-          player1Name: player1.userName,
-          player2Name: null,
-          currentGame: {
-            data: { player1Name: player1.userName, player2Name: null, player1Play: null, player2Play: null, gameOver: false },
-            statistics: { player1: { wins: 0, losses: 0, draws: 0 }, player2: { wins: 0, losses: 0, draws: 0 } },
-          },
-        });
-      } else if (users.length === 2) {
-        const player1 = users[0] as { userName: string };
-        const player2 = users[1] as { userName: string };
-        stateFunctions.setState({
-          ...stateFunctions.getState(),
-          player1Name: player1.userName,
-          player2Name: player2.userName,
-          currentGame: {
-            data: { player1Name: player1.userName, player2Name: player2.userName, player1Play: null, player2Play: null, gameOver: false },
-            statistics: { player1: { wins: 0, losses: 0, draws: 0 }, player2: { wins: 0, losses: 0, draws: 0 } },
-          },
-        });
+listenRoomChanges() {
+  if (!state.roomId) {
+      console.error("No hay roomId para escuchar.");
+      return;
+  }
+
+  const roomRef = ref(rtdb, `rooms/${state.roomId}`);
+  onValue(roomRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log("Datos recibidos de la base de datos:", data);
+
+      if (data && data.users) {
+          const users = Object.values(data.users);
+          if (users.length === 1) {
+              const player1 = users[0] as { userName: string };
+              stateFunctions.setPlayer1Name(player1.userName);
+              stateFunctions.setPlayer2Name(null);
+              stateFunctions.setState({ // Usar stateFunctions aquí
+                  ...state,
+                  currentGame: {
+                      roomId: state.roomId,
+                      data: { player1Name: player1.userName, player2Name: null, player1Play: data.player1Move, player2Play: data.player2Move, gameOver: data.gameOver },
+                      statistics: { player1: { wins: 0, losses: 0, draws: 0 }, player2: { wins: 0, losses: 0, draws: 0 } },
+                  },
+              });
+          } else if (users.length === 2) {
+              const player1 = users[0] as { userName: string };
+              const player2 = users[1] as { userName: string };
+              stateFunctions.setPlayer1Name(player1.userName);
+              stateFunctions.setPlayer2Name(player2.userName);
+              stateFunctions.setState({ // Usar stateFunctions aquí
+                  ...state,
+                  currentGame: {
+                      roomId: state.roomId,
+                      data: { player1Name: player1.userName, player2Name: player2.userName, player1Play: data.player1Move, player2Play: data.player2Move, gameOver: data.gameOver },
+                      statistics: { player1: { wins: 0, losses: 0, draws: 0 }, player2: { wins: 0, losses: 0, draws: 0 } },
+                  },
+              });
+          }
+          console.log("Estado actualizado con users:", state);
+      } else {
+          console.error("Datos de sala incompletos o nulos:", data);
       }
-      this.render();
-    } else {
-      console.error("short-id.ts:64 Error: datos de la sala no válidos.");
-    }
+  }, (error) => {
+      console.error("Error al escuchar la sala:", error);
   });
 }
 

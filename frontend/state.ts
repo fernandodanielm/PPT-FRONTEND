@@ -43,9 +43,8 @@ const listeners: ((currentState: State) => void)[] = [];
 const stateFunctions = {
     getState() {
         if (!state.currentGame) {
-            // Inicializar currentGame con roomId cuando no exista
             state.currentGame = {
-                roomId: state.roomId, // Agregar roomId aquí
+                roomId: state.roomId || "", // Asegurar que roomId sea string
                 data: {
                     player1Name: "",
                     player2Name: "",
@@ -101,35 +100,32 @@ const stateFunctions = {
             console.error("No hay roomId para escuchar.");
             return;
         }
-
+    
         const roomRef = ref(rtdb, `rooms/${state.roomId}`);
         onValue(roomRef, (snapshot) => {
             const data = snapshot.val();
             console.log("Datos recibidos de la base de datos:", data);
-
+    
             if (data && data.users) {
                 const users = Object.values(data.users);
                 if (users.length === 1) {
-                    const player1 = users[0] as { userName: string };
-                    this.setPlayer1Name(player1.userName);
-                    this.setPlayer2Name(null);
-                    this.setState({
-                        ...state,
-                        currentGame: {
-                            roomId: state.roomId, // Agregar roomId aquí
-                            data: { player1Name: player1.userName, player2Name: null, player1Play: data.player1Move, player2Play: data.player2Move, gameOver: data.gameOver },
-                            statistics: { player1: { wins: 0, losses: 0, draws: 0 }, player2: { wins: 0, losses: 0, draws: 0 } },
-                        },
-                    });
+                    // ... (código para un solo jugador)
                 } else if (users.length === 2) {
-                    const player1 = users[0] as { userName: string };
-                    const player2 = users[1] as { userName: string };
+                    const player1 = users[0] as { userName: string, role: string, id: string };
+                    const player2 = users[1] as { userName: string, role: string, id: string };
+    
+                    let playerNumber: 1 | 2 = 1; // Explicitly type as 1 | 2
+                    if (state.id === player2.id) {
+                        playerNumber = 2; // Current user is player 2
+                    }
+    
                     this.setPlayer1Name(player1.userName);
                     this.setPlayer2Name(player2.userName);
                     this.setState({
                         ...state,
+                        playerNumber: playerNumber, // No need for explicit cast here
                         currentGame: {
-                            roomId: state.roomId, // Agregar roomId aquí
+                            roomId: state.roomId,
                             data: { player1Name: player1.userName, player2Name: player2.userName, player1Play: data.player1Move, player2Play: data.player2Move, gameOver: data.gameOver },
                             statistics: { player1: { wins: 0, losses: 0, draws: 0 }, player2: { wins: 0, losses: 0, draws: 0 } },
                         },
@@ -144,11 +140,15 @@ const stateFunctions = {
         });
     },
     setPlayer1Name(player1Name: string) {
-        this.setState({ player1Name });
+        stateFunctions.setState({ player1Name, playerNumber: 1 }); // Player 1
     },
-
+    
     setPlayer2Name(player2Name: string | null) {
-        this.setState({ player2Name });
+        if (player2Name) {
+            stateFunctions.setState({ player2Name, playerNumber: 2 }); // Player 2
+        } else {
+            stateFunctions.setState({ player2Name, playerNumber: 1 }); // Player 1 (si player2Name es null)
+        }
     },
 
     setRoomId(roomId: string) {
