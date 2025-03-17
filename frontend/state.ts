@@ -101,7 +101,7 @@ const stateFunctions = {
             return;
         }
     
-        const roomRef = ref(rtdb, `rooms/${state.roomId}`);
+        const roomRef = ref(rtdb, `game/${state.roomId}`);
     
         onValue(roomRef, (snapshot) => {
             const data = snapshot.val();
