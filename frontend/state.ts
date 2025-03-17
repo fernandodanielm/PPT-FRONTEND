@@ -80,7 +80,7 @@ const stateFunctions = {
     async getRoomData(roomId: string) {
         try {
             console.log("getRoomData buscando roomId:", roomId);
-            const roomRef = ref(rtdb, `rooms/${roomId}`);
+            const roomRef = ref(rtdb, `game/${roomId}`);
             const snapshot = await get(roomRef);
             const roomData = snapshot.val();
             if (roomData) {
