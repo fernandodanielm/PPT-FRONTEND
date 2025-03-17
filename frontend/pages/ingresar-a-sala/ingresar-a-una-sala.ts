@@ -20,9 +20,52 @@ export class IngresarASala extends HTMLElement {
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center;
-                // ... otros estilos
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                padding: 20px;
+                box-sizing: border-box;
             }
-            // ... otros estilos CSS
+
+            .form-group {
+                margin-bottom: 20px;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            input[type="text"] {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+                box-sizing: border-box;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 18px;
+                border: none;
+                border-radius: 5px;
+                background-color: #007bff;
+                color: white;
+                cursor: pointer;
+                width: 100%;
+                max-width: 300px;
+                box-sizing: border-box;
+            }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+            h2 {
+                color: #333;
+                margin-bottom: 30px;
+                text-align: center;
+            }
         `;
 
         this.shadow.appendChild(style);
@@ -30,38 +73,56 @@ export class IngresarASala extends HTMLElement {
         const div = document.createElement("div");
         div.classList.add("join-room-container");
 
+        const heading = document.createElement("h2");
+        heading.textContent = "Ingresar a una Sala";
+        div.appendChild(heading);
+
+        const roomIdInputDiv = document.createElement("div");
+        roomIdInputDiv.classList.add("form-group");
         const roomIdInput = document.createElement("input");
         roomIdInput.setAttribute("type", "text");
-        roomIdInput.setAttribute("placeholder", "Código de Sala");
+        roomIdInput.setAttribute("placeholder", "Código para ingresar a la sala");
         roomIdInput.id = "roomIdInput";
+        roomIdInputDiv.appendChild(roomIdInput);
+        div.appendChild(roomIdInputDiv);
 
+        const nombreInputDiv = document.createElement("div");
+        nombreInputDiv.classList.add("form-group");
         const nombreInput = document.createElement("input");
         nombreInput.setAttribute("type", "text");
         nombreInput.setAttribute("placeholder", "Tu nombre");
         nombreInput.id = "nombreInput";
+        nombreInputDiv.appendChild(nombreInput);
+        div.appendChild(nombreInputDiv);
 
-        const guestIdInput = document.createElement("input");
-        guestIdInput.setAttribute("type", "text");
-        guestIdInput.setAttribute("placeholder", "Tu id");
-        guestIdInput.id = "guestIdInput";
+        // Ya no se muestra el input para el guestId
+        // const guestIdInput = document.createElement("input");
+        // guestIdInput.setAttribute("type", "text");
+        // guestIdInput.setAttribute("placeholder", "Tu id");
+        // guestIdInput.id = "guestIdInput";
+        // div.appendChild(guestIdInput);
 
         const unirseButton = document.createElement("button");
         unirseButton.textContent = "Unirse a Sala";
         unirseButton.id = "unirseButton";
-
-        div.appendChild(roomIdInput);
-        div.appendChild(nombreInput);
-        div.appendChild(guestIdInput);
         div.appendChild(unirseButton);
 
         this.shadow.appendChild(div);
 
         const unirseButtonElement = this.shadow.getElementById("unirseButton");
-        if (unirseButtonElement) {
+        const roomIdInputElement = this.shadow.getElementById("roomIdInput") as HTMLInputElement;
+        const nombreInputElement = this.shadow.getElementById("nombreInput") as HTMLInputElement;
+        // const guestIdInputElement = this.shadow.getElementById("guestIdInput") as HTMLInputElement;
+
+        if (unirseButtonElement && roomIdInputElement && nombreInputElement) {
             unirseButtonElement.addEventListener("click", async () => {
-                const guestName = nombreInput.value;
-                const guestId = guestIdInput.value;
-                const roomId = roomIdInput.value;
+                const guestName = nombreInputElement.value;
+                // Ahora el guestId se generará o se manejará internamente
+                const roomId = roomIdInputElement.value;
+
+                // Aquí deberías tener una lógica para obtener o generar el guestId
+                // Por ejemplo, podrías tener una función en stateFunctions para esto
+                const guestId = state.id || Math.random().toString(36).substring(2, 15); // Ejemplo básico
 
                 stateFunctions.setPlayer2Name(guestName, guestId);
                 stateFunctions.setRoomId(roomId);
