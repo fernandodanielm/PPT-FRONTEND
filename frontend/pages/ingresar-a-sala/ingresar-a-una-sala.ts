@@ -1,15 +1,13 @@
 import backgroundImage from "../../assets/piedrapapelotijera.jpg";
 import { state, stateFunctions } from "../../state";
-import { rtdb } from "../../utils/rtdb";
-import { ref, onValue, get } from "firebase/database";
 import { router } from "../../router";
 
 export class IngresarASala extends HTMLElement {
-    shadow: ShadowRoot; // Declarar la propiedad shadow
+    shadow: ShadowRoot;
 
     constructor() {
         super();
-        this.shadow = this.attachShadow({ mode: "open" }); // Inicializar shadow en el constructor
+        this.shadow = this.attachShadow({ mode: "open" });
     }
 
     connectedCallback() {
@@ -67,7 +65,6 @@ export class IngresarASala extends HTMLElement {
                 text-align: center;
             }
         `;
-
         this.shadow.appendChild(style);
 
         const div = document.createElement("div");
@@ -95,13 +92,6 @@ export class IngresarASala extends HTMLElement {
         nombreInputDiv.appendChild(nombreInput);
         div.appendChild(nombreInputDiv);
 
-        // Ya no se muestra el input para el guestId
-        // const guestIdInput = document.createElement("input");
-        // guestIdInput.setAttribute("type", "text");
-        // guestIdInput.setAttribute("placeholder", "Tu id");
-        // guestIdInput.id = "guestIdInput";
-        // div.appendChild(guestIdInput);
-
         const unirseButton = document.createElement("button");
         unirseButton.textContent = "Unirse a Sala";
         unirseButton.id = "unirseButton";
@@ -112,27 +102,26 @@ export class IngresarASala extends HTMLElement {
         const unirseButtonElement = this.shadow.getElementById("unirseButton");
         const roomIdInputElement = this.shadow.getElementById("roomIdInput") as HTMLInputElement;
         const nombreInputElement = this.shadow.getElementById("nombreInput") as HTMLInputElement;
-        // const guestIdInputElement = this.shadow.getElementById("guestIdInput") as HTMLInputElement;
 
         if (unirseButtonElement && roomIdInputElement && nombreInputElement) {
             unirseButtonElement.addEventListener("click", async () => {
                 const guestName = nombreInputElement.value;
-                // Ahora el guestId se generará o se manejará internamente
                 const roomId = roomIdInputElement.value;
-
-                // Aquí deberías tener una lógica para obtener o generar el guestId
-                // Por ejemplo, podrías tener una función en stateFunctions para esto
-                const guestId = state.id || Math.random().toString(36).substring(2, 15); // Ejemplo básico
+                const guestId = state.id || Math.random().toString(36).substring(2, 15);
 
                 stateFunctions.setPlayer2Name(guestName, guestId);
                 stateFunctions.setRoomId(roomId);
-                await stateFunctions.saveRoomData(null, null, guestId, guestName);
+                await stateFunctions.saveRoomData(null, null, guestId, guestName, roomId); // Pasar roomId
                 setTimeout(() => {
                     stateFunctions.listenRoom();
                     router.goTo(`/short-id/${roomId}`);
                 }, 100);
             });
         }
+    }
+
+    render() {
+        // No es necesario un render explícito aquí ya que el contenido es estático
     }
 }
 
