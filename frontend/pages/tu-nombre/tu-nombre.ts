@@ -35,16 +35,18 @@ export class TuNombre extends HTMLElement {
                     try {
                         stateFunctions.setId(ownerId);
                         stateFunctions.setPlayer1Name(playerName, ownerId); // Pasar ownerId como userId
-                        const roomId = await stateFunctions.saveRoomData(ownerId, playerName, null, null);
-                        if (roomId) {
+                        const response = await stateFunctions.saveRoomData(ownerId, playerName, null, null);
+                        console.log("Respuesta completa del backend:", response); // Agrega esto para ver la estructura completa
+                        if (response && response.roomId) {
+                            const roomId = response.roomId;
                             console.log("Valor de roomId recibido del backend:", roomId, typeof roomId); // Agrega este log
                             stateFunctions.setRoomId(roomId);
+                            stateFunctions.listenRoom(); // Llama a listenRoom inmediatamente después de setRoomId
                             setTimeout(() => {
-                                stateFunctions.listenRoom();
                                 router.goTo(`/short-id/${roomId}`);
                             }, 100);
                         } else {
-                            alert("Error al crear la sala. Inténtalo de nuevo.");
+                            alert("Error al crear la sala. La respuesta del servidor fue inesperada.");
                         }
                     } catch (error) {
                         console.error("Error al crear la sala:", error);
