@@ -80,7 +80,7 @@ const stateFunctions = {
     async getRoomData(roomId: string) {
         try {
             console.log("getRoomData buscando roomId:", roomId);
-            const roomRef = ref(rtdb, `game/${roomId}`);
+            const roomRef = ref(rtdb, `games/${roomId}`);
             const snapshot = await get(roomRef);
             const roomData = snapshot.val();
             if (roomData) {
@@ -101,7 +101,7 @@ const stateFunctions = {
             return;
         }
     
-        const roomRef = ref(rtdb, `game/${state.roomId}`);
+        const roomRef = ref(rtdb, `games/${state.roomId}`);
     
         onValue(roomRef, (snapshot) => {
             const data = snapshot.val();
