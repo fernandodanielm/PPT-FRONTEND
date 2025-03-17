@@ -95,7 +95,7 @@ const stateFunctions = {
         }
     },
 
-    listenRoom() {
+    listenRoomChanges() {
         if (!state.roomId) {
             console.error("No hay roomId para escuchar.");
             return;
@@ -109,21 +109,24 @@ const stateFunctions = {
             if (data && data.users) {
                 const users = Object.values(data.users);
                 if (users.length === 1) {
-                    // ... (código para un solo jugador)
-                } else if (users.length === 2) {
-                    const player1 = users[0] as { userName: string, role: string, id: string };
-                    const player2 = users[1] as { userName: string, role: string, id: string };
-    
-                    let playerNumber: 1 | 2 = 1; // Explicitly type as 1 | 2
-                    if (state.id === player2.id) {
-                        playerNumber = 2; // Current user is player 2
-                    }
-    
-                    this.setPlayer1Name(player1.userName);
-                    this.setPlayer2Name(player2.userName);
-                    this.setState({
+                    const player1 = users[0] as { userName: string, id: string };
+                    stateFunctions.setPlayer1Name(player1.userName, player1.id); // Pasar userId
+                    stateFunctions.setPlayer2Name(null, player1.id); // Pasar userId
+                    stateFunctions.setState({
                         ...state,
-                        playerNumber: playerNumber, // No need for explicit cast here
+                        currentGame: {
+                            roomId: state.roomId,
+                            data: { player1Name: player1.userName, player2Name: null, player1Play: data.player1Move, player2Play: data.player2Move, gameOver: data.gameOver },
+                            statistics: { player1: { wins: 0, losses: 0, draws: 0 }, player2: { wins: 0, losses: 0, draws: 0 } },
+                        },
+                    });
+                } else if (users.length === 2) {
+                    const player1 = users[0] as { userName: string, id: string };
+                    const player2 = users[1] as { userName: string, id: string };
+                    stateFunctions.setPlayer1Name(player1.userName, player1.id); // Pasar userId
+                    stateFunctions.setPlayer2Name(player2.userName, player2.id); // Pasar userId
+                    stateFunctions.setState({
+                        ...state,
                         currentGame: {
                             roomId: state.roomId,
                             data: { player1Name: player1.userName, player2Name: player2.userName, player1Play: data.player1Move, player2Play: data.player2Move, gameOver: data.gameOver },
@@ -133,22 +136,30 @@ const stateFunctions = {
                 }
                 console.log("Estado actualizado con users:", state);
             } else {
-                console.error("state.ts:148 Datos de sala incompletos o nulos:", data);
+                console.error("Datos de sala incompletos o nulos:", data);
             }
         }, (error) => {
             console.error("Error al escuchar la sala:", error);
         });
     },
-    setPlayer1Name(player1Name: string) {
-        stateFunctions.setState({ player1Name, playerNumber: 1 }); // Player 1
+    setPlayer1Name(player1Name: string, userId: string) {
+        // Lógica para determinar playerNumber basado en userId
+        const playerNumber = this.determinePlayerNumber(userId);
+        this.setState({ player1Name, playerNumber });
     },
-    
-    setPlayer2Name(player2Name: string | null) {
-        if (player2Name) {
-            stateFunctions.setState({ player2Name, playerNumber: 2 }); // Player 2
-        } else {
-            stateFunctions.setState({ player2Name, playerNumber: 1 }); // Player 1 (si player2Name es null)
+
+    setPlayer2Name(player2Name: string | null, userId: string) {
+        // Lógica para determinar playerNumber basado en userId
+        const playerNumber = this.determinePlayerNumber(userId);
+        this.setState({ player2Name, playerNumber });
+    },
+    determinePlayerNumber(userId: string): 1 | 2 {
+        // Implementa la lógica para determinar playerNumber basado en userId
+        // Ejemplo:
+        if (userId === state.id) {
+            return 2;
         }
+        return 1;
     },
 
     setRoomId(roomId: string) {

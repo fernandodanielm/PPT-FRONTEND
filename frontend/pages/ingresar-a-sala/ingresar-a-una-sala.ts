@@ -1,102 +1,78 @@
-// ingresar-a-sala.ts
 import backgroundImage from "../../assets/piedrapapelotijera.jpg";
 import { state, stateFunctions } from "../../state";
-import {router} from "../../router";
-import { v4 as uuidv4 } from 'uuid';
+import { rtdb } from "../../utils/rtdb";
+import { ref, onValue, get } from "firebase/database";
+import { router } from "../../router";
 
 export class IngresarASala extends HTMLElement {
-  constructor() {
-    super();
-  }
+    shadow: ShadowRoot; // Declarar la propiedad shadow
 
-  connectedCallback() {
-    this.render();
-  }
-
-  render() {
-    this.innerHTML = `
-      <div class="join-room-container">
-        <h1>Ingresar a una Sala</h1>
-        <input type="text" id="roomIdInput" placeholder="Room ID">
-        <input type="text" id="nombreInput" placeholder="Tu nombre">
-        <input type="hidden" id="guestIdInput" value="${uuidv4()}">
-        <button id="unirseButton">Unirse</button>
-      </div>
-    `;
-
-    const roomIdInput = this.querySelector("#roomIdInput");
-    const nombreInput = this.querySelector("#nombreInput");
-    const guestIdInput = this.querySelector("#guestIdInput");
-    const unirseButton = this.querySelector("#unirseButton");
-
-    if (unirseButton && roomIdInput && nombreInput && guestIdInput) {
-        unirseButton.addEventListener("click", async () => {
-            const roomId = (roomIdInput as HTMLInputElement).value.trim();
-            const guestName = (nombreInput as HTMLInputElement).value.trim();
-            const guestId = (guestIdInput as HTMLInputElement).value;
-          
-            if (roomId && guestName) {
-              try {
-                stateFunctions.setId(guestId);
-                stateFunctions.setPlayer2Name(guestName);
-                stateFunctions.setRoomId(roomId);
-                await stateFunctions.saveRoomData(null, null, guestId, guestName, roomId); // Nombres coincidentes
-                setTimeout(() => {
-                  stateFunctions.listenRoom();
-                  router.goTo(`/short-id/${roomId}`);
-                }, 100);
-              } catch (error) {
-                console.error("Error al unirse a la sala:", error);
-                // ... (manejo de errores)
-              }
-            }
-          });
+    constructor() {
+        super();
+        this.shadow = this.attachShadow({ mode: "open" }); // Inicializar shadow en el constructor
     }
 
-    const style = document.createElement("style");
-    style.textContent = `
-      .join-room-container {
-        background-image: url(${backgroundImage});
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-family: sans-serif;
-      }
-      input {
-        padding: 10px;
-        margin: 10px 0;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 80%;
-        max-width: 300px;
-      }
-      button {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        width: 80%;
-        max-width: 200px;
-      }
-      @media (max-width: 600px) {
-        h1 {
-          font-size: 1.5em;
-        }
-        input, button {
-          width: 90%;
-        }
-      }
-    `;
+    connectedCallback() {
+        const style = document.createElement("style");
+        style.textContent = `
+            .join-room-container {
+                background-image: url(${backgroundImage});
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                // ... otros estilos
+            }
+            // ... otros estilos CSS
+        `;
 
-    this.appendChild(style);
-  }
+        this.shadow.appendChild(style);
+
+        const div = document.createElement("div");
+        div.classList.add("join-room-container");
+
+        const roomIdInput = document.createElement("input");
+        roomIdInput.setAttribute("type", "text");
+        roomIdInput.setAttribute("placeholder", "Código de Sala");
+        roomIdInput.id = "roomIdInput";
+
+        const nombreInput = document.createElement("input");
+        nombreInput.setAttribute("type", "text");
+        nombreInput.setAttribute("placeholder", "Tu nombre");
+        nombreInput.id = "nombreInput";
+
+        const guestIdInput = document.createElement("input");
+        guestIdInput.setAttribute("type", "text");
+        guestIdInput.setAttribute("placeholder", "Tu id");
+        guestIdInput.id = "guestIdInput";
+
+        const unirseButton = document.createElement("button");
+        unirseButton.textContent = "Unirse a Sala";
+        unirseButton.id = "unirseButton";
+
+        div.appendChild(roomIdInput);
+        div.appendChild(nombreInput);
+        div.appendChild(guestIdInput);
+        div.appendChild(unirseButton);
+
+        this.shadow.appendChild(div);
+
+        const unirseButtonElement = this.shadow.getElementById("unirseButton");
+        if (unirseButtonElement) {
+            unirseButtonElement.addEventListener("click", async () => {
+                const guestName = nombreInput.value;
+                const guestId = guestIdInput.value;
+                const roomId = roomIdInput.value;
+
+                stateFunctions.setPlayer2Name(guestName, guestId);
+                stateFunctions.setRoomId(roomId);
+                await stateFunctions.saveRoomData(null, null, guestId, guestName);
+                setTimeout(() => {
+                    stateFunctions.listenRoomChanges();
+                    router.goTo(`/short-id/${roomId}`);
+                }, 100);
+            });
+        }
+    }
 }
 
 customElements.define("ingresar-a-sala", IngresarASala);
