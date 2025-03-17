@@ -95,13 +95,14 @@ const stateFunctions = {
         }
     },
 
-    listenRoomChanges() {
+    listenRoom() {
         if (!state.roomId) {
             console.error("No hay roomId para escuchar.");
             return;
         }
     
         const roomRef = ref(rtdb, `rooms/${state.roomId}`);
+    
         onValue(roomRef, (snapshot) => {
             const data = snapshot.val();
             console.log("Datos recibidos de la base de datos:", data);
@@ -109,11 +110,12 @@ const stateFunctions = {
             if (data && data.users) {
                 const users = Object.values(data.users);
                 if (users.length === 1) {
-                    const player1 = users[0] as { userName: string, id: string };
-                    stateFunctions.setPlayer1Name(player1.userName, player1.id); // Pasar userId
-                    stateFunctions.setPlayer2Name(null, player1.id); // Pasar userId
+                    const player1 = users[0] as { userName: string, role: string, id: string };
+                    stateFunctions.setPlayer1Name(player1.userName, player1.id);
+                    stateFunctions.setPlayer2Name(null, player1.id);
                     stateFunctions.setState({
                         ...state,
+                        playerNumber: state.id === player1.id ? 1 : undefined, // Cambiar null a undefined
                         currentGame: {
                             roomId: state.roomId,
                             data: { player1Name: player1.userName, player2Name: null, player1Play: data.player1Move, player2Play: data.player2Move, gameOver: data.gameOver },
@@ -121,12 +123,19 @@ const stateFunctions = {
                         },
                     });
                 } else if (users.length === 2) {
-                    const player1 = users[0] as { userName: string, id: string };
-                    const player2 = users[1] as { userName: string, id: string };
-                    stateFunctions.setPlayer1Name(player1.userName, player1.id); // Pasar userId
-                    stateFunctions.setPlayer2Name(player2.userName, player2.id); // Pasar userId
+                    const player1 = users[0] as { userName: string, role: string, id: string };
+                    const player2 = users[1] as { userName: string, role: string, id: string };
+    
+                    let playerNumber: 1 | 2 = 1;
+                    if (state.id === player2.id) {
+                        playerNumber = 2;
+                    }
+    
+                    stateFunctions.setPlayer1Name(player1.userName, player1.id);
+                    stateFunctions.setPlayer2Name(player2.userName, player2.id);
                     stateFunctions.setState({
                         ...state,
+                        playerNumber: playerNumber,
                         currentGame: {
                             roomId: state.roomId,
                             data: { player1Name: player1.userName, player2Name: player2.userName, player1Play: data.player1Move, player2Play: data.player2Move, gameOver: data.gameOver },

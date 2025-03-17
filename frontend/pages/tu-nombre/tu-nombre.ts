@@ -27,31 +27,31 @@ export class TuNombre extends HTMLElement {
     const ownerIdInput = this.querySelector("#ownerIdInput");
     const comenzarButton = this.querySelector("#comenzarButton");
 
-    if (comenzarButton && nombreInput && ownerIdInput) {
-        comenzarButton.addEventListener("click", async () => {
-            const playerName = (nombreInput as HTMLInputElement).value.trim();
-            const ownerId = (ownerIdInput as HTMLInputElement).value;
-            if (playerName) {
-              try {
+if (comenzarButton && nombreInput && ownerIdInput) {
+    comenzarButton.addEventListener("click", async () => {
+        const playerName = (nombreInput as HTMLInputElement).value.trim();
+        const ownerId = (ownerIdInput as HTMLInputElement).value;
+        if (playerName) {
+            try {
                 stateFunctions.setId(ownerId);
-                stateFunctions.setPlayer1Name(playerName);
-                const roomId = await stateFunctions.saveRoomData(ownerId, playerName); // Nombres coincidentes
+                stateFunctions.setPlayer1Name(playerName, ownerId); // Pasar ownerId como userId
+                const roomId = await stateFunctions.saveRoomData(ownerId, playerName);
                 if (roomId) {
-                  stateFunctions.setRoomId(roomId);
-                  setTimeout(() => {
-                    stateFunctions.listenRoom();
-                    router.goTo(`/short-id/${roomId}`);
-                  }, 100);
+                    stateFunctions.setRoomId(roomId);
+                    setTimeout(() => {
+                        stateFunctions.listenRoom();
+                        router.goTo(`/short-id/${roomId}`);
+                    }, 100);
                 } else {
-                  alert("Error al crear la sala. Inténtalo de nuevo.");
+                    alert("Error al crear la sala. Inténtalo de nuevo.");
                 }
-              } catch (error) {
+            } catch (error) {
                 console.error("Error al crear la sala:", error);
                 // ... (manejo de errores)
-              }
             }
-          });
-    }
+        }
+    });
+}
 
     const style = document.createElement("style");
     style.textContent = `

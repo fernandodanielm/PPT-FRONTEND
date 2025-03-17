@@ -67,7 +67,7 @@ export class IngresarASala extends HTMLElement {
                 stateFunctions.setRoomId(roomId);
                 await stateFunctions.saveRoomData(null, null, guestId, guestName);
                 setTimeout(() => {
-                    stateFunctions.listenRoomChanges();
+                    stateFunctions.listenRoom();
                     router.goTo(`/short-id/${roomId}`);
                 }, 100);
             });
