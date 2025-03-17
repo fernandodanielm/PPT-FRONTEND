@@ -31,7 +31,7 @@ const state: State = {
     player1Name: null,
     player2Name: null,
     roomId: "",
-    currentGame: null, // Inicializado como null
+    currentGame: null,
     playerNumber: undefined,
     id: null,
     rtdbRoomId: "",
@@ -48,7 +48,7 @@ const stateFunctions = {
     getState() {
         if (!state.currentGame) {
             state.currentGame = {
-                roomId: state.roomId || "", // Asegurar que roomId sea string
+                roomId: state.roomId || "",
                 data: {
                     player1Name: null,
                     player2Name: null,
@@ -84,7 +84,6 @@ const stateFunctions = {
     async getRoomData(roomId: string) {
         try {
             console.log("getRoomData buscando roomId:", roomId);
-            // La ruta ahora apunta a la partida actual dentro del nodo 'games' de la sala
             const roomRef = ref(rtdb, `rooms/${roomId}/games/current`);
             const snapshot = await get(roomRef);
             const roomData = snapshot.val();
@@ -101,7 +100,7 @@ const stateFunctions = {
     },
 
     listenRoom() {
-        console.log("Valor de state.roomId al inicio de listenRoom:", state.roomId, typeof state.roomId); // <--------------------- CONSOLE.LOG AÑADIDO
+        console.log("Valor de state.roomId al inicio de listenRoom:", state.roomId, typeof state.roomId);
         if (!state.roomId) {
             console.error("No hay roomId para escuchar.");
             return;
@@ -114,7 +113,6 @@ const stateFunctions = {
             console.log("Datos recibidos de la base de datos (games/current):", data);
 
             if (data) {
-                // Ahora los datos del juego (player1Move, player2Move, gameOver) estarán directamente en 'data'
                 const player1Name = state.player1Name;
                 const player2Name = state.player2Name;
 
@@ -134,32 +132,30 @@ const stateFunctions = {
                 });
                 console.log("Estado del juego actualizado:", state.currentGame);
             } else {
-                console.error("Datos de la partida actual incompletos o nulos en games/current:", data);
+                console.log("No hay datos iniciales del juego en games/current.");
             }
         }, (error) => {
             console.error("Error al escuchar la sala (games/current):", error);
         });
 
-        // También podrías querer escuchar los cambios en los usuarios de la sala (si aún lo necesitas)
         const usersRef = ref(rtdb, `rooms/${state.roomId}/users`);
         onValue(usersRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
-                const usersData = Object.values(data);
+                const usersData = Object.entries(data);
                 const users: { userName: string | null, role: string, id: string }[] = [];
 
-                usersData.forEach(userData => {
+                usersData.forEach(([userId, userData]) => {
                     if (
                         typeof userData === 'object' &&
                         userData !== null &&
                         'userName' in userData &&
-                        'role' in userData &&
-                        'id' in userData
+                        'role' in userData
                     ) {
                         users.push({
                             userName: userData.userName as string | null,
                             role: userData.role as string,
-                            id: userData.id as string,
+                            id: userId,
                         });
                     } else {
                         console.warn("Datos de usuario con estructura inesperada:", userData);
@@ -204,13 +200,31 @@ const stateFunctions = {
             return;
         }
 
+        if (playerNumber === undefined) {
+            console.error("No se ha asignado un número de jugador.");
+            return;
+        }
+
         try {
-            const gameRef = ref(rtdb, `rooms/${roomId}/games/current`);
-            const updateData = playerNumber === 1 ? { player1Move: move } : { player2Move: move };
-            await update(gameRef, updateData);
-            console.log("Movimiento enviado con éxito");
+            console.log(`Enviando movimiento: ${move} para el jugador ${playerNumber} en la sala ${roomId}`); // Log antes de la petición
+            const response = await fetch(`${API_BASE_URL}/api/rooms/${roomId}/move`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ playerNumber, move }),
+            });
+
+            if (!response.ok) {
+                console.error("Error al enviar el movimiento al backend:", response.status, await response.text());
+            } else {
+                const data = await response.json();
+                console.log("Respuesta del backend al enviar el movimiento:", data);
+                // Aquí podrías actualizar el estado local si el backend responde con información adicional
+            }
+            console.log("Movimiento enviado con éxito (o se intentó)");
         } catch (error) {
-            console.error("Error al enviar el movimiento:", error);
+            console.error("Error de red al enviar el movimiento:", error);
         }
     },
     setId: (id: string | null) => {
