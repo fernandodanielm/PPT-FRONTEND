@@ -1,3 +1,4 @@
+// frontend/src/state.ts
 import { ref, onValue, push, update, get } from "firebase/database";
 import { rtdb } from "./utils/rtdb";
 
@@ -55,6 +56,7 @@ const stateFunctions = {
                     player1Play: null,
                     player2Play: null,
                     gameOver: false,
+                    result: null,
                 },
                 statistics: {
                     player1: { wins: 0, losses: 0, draws: 0 },
@@ -123,9 +125,10 @@ const stateFunctions = {
                         data: {
                             player1Name: player1Name,
                             player2Name: player2Name,
-                            player1Play: data.player1Move,
-                            player2Play: data.player2Move,
+                            player1Play: data.ownerPlay, // Usar ownerPlay
+                            player2Play: data.guestPlay, // Usar guestPlay
                             gameOver: data.gameOver,
+                            result: data.result, // Incluir el resultado
                         },
                         statistics: state.currentGame?.statistics || { player1: { wins: 0, losses: 0, draws: 0 }, player2: { wins: 0, losses: 0, draws: 0 } },
                     },
