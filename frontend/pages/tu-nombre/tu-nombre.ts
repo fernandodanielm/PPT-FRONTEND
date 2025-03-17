@@ -35,9 +35,9 @@ export class TuNombre extends HTMLElement {
                     try {
                         stateFunctions.setId(ownerId);
                         stateFunctions.setPlayer1Name(playerName, ownerId); // Pasar ownerId como userId
-                        // Corregido: Se pasan los argumentos guestId y guestName como null
                         const roomId = await stateFunctions.saveRoomData(ownerId, playerName, null, null);
                         if (roomId) {
+                            console.log("Valor de roomId recibido del backend:", roomId, typeof roomId); // Agrega este log
                             stateFunctions.setRoomId(roomId);
                             setTimeout(() => {
                                 stateFunctions.listenRoom();

@@ -101,6 +101,7 @@ const stateFunctions = {
     },
 
     listenRoom() {
+        console.log("Valor de state.roomId al inicio de listenRoom:", state.roomId, typeof state.roomId); // Agrega este log
         if (!state.roomId) {
             console.error("No hay roomId para escuchar.");
             return;
