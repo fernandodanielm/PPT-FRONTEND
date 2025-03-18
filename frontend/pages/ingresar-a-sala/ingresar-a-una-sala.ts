@@ -74,6 +74,7 @@ export class IngresarASala extends HTMLElement {
                     border-radius: 5px;
                     cursor: pointer;
                     width: 100%;
+                    margin-bottom: 10px;
                 }
 
                 button:hover {
@@ -96,6 +97,8 @@ export class IngresarASala extends HTMLElement {
             <div class="container">
                 <div class="form-container">
                     <h2>Ingresar a una Sala</h2>
+                    <label for="name">Tu Nombre:</label>
+                    <input type="text" id="name" name="name" placeholder="Ingrese su nombre">
                     <label for="roomId">Código de Sala:</label>
                     <input type="text" id="roomId" name="roomId" placeholder="Ingrese el código de la sala">
                     <p id="errorMessage" class="error-message"></p>
@@ -110,17 +113,31 @@ export class IngresarASala extends HTMLElement {
         const joinRoomButton = this.shadow.getElementById("joinRoomButton");
         const backButton = this.shadow.getElementById("backButton");
         const roomIdInput = this.shadow.getElementById("roomId") as HTMLInputElement;
+        const nameInput = this.shadow.getElementById("name") as HTMLInputElement;
         const errorMessage = this.shadow.getElementById("errorMessage");
 
         if (joinRoomButton) {
-            joinRoomButton.addEventListener("click", () => {
+            joinRoomButton.addEventListener("click", async () => {
                 const roomId = roomIdInput.value.trim();
-                if (roomId) {
-                    stateFunctions.setRoomId(roomId);
-                    router.goTo(`/short-id/${roomId}`);
+                const guestName = nameInput.value.trim();
+
+                if (guestName && roomId) {
+                    const storageId = sessionStorage.getItem("playerId");
+                    if (storageId) {
+                        stateFunctions.setId(storageId);
+                        const response = await stateFunctions.saveRoomData(null, null, storageId, guestName, roomId);
+                        if (response?.roomId) {
+                            stateFunctions.setRoomId(response.roomId);
+                            router.goTo(`/short-id/${response.roomId}`);
+                        } else if (errorMessage) {
+                            errorMessage.textContent = "Error al unirse a la sala. Verifica el código.";
+                        }
+                    } else if (errorMessage) {
+                        errorMessage.textContent = "Error: No se encontró el ID del jugador.";
+                    }
                 } else {
                     if (errorMessage) {
-                        errorMessage.textContent = "Por favor, ingresa un código de sala.";
+                        errorMessage.textContent = "Por favor, ingresa tu nombre y el código de la sala.";
                     }
                 }
             });
@@ -132,13 +149,15 @@ export class IngresarASala extends HTMLElement {
             });
         }
 
-        if (roomIdInput) {
-            roomIdInput.addEventListener("input", () => {
-                if (errorMessage && errorMessage.textContent) {
-                    errorMessage.textContent = ""; // Limpiar el mensaje de error al escribir
-                }
-            });
-        }
+        [roomIdInput, nameInput].forEach(input => {
+            if (input) {
+                input.addEventListener("input", () => {
+                    if (errorMessage && errorMessage.textContent) {
+                        errorMessage.textContent = ""; // Limpiar el mensaje de error al escribir
+                    }
+                });
+            }
+        });
     }
 }
 
