@@ -254,6 +254,7 @@ const stateFunctions = {
     },
     async saveRoomData(ownerId: string | null, ownerName: string | null, guestId: string | null, guestName: string | null, roomId?: string) {
         try {
+            console.log("Enviando petición para guardar datos:", { ownerId, ownerName, guestId, guestName, roomId });
             const response = await fetch(`${API_BASE_URL}/api/guardardatos`, {
                 method: 'POST',
                 headers: {
@@ -262,17 +263,18 @@ const stateFunctions = {
                 body: JSON.stringify({ ownerId, ownerName, guestId, guestName, roomId }),
             });
             if (!response.ok) {
-                console.error("Error al guardar datos en el backend:", response.status);
+                console.error("Error al guardar datos en el backend:", response.status, await response.text());
                 return null;
             }
             const data = await response.json();
-            // **Aquí es donde debes manejar la respuesta del backend que contiene el ID del jugador.**
-            // Asumo que el backend responderá con un objeto que incluye el 'userId'.
+            console.log("Respuesta del backend al guardar datos:", data);
+            // **Asegúrate de que el backend devuelve un 'userId' en esta respuesta.**
             if (data && data.userId) {
+                console.log("userId recibido del backend:", data.userId);
                 stateFunctions.setId(data.userId);
                 sessionStorage.setItem("playerId", data.userId); // Persistir el ID en la sesión
             } else {
-                console.error("El backend no devolvió el userId al guardar los datos.");
+                console.error("El backend no devolvió el userId al guardar los datos.", data);
             }
             return data;
         } catch (error) {

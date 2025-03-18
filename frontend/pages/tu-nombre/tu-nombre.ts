@@ -18,30 +18,34 @@ export class TuNombre extends HTMLElement {
             <div class="welcome-container">
                 <h1>Ingresa tu Nombre</h1>
                 <input type="text" id="nombreInput" placeholder="Tu nombre">
-                <input type="hidden" id="ownerIdInput" value="${uuidv4()}">
                 <button id="comenzarButton">Comenzar</button>
             </div>
         `;
 
         const nombreInput = this.querySelector("#nombreInput");
-        const ownerIdInput = this.querySelector("#ownerIdInput");
         const comenzarButton = this.querySelector("#comenzarButton");
 
-        if (comenzarButton && nombreInput && ownerIdInput) {
+        if (comenzarButton && nombreInput) {
             comenzarButton.addEventListener("click", async () => {
                 const playerName = (nombreInput as HTMLInputElement).value.trim();
-                const ownerId = (ownerIdInput as HTMLInputElement).value;
                 if (playerName) {
                     try {
+                        // Generar un ID único para el owner en el frontend
+                        const ownerId = uuidv4();
                         stateFunctions.setId(ownerId);
                         stateFunctions.setPlayer1Name(playerName, ownerId);
+
+                        // Enviar los datos al backend para crear la sala y guardar la información del owner
                         const response = await stateFunctions.saveRoomData(ownerId, playerName, null, null);
-                        console.log("Respuesta completa del backend:", response);
+                        console.log("Respuesta completa del backend (creación de sala):", response);
+
                         if (response && response.roomId) {
                             const roomId = response.roomId;
                             console.log("Valor de roomId recibido del backend:", roomId, typeof roomId);
                             stateFunctions.setRoomId(roomId);
-                            stateFunctions.listenRoom();
+                            stateFunctions.listenRoom(); // Comenzar a escuchar los cambios en la sala
+
+                            // Redirigir a la página de la sala después de un breve delay para asegurar que el estado se actualice
                             setTimeout(() => {
                                 router.goTo(`/short-id/${roomId}`);
                             }, 100);
@@ -50,8 +54,10 @@ export class TuNombre extends HTMLElement {
                         }
                     } catch (error) {
                         console.error("Error al crear la sala:", error);
-                        // ... (manejo de errores)
+                        alert("Ocurrió un error al crear la sala. Inténtalo de nuevo.");
                     }
+                } else {
+                    alert("Por favor, ingresa tu nombre.");
                 }
             });
         }
@@ -70,7 +76,11 @@ export class TuNombre extends HTMLElement {
                 justify-content: center;
                 font-family: sans-serif;
             }
-            input {
+            h1 {
+                color: #333;
+                margin-bottom: 20px;
+            }
+            input[type="text"] {
                 padding: 10px;
                 margin: 10px 0;
                 border: 1px solid #ccc;
@@ -87,6 +97,9 @@ export class TuNombre extends HTMLElement {
                 cursor: pointer;
                 width: 80%;
                 max-width: 200px;
+            }
+            button:hover {
+                background-color: #0056b3;
             }
             @media (max-width: 600px) {
                 h1 {

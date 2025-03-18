@@ -15,8 +15,10 @@ export class ShortIdPage extends HTMLElement {
 
     connectedCallback() {
         this.render();
+        // **Importante:** Escuchar la sala ANTES de suscribirse al estado
         stateFunctions.listenRoom();
         this.unsubscribe = stateFunctions.subscribe(() => this.render());
+        this.checkPlayerId(); // Verificar si el ID del jugador está presente
     }
 
     disconnectedCallback() {
@@ -24,6 +26,27 @@ export class ShortIdPage extends HTMLElement {
     }
 
     unsubscribe: (() => void) | undefined;
+
+    checkPlayerId() {
+        const currentState = stateFunctions.getState();
+        if (!currentState.id) {
+            console.error("ShortIdPage: No se encontró el ID del jugador en el estado.");
+            // **Posible solución:** Si el ID no está, podrías intentar recuperarlo de sessionStorage
+            const playerIdFromSession = sessionStorage.getItem("playerId");
+            if (playerIdFromSession) {
+                stateFunctions.setId(playerIdFromSession);
+                console.log("ShortIdPage: ID del jugador recuperado de sessionStorage:", playerIdFromSession);
+                // **Opcional:** Volver a renderizar para que la información se actualice
+                this.render();
+            } else {
+                // **Si aún no hay ID, considera redirigir a la página de inicio para que el usuario cree/ingrese de nuevo**
+                console.warn("ShortIdPage: No se encontró ID ni en el estado ni en sessionStorage. Redirigiendo a /tu-nombre.");
+                router.goTo('/tu-nombre');
+            }
+        } else {
+            console.log("ShortIdPage: ID del jugador encontrado en el estado:", currentState.id);
+        }
+    }
 
     render() {
         const currentState = stateFunctions.getState();

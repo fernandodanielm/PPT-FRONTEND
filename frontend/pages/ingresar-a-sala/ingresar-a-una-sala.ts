@@ -1,4 +1,4 @@
-// ingresar-a-una-sala.ts
+// frontend/src/pages/ingresar-a-una-sala.ts
 import backgroundImage from "../../assets/piedrapapelotijera.jpg";
 import { stateFunctions } from "../../state";
 import { router } from "../../router";
@@ -129,7 +129,7 @@ export class IngresarASala extends HTMLElement {
                         router.goTo(`/short-id/${responseData.roomId}`);
                     } else if (errorMessage) {
                         errorMessage.textContent = "Error al unirse a la sala. Verifica el código o intenta nuevamente.";
-                        console.error("Error al unirse o ID del jugador no encontrado en el estado.");
+                        console.error("Error al unirse o ID del jugador no encontrado en el estado.", stateFunctions.getState());
                     }
                 } else {
                     if (errorMessage) {
