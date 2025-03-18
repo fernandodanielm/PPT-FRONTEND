@@ -218,7 +218,7 @@ const stateFunctions = {
     
         try {
             console.log(`Enviando movimiento: ${move} para el jugador ${playerNumber} en la sala ${roomId}`);
-            const response = await fetch(`<span class="math-inline">\{API\_BASE\_URL\}/api/rooms/</span>{roomId}/move`, {
+            const response = await fetch(`${API_BASE_URL}/api/rooms/${roomId}/move`, { // URL CORRECTA
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
