@@ -120,20 +120,16 @@ export class IngresarASala extends HTMLElement {
             joinRoomButton.addEventListener("click", async () => {
                 const roomId = roomIdInput.value.trim();
                 const guestName = nameInput.value.trim();
-                const playerId = sessionStorage.getItem("playerId"); // Obtener el ID del sessionStorage
 
                 if (guestName && roomId) {
-                    if (playerId) {
-                        stateFunctions.setId(playerId);
-                        const response = await stateFunctions.saveRoomData(null, null, playerId, guestName, roomId);
-                        if (response?.roomId) {
-                            stateFunctions.setRoomId(response.roomId);
-                            router.goTo(`/short-id/${response.roomId}`);
-                        } else if (errorMessage) {
-                            errorMessage.textContent = "Error al unirse a la sala. Verifica el código.";
-                        }
+                    const responseData = await stateFunctions.saveRoomData(null, null, null, guestName, roomId);
+
+                    if (responseData?.roomId && stateFunctions.getState().id) {
+                        stateFunctions.setRoomId(responseData.roomId);
+                        router.goTo(`/short-id/${responseData.roomId}`);
                     } else if (errorMessage) {
-                        errorMessage.textContent = "Error: No se encontró el ID del jugador.";
+                        errorMessage.textContent = "Error al unirse a la sala. Verifica el código o intenta nuevamente.";
+                        console.error("Error al unirse o ID del jugador no encontrado en el estado.");
                     }
                 } else {
                     if (errorMessage) {
@@ -153,7 +149,7 @@ export class IngresarASala extends HTMLElement {
             if (input) {
                 input.addEventListener("input", () => {
                     if (errorMessage && errorMessage.textContent) {
-                        errorMessage.textContent = ""; // Limpiar el mensaje de error al escribir
+                        errorMessage.textContent = "";
                     }
                 });
             }

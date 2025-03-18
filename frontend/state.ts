@@ -252,7 +252,7 @@ const stateFunctions = {
     setRoomId: (roomId: string) => {
         stateFunctions.setState({ roomId });
     },
-    saveRoomData: async (ownerId: string | null, ownerName: string | null, guestId: string | null, guestName: string | null, roomId?: string) => {
+    async saveRoomData(ownerId: string | null, ownerName: string | null, guestId: string | null, guestName: string | null, roomId?: string) {
         try {
             const response = await fetch(`${API_BASE_URL}/api/guardardatos`, {
                 method: 'POST',
@@ -266,6 +266,14 @@ const stateFunctions = {
                 return null;
             }
             const data = await response.json();
+            // **Aquí es donde debes manejar la respuesta del backend que contiene el ID del jugador.**
+            // Asumo que el backend responderá con un objeto que incluye el 'userId'.
+            if (data && data.userId) {
+                stateFunctions.setId(data.userId);
+                sessionStorage.setItem("playerId", data.userId); // Persistir el ID en la sesión
+            } else {
+                console.error("El backend no devolvió el userId al guardar los datos.");
+            }
             return data;
         } catch (error) {
             console.error("Error de red al guardar datos:", error);
