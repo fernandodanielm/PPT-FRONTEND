@@ -2,9 +2,13 @@
 import { state, stateFunctions } from "../../state";
 import { router } from "../../router";
 import backgroundImage from "../../assets/piedrapapelotijera.jpg"; // Asegúrate de que la ruta sea correcta
+import { ref, onValue } from "firebase/database";
+import { rtdb } from "../../utils/rtdb";
 
 export class ResultPage extends HTMLElement {
     shadow: ShadowRoot;
+    unsubscribe: (() => void) | undefined;
+    realtimeUnsubscribe: (() => void) | undefined;
 
     constructor() {
         super();
@@ -14,13 +18,36 @@ export class ResultPage extends HTMLElement {
     connectedCallback() {
         this.render();
         this.unsubscribe = stateFunctions.subscribe(() => this.render());
+        this.setupRealtimeListeners();
     }
 
     disconnectedCallback() {
         this.unsubscribe?.();
+        this.removeRealtimeListeners();
     }
 
-    unsubscribe: (() => void) | undefined;
+    setupRealtimeListeners() {
+        if (state.roomId) {
+            const gameRef = ref(rtdb, `rooms/${state.roomId}/games/current`);
+            this.realtimeUnsubscribe = onValue(gameRef, (snapshot) => {
+                const data = snapshot.val();
+                console.log("Datos recibidos en ResultPage (onValue):", data);
+                if (data) {
+                    this.render(); // Forzar re-render para reflejar los cambios (el estado ya se actualiza en state.ts)
+                }
+            });
+        } else {
+            console.warn("No se puede configurar el listener en ResultPage, roomId no está definido.");
+        }
+    }
+
+    removeRealtimeListeners() {
+        if (this.realtimeUnsubscribe) {
+            this.realtimeUnsubscribe();
+            this.realtimeUnsubscribe = undefined;
+            console.log("Listeners en ResultPage removidos.");
+        }
+    }
 
     render() {
         const game = state.currentGame;

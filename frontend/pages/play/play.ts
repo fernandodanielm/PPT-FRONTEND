@@ -5,10 +5,13 @@ import backgroundImage from "../../assets/piedrapapelotijera.jpg"; // Asegúrate
 import piedraImg from "../../assets/piedra.png"; // Asegúrate de que la ruta sea correcta
 import papelImg from "../../assets/papel.png"; // Asegúrate de que la ruta sea correcta
 import tijeraImg from "../../assets/tijera.png"; // Asegúrate de que la ruta sea correcta
+import { ref, onValue } from "firebase/database";
+import { rtdb } from "../../utils/rtdb";
 
 export class PlayPage extends HTMLElement {
     shadow: ShadowRoot;
     myMove: Jugada | null = null;
+    unsubscribe: (() => void) | undefined;
 
     constructor() {
         super();
@@ -18,13 +21,41 @@ export class PlayPage extends HTMLElement {
     connectedCallback() {
         this.render();
         this.unsubscribe = stateFunctions.subscribe(() => this.render());
+        this.setupRealtimeListeners(); // Llamada para configurar los listeners en tiempo real
     }
 
     disconnectedCallback() {
         this.unsubscribe?.();
+        this.removeRealtimeListeners(); // Limpiar los listeners al desconectar
     }
 
-    unsubscribe: (() => void) | undefined;
+    realtimeUnsubscribe: (() => void) | undefined;
+
+    setupRealtimeListeners() {
+        if (state.roomId) {
+            const gameRef = ref(rtdb, `rooms/${state.roomId}/games/current`);
+            this.realtimeUnsubscribe = onValue(gameRef, (snapshot) => {
+                const data = snapshot.val();
+                console.log("Datos recibidos en PlayPage (onValue):", data);
+                if (data) {
+                    // No necesitas llamar a stateFunctions.setState aquí directamente,
+                    // ya que el listener en state.ts ya está haciendo eso.
+                    // Sin embargo, podrías reaccionar a los cambios si es necesario
+                    this.render(); // Forzar un re-render para asegurar que la UI se actualice
+                }
+            });
+        } else {
+            console.warn("No se puede configurar el listener en PlayPage, roomId no está definido.");
+        }
+    }
+
+    removeRealtimeListeners() {
+        if (this.realtimeUnsubscribe) {
+            this.realtimeUnsubscribe();
+            this.realtimeUnsubscribe = undefined;
+            console.log("Listeners en PlayPage removidos.");
+        }
+    }
 
     render() {
         const currentGame = state.currentGame;

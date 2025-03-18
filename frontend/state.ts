@@ -12,8 +12,8 @@ export interface Game {
     data: {
         player1Name: string | null;
         player2Name: string | null;
-        player1Move: Jugada | null; // Cambiado a player1Move
-        player2Move: Jugada | null; // Cambiado a player2Move
+        player1Move: Jugada | null;
+        player2Move: Jugada | null;
         gameOver: boolean;
         result: "draw" | "ownerWins" | "guestWins" | null;
     };
@@ -61,8 +61,8 @@ const stateFunctions = {
                 data: {
                     player1Name: state.player1Name,
                     player2Name: state.player2Name,
-                    player1Move: null, // Inicializado correctamente
-                    player2Move: null, // Inicializado correctamente
+                    player1Move: null,
+                    player2Move: null,
                     gameOver: false,
                     result: null,
                 },
@@ -133,8 +133,8 @@ const stateFunctions = {
                         data: {
                             player1Name: player1Name,
                             player2Name: player2Name,
-                            player1Move: data.player1Move, // Usa los nombres correctos
-                            player2Move: data.player2Move, // Usa los nombres correctos
+                            player1Move: data.player1Move,
+                            player2Move: data.player2Move,
                             gameOver: data.gameOver,
                             result: data.result,
                         },
@@ -175,15 +175,15 @@ const stateFunctions = {
 
                 if (users.length === 1) {
                     const player1 = users[0];
-                    stateFunctions.setPlayer1Name(player1.userName, player1.id);
+                    stateFunctions.setPlayer1Name(player1.userName || null, player1.id);
                     stateFunctions.setPlayer2Name(null, null);
                     stateFunctions.setPlayerNumber(state.id === player1.id ? 1 : undefined);
                 } else if (users.length === 2) {
                     const player1 = users.find(user => user.role === 'owner');
                     const player2 = users.find(user => user.role === 'guest');
                     if (player1 && player2) {
-                        stateFunctions.setPlayer1Name(player1.userName, player1.id);
-                        stateFunctions.setPlayer2Name(player2.userName, player2.id);
+                        stateFunctions.setPlayer1Name(player1.userName || null, player1.id);
+                        stateFunctions.setPlayer2Name(player2.userName || null, player2.id);
                         stateFunctions.setPlayerNumber(state.id === player1.id ? 1 : (state.id === player2.id ? 2 : undefined));
                     }
                 } else {
@@ -216,6 +216,31 @@ const stateFunctions = {
             return;
         }
 
+        const gameRef = ref(rtdb, `rooms/${roomId}/games/current`);
+
+        // **INCLUSIÓN (A PETICIÓN) DE onValue DENTRO DE setMove - NO RECOMENDADO**
+        onValue(gameRef, (snapshot) => {
+            const data = snapshot.val();
+            console.log("Datos recibidos DENTRO de setMove:", data);
+            if (data) {
+                stateFunctions.setState({
+                    ...state,
+                    currentGame: {
+                        roomId: state.roomId, // Asegúrate de incluir roomId del estado
+                        data: {
+                            player1Name: state.player1Name,
+                            player2Name: state.player2Name,
+                            player1Move: data.player1Move,
+                            player2Move: data.player2Move,
+                            gameOver: data.gameOver,
+                            result: data.result,
+                        },
+                        statistics: state.currentGame?.statistics || { player1: { wins: 0, losses: 0, draws: 0 }, player2: { wins: 0, losses: 0, draws: 0 } },
+                    },
+                });
+            }
+        });
+
         try {
             console.log(`Enviando movimiento: ${move} para el jugador ${playerNumber} en la sala ${roomId}`);
             const response = await fetch(`${API_BASE_URL}/api/rooms/${roomId}/move`, {
@@ -242,10 +267,10 @@ const stateFunctions = {
         stateFunctions.setState({ id });
     },
     setPlayer1Name: (name: string | null, id: string | null) => {
-        stateFunctions.setState({ player1Name: name, player1Id: id });
+        stateFunctions.setState({ player1Name: name });
     },
     setPlayer2Name: (name: string | null, id: string | null) => {
-        stateFunctions.setState({ player2Name: name, player2Id: id });
+        stateFunctions.setState({ player2Name: name });
     },
     setPlayerNumber: (number: 1 | 2 | undefined) => {
         stateFunctions.setState({ playerNumber: number });
@@ -269,9 +294,7 @@ const stateFunctions = {
             }
             const data = await response.json();
             console.log("Respuesta del backend al guardar datos:", data);
-            // **El backend ahora NO devuelve userId en la respuesta del POST /api/guardardatos.**
-            // **El ID del usuario se gestiona directamente en Firebase RTDB.**
-            return data; // Solo devolvemos la información de la sala (roomId)
+            return data;
         } catch (error) {
             console.error("Error de red al guardar datos:", error);
             return null;
@@ -288,15 +311,12 @@ const stateFunctions = {
             });
             if (!response.ok) {
                 console.error("resetGame - Error al resetear la sala:", response.status);
-                // Manejar el error (mostrar un mensaje al usuario, etc.)
             } else {
                 const data = await response.json();
                 console.log("resetGame - Sala reseteada:", data);
-                // Opcionalmente, podrías actualizar el estado local aquí si el backend devuelve información relevante
             }
         } catch (error) {
             console.error("resetGame - Error de red al resetear la sala:", error);
-            // Manejar el error
         }
     },
 };
