@@ -29,37 +29,16 @@ export class PlayPage extends HTMLElement {
         // this.removeRealtimeListeners(); // Eliminamos la llamada
     }
 
-    // realtimeUnsubscribe: (() => void) | undefined; // Eliminamos la propiedad
-
-    // setupRealtimeListeners() { // Eliminamos la función
-    //     if (state.roomId) {
-    //         const gameRef = ref(rtdb, `rooms/${state.roomId}/games/current`);
-    //         this.realtimeUnsubscribe = onValue(gameRef, (snapshot) => {
-    //             const data = snapshot.val();
-    //             console.log("Datos recibidos en PlayPage (onValue):", data);
-    //             if (data) {
-    //                 this.render();
-    //             }
-    //         });
-    //     } else {
-    //         console.warn("No se puede configurar el listener en PlayPage, roomId no está definido.");
-    //     }
-    // }
-
-    // removeRealtimeListeners() { // Eliminamos la función
-    //     if (this.realtimeUnsubscribe) {
-    //         this.realtimeUnsubscribe();
-    //         this.realtimeUnsubscribe = undefined;
-    //         console.log("Listeners en PlayPage removidos.");
-    //     }
-    // }
-
     render() {
         const currentGame = state.currentGame;
         const playerNumber = state.playerNumber;
         let opponentMove: Jugada | null = null;
 
-        if (currentGame?.data) {
+        if (!currentGame?.data) {
+            return `<div class="container"><h2>Cargando juego...</h2></div>`; // Muestra un mensaje de carga
+        }
+
+        if (currentGame.data) {
             if (playerNumber === 1) {
                 opponentMove = currentGame.data.player2Move;
             } else if (playerNumber === 2) {
