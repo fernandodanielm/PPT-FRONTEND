@@ -1,17 +1,17 @@
 // frontend/src/components/playpage.ts
 import { state, stateFunctions, Jugada } from "../../state";
 import { router } from "../../router";
-import backgroundImage from "../../assets/piedrapapelotijera.jpg"; // Asegúrate de que la ruta sea correcta
-import piedraImg from "../../assets/piedra.png"; // Asegúrate de que la ruta sea correcta
-import papelImg from "../../assets/papel.png"; // Asegúrate de que la ruta sea correcta
-import tijeraImg from "../../assets/tijera.png"; // Asegúrate de que la ruta sea correcta
-// import { ref, onValue } from "firebase/database"; // Eliminamos las importaciones no utilizadas
-// import { rtdb } from "../../utils/rtdb"; // Eliminamos las importaciones no utilizadas
+import backgroundImage from "../../assets/piedrapapelotijera.jpg";
+import piedraImg from "../../assets/piedra.png";
+import papelImg from "../../assets/papel.png";
+import tijeraImg from "../../assets/tijera.png";
 
 export class PlayPage extends HTMLElement {
+
     shadow: ShadowRoot;
     myMove: Jugada | null = null;
     unsubscribe: (() => void) | undefined;
+    areButtonsDisabled: boolean = false; // Nuevo estado para controlar la habilitación de botones
 
     constructor() {
         super();
@@ -21,12 +21,10 @@ export class PlayPage extends HTMLElement {
     connectedCallback() {
         this.render();
         this.unsubscribe = stateFunctions.subscribe(() => this.render());
-        // this.setupRealtimeListeners(); // Eliminamos la llamada
     }
 
     disconnectedCallback() {
         this.unsubscribe?.();
-        // this.removeRealtimeListeners(); // Eliminamos la llamada
     }
 
     render() {
@@ -35,7 +33,7 @@ export class PlayPage extends HTMLElement {
         let opponentMove: Jugada | null = null;
 
         if (!currentGame?.data) {
-            return `<div class="container"><h2>Cargando juego...</h2></div>`; // Muestra un mensaje de carga
+            return `<div class="container"><h2>Cargando juego...</h2></div>`;
         }
 
         if (currentGame.data) {
@@ -78,15 +76,15 @@ export class PlayPage extends HTMLElement {
                     border-radius: 8px;
                     cursor: pointer;
                     transition: opacity 0.3s ease;
-                    background-color: transparent; /* Fondo transparente para mostrar la imagen */
+                    background-color: transparent;
                 }
                 .move-button:hover {
                     opacity: 0.8;
                 }
                 .move-button img {
-                    width: 80px; /* Ajusta el tamaño según necesites */
+                    width: 80px;
                     height: 80px;
-                    display: block; /* Evita espacio extra debajo de la imagen */
+                    display: block;
                 }
                 .my-move {
                     color: white;
@@ -109,17 +107,21 @@ export class PlayPage extends HTMLElement {
                     border-radius: 8px;
                     cursor: pointer;
                 }
+                .disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                }
             </style>
             <div class="container">
                 <h2 class="title">Elige tu jugada</h2>
                 <div class="buttons-container">
-                    <button class="move-button" id="piedra">
+                    <button class="move-button ${this.areButtonsDisabled ? 'disabled' : ''}" id="piedra" ${this.areButtonsDisabled ? 'disabled' : ''}>
                         <img src="${piedraImg}" alt="Piedra">
                     </button>
-                    <button class="move-button" id="papel">
+                    <button class="move-button ${this.areButtonsDisabled ? 'disabled' : ''}" id="papel" ${this.areButtonsDisabled ? 'disabled' : ''}>
                         <img src="${papelImg}" alt="Papel">
                     </button>
-                    <button class="move-button" id="tijera">
+                    <button class="move-button ${this.areButtonsDisabled ? 'disabled' : ''}" id="tijera" ${this.areButtonsDisabled ? 'disabled' : ''}>
                         <img src="${tijeraImg}" alt="Tijera">
                     </button>
                 </div>
@@ -134,10 +136,13 @@ export class PlayPage extends HTMLElement {
     addListeners() {
         this.shadow.querySelectorAll('.move-button').forEach(button => {
             button.addEventListener('click', (e) => {
-                const target = e.target as HTMLButtonElement;
-                const move = target.id as Jugada;
-                this.myMove = move;
-                stateFunctions.setMove(move);
+                if (!this.areButtonsDisabled) {
+                    const target = e.target as HTMLButtonElement;
+                    const move = target.id as Jugada;
+                    this.myMove = move;
+                    this.areButtonsDisabled = true; // Deshabilitar botones al hacer clic
+                    stateFunctions.setMove(move);
+                }
             });
         });
 

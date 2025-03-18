@@ -1,9 +1,9 @@
 // frontend/src/state.ts
 import { ref, onValue, push, update, get } from "firebase/database";
 import { rtdb } from "./utils/rtdb";
-import { v4 as uuidv4 } from 'uuid'; // Importa la librería para generar UUIDs
+import { v4 as uuidv4 } from 'uuid';
 
-const API_BASE_URL = "https://ppt-backend-1.onrender.com"; // Reemplaza con la URL de tu backend
+const API_BASE_URL = "https://ppt-backend-1.onrender.com";
 
 export type Jugada = "piedra" | "papel" | "tijera";
 
@@ -29,11 +29,11 @@ type State = {
     roomId: string;
     currentGame: Game | null;
     playerNumber: 1 | 2 | undefined;
-    id: string | null; // Este será el ID del usuario en el frontend
+    id: string | null;
     rtdbRoomId: string;
     setCurrentGame: (game: Game | null) => void;
-    player1Id: string | null; // ID del usuario 1 en RTDB
-    player2Id: string | null; // ID del usuario 2 en RTDB
+    player1Id: string | null;
+    player2Id: string | null;
 };
 
 const state: State = {
@@ -42,7 +42,7 @@ const state: State = {
     roomId: "",
     currentGame: null,
     playerNumber: undefined,
-    id: null, // Inicialmente null, se generará al crear/unirse
+    id: null,
     rtdbRoomId: "",
     setCurrentGame: (game: Game | null) => {
         state.currentGame = game;
@@ -205,47 +205,62 @@ const stateFunctions = {
         const currentState = stateFunctions.getState();
         const roomId = currentState.roomId;
         const playerNumber = currentState.playerNumber;
-    
+
         if (!roomId) {
             console.error("No se encontró el roomId");
             return;
         }
-    
+
         if (playerNumber === undefined) {
             console.error("No se ha asignado un número de jugador.");
             return;
         }
-    
+
         try {
             console.log(`Enviando movimiento: ${move} para el jugador ${playerNumber} en la sala ${roomId}`);
-            const response = await fetch(`${API_BASE_URL}/api/rooms/${roomId}/move`, { // URL CORRECTA
+            const response = await fetch(`${API_BASE_URL}/api/rooms/${roomId}/move`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ playerNumber, move }),
             });
-    
+
             if (!response.ok) {
                 console.error("Error al enviar el movimiento al backend:", response.status, await response.text());
+                // Aquí podrías agregar lógica para re-habilitar los botones en caso de error
+                const errorData = await response.json();
+                if (errorData.message === "Movimiento inválido.") {
+                    // Opcional: Mostrar un mensaje al usuario indicando que su movimiento fue inválido.
+                }
+                const playPage = document.querySelector('play-page');
+                if (playPage) {
+                    (playPage as any).areButtonsDisabled = false;
+                    (playPage as any).render(); // Re-renderizar para habilitar los botones
+                }
             } else {
                 const data = await response.json();
                 console.log("Respuesta del backend al enviar el movimiento:", data);
-                // Aquí podrías reaccionar a data.message o data.result si es necesario para feedback inmediato
+                // El backend ahora maneja la lógica de gameOver, el frontend reacciona a los cambios en listenRoom
             }
             console.log("Movimiento enviado con éxito (o se intentó)");
         } catch (error) {
             console.error("Error de red al enviar el movimiento:", error);
+            const playPage = document.querySelector('play-page');
+            if (playPage) {
+                (playPage as any).areButtonsDisabled = false;
+                (playPage as any).render(); // Re-renderizar para habilitar los botones
+            }
         }
     },
     setId: (id: string | null) => {
         stateFunctions.setState({ id });
     },
     setPlayer1Name: (name: string | null, id: string | null) => {
-        stateFunctions.setState({ player1Name: name });
+        stateFunctions.setState({ player1Name: name, player1Id: id });
     },
     setPlayer2Name: (name: string | null, id: string | null) => {
-        stateFunctions.setState({ player2Name: name });
+        stateFunctions.setState({ player2Name: name, player2Id: id });
     },
     setPlayerNumber: (number: 1 | 2 | undefined) => {
         stateFunctions.setState({ playerNumber: number });
