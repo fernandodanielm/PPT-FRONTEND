@@ -12,8 +12,8 @@ export interface Game {
     data: {
         player1Name: string | null;
         player2Name: string | null;
-        ownerPlay: Jugada | null;
-        guestPlay: Jugada | null;
+        player1Move: Jugada | null; // Cambiado a player1Move
+        player2Move: Jugada | null; // Cambiado a player2Move
         gameOver: boolean;
         result: "draw" | "ownerWins" | "guestWins" | null;
     };
@@ -61,8 +61,8 @@ const stateFunctions = {
                 data: {
                     player1Name: state.player1Name,
                     player2Name: state.player2Name,
-                    ownerPlay: null,
-                    guestPlay: null,
+                    player1Move: null, // Inicializado correctamente
+                    player2Move: null, // Inicializado correctamente
                     gameOver: false,
                     result: null,
                 },
@@ -133,8 +133,8 @@ const stateFunctions = {
                         data: {
                             player1Name: player1Name,
                             player2Name: player2Name,
-                            ownerPlay: data.player1Move,
-                            guestPlay: data.player2Move,
+                            player1Move: data.player1Move, // Usa los nombres correctos
+                            player2Move: data.player2Move, // Usa los nombres correctos
                             gameOver: data.gameOver,
                             result: data.result,
                         },

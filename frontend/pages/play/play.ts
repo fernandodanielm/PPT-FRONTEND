@@ -27,6 +27,18 @@ export class PlayPage extends HTMLElement {
     unsubscribe: (() => void) | undefined;
 
     render() {
+        const currentGame = state.currentGame;
+        const playerNumber = state.playerNumber;
+        let opponentMove: Jugada | null = null;
+
+        if (currentGame) {
+            if (playerNumber === 1) {
+                opponentMove = currentGame.data.player2Move;
+            } else if (playerNumber === 2) {
+                opponentMove = currentGame.data.player1Move;
+            }
+        }
+
         this.shadow.innerHTML = `
             <style>
                 .container {
@@ -75,6 +87,12 @@ export class PlayPage extends HTMLElement {
                     margin-bottom: 20px;
                     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
                 }
+                .opponent-move {
+                    color: yellow;
+                    font-size: 1.2em;
+                    margin-bottom: 15px;
+                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+                }
                 #resultButton {
                     padding: 12px 25px;
                     font-size: 1em;
@@ -99,6 +117,7 @@ export class PlayPage extends HTMLElement {
                     </button>
                 </div>
                 ${this.myMove ? `<p class="my-move">Tu jugada: ${this.myMove}</p>` : ''}
+                ${opponentMove ? `<p class="opponent-move">Jugada del oponente: ${opponentMove}</p>` : '<p class="opponent-move">Esperando jugada del oponente...</p>'}
                 <button id="resultButton">Ver Resultado</button>
             </div>
         `;
@@ -121,7 +140,7 @@ export class PlayPage extends HTMLElement {
                 if (state.currentGame?.data.gameOver) {
                     router.goTo('/result');
                 } else {
-                    alert('El juego aún no termina.');
+                    alert('Espera a que ambos jugadores hagan su movimiento.');
                 }
             });
         }

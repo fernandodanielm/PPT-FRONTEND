@@ -28,10 +28,11 @@ export class ResultPage extends HTMLElement {
         const player2Name = state.player2Name;
         const player1Id = state.player1Id;
         const player2Id = state.player2Id;
-        const ownerPlay = game?.data.ownerPlay; // Usar ownerPlay
-        const guestPlay = game?.data.guestPlay; // Usar guestPlay
+        const player1Move = game?.data.player1Move; // Usar player1Move
+        const player2Move = game?.data.player2Move; // Usar player2Move
         const result = game?.data.result;
         const statistics = game?.statistics;
+        const playerNumber = state.playerNumber;
 
         let resultText = '';
         if (result === 'ownerWins') {
@@ -109,13 +110,13 @@ export class ResultPage extends HTMLElement {
                     <div class="player-info">
                         <h3>${player1Name || "Jugador 1"}</h3>
                         <p>ID: ${player1Id || "No ID"}</p>
-                        ${ownerPlay ? `<p>Movimiento: ${ownerPlay}</p>` : '<p>Movimiento: No jugó</p>'}
+                        ${player1Move ? `<p>Movimiento: ${player1Move}</p>` : '<p>Movimiento: No jugó</p>'}
                     </div>
 
                     <div class="player-info">
                         <h3>${player2Name || "Jugador 2"}</h3>
                         <p>ID: ${player2Id || "No ID"}</p>
-                        ${guestPlay ? `<p>Movimiento: ${guestPlay}</p>` : '<p>Movimiento: No jugó</p>'}
+                        ${player2Move ? `<p>Movimiento: ${player2Move}</p>` : '<p>Movimiento: No jugó</p>'}
                     </div>
 
                     ${statistics ? `
