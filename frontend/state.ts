@@ -1,6 +1,7 @@
 // frontend/src/state.ts
 import { ref, onValue, push, update, get } from "firebase/database";
 import { rtdb } from "./utils/rtdb";
+import { v4 as uuidv4 } from 'uuid'; // Importa la librería para generar UUIDs
 
 const API_BASE_URL = "https://ppt-backend-1.onrender.com"; // Reemplaza con la URL de tu backend
 
@@ -11,8 +12,8 @@ export interface Game {
     data: {
         player1Name: string | null;
         player2Name: string | null;
-        ownerPlay: Jugada | null; // Cambiado de player1Play
-        guestPlay: Jugada | null; // Cambiado de player2Play
+        ownerPlay: Jugada | null;
+        guestPlay: Jugada | null;
         gameOver: boolean;
         result: "draw" | "ownerWins" | "guestWins" | null;
     };
@@ -28,11 +29,11 @@ type State = {
     roomId: string;
     currentGame: Game | null;
     playerNumber: 1 | 2 | undefined;
-    id: string | null;
+    id: string | null; // Este será el ID del usuario en el frontend
     rtdbRoomId: string;
     setCurrentGame: (game: Game | null) => void;
-    player1Id: string | null;
-    player2Id: string | null;
+    player1Id: string | null; // ID del usuario 1 en RTDB
+    player2Id: string | null; // ID del usuario 2 en RTDB
 };
 
 const state: State = {
@@ -41,7 +42,7 @@ const state: State = {
     roomId: "",
     currentGame: null,
     playerNumber: undefined,
-    id: null,
+    id: null, // Inicialmente null, se generará al crear/unirse
     rtdbRoomId: "",
     setCurrentGame: (game: Game | null) => {
         state.currentGame = game;
@@ -58,8 +59,8 @@ const stateFunctions = {
             state.currentGame = {
                 roomId: state.roomId || "",
                 data: {
-                    player1Name: state.player1Name, // Copiar player1Name
-                    player2Name: state.player2Name, // Copiar player2Name
+                    player1Name: state.player1Name,
+                    player2Name: state.player2Name,
                     ownerPlay: null,
                     guestPlay: null,
                     gameOver: false,
@@ -132,10 +133,10 @@ const stateFunctions = {
                         data: {
                             player1Name: player1Name,
                             player2Name: player2Name,
-                            ownerPlay: data.ownerPlay, // Usar ownerPlay
-                            guestPlay: data.guestPlay, // Usar guestPlay
+                            ownerPlay: data.player1Move,
+                            guestPlay: data.player2Move,
                             gameOver: data.gameOver,
-                            result: data.result, // Incluir el resultado
+                            result: data.result,
                         },
                         statistics: state.currentGame?.statistics || { player1: { wins: 0, losses: 0, draws: 0 }, player2: { wins: 0, losses: 0, draws: 0 } },
                     },
@@ -216,7 +217,7 @@ const stateFunctions = {
         }
 
         try {
-            console.log(`Enviando movimiento: ${move} para el jugador ${playerNumber} en la sala ${roomId}`); // Log antes de la petición
+            console.log(`Enviando movimiento: ${move} para el jugador ${playerNumber} en la sala ${roomId}`);
             const response = await fetch(`${API_BASE_URL}/api/rooms/${roomId}/move`, {
                 method: 'PUT',
                 headers: {
@@ -268,15 +269,9 @@ const stateFunctions = {
             }
             const data = await response.json();
             console.log("Respuesta del backend al guardar datos:", data);
-            // **Asegúrate de que el backend devuelve un 'userId' en esta respuesta.**
-            if (data && data.userId) {
-                console.log("userId recibido del backend:", data.userId);
-                stateFunctions.setId(data.userId);
-                sessionStorage.setItem("playerId", data.userId); // Persistir el ID en la sesión
-            } else {
-                console.error("El backend no devolvió el userId al guardar los datos.", data);
-            }
-            return data;
+            // **El backend ahora NO devuelve userId en la respuesta del POST /api/guardardatos.**
+            // **El ID del usuario se gestiona directamente en Firebase RTDB.**
+            return data; // Solo devolvemos la información de la sala (roomId)
         } catch (error) {
             console.error("Error de red al guardar datos:", error);
             return null;

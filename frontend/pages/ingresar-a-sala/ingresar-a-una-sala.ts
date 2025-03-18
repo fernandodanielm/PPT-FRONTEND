@@ -2,6 +2,7 @@
 import backgroundImage from "../../assets/piedrapapelotijera.jpg";
 import { stateFunctions } from "../../state";
 import { router } from "../../router";
+import { v4 as uuidv4 } from "uuid"; // Importa la librería para generar UUIDs
 
 export class IngresarASala extends HTMLElement {
     shadow: ShadowRoot;
@@ -122,14 +123,20 @@ export class IngresarASala extends HTMLElement {
                 const guestName = nameInput.value.trim();
 
                 if (guestName && roomId) {
-                    const responseData = await stateFunctions.saveRoomData(null, null, null, guestName, roomId);
+                    // Generar un ID único para el guest en el frontend
+                    const guestId = uuidv4();
+                    stateFunctions.setId(guestId);
+                    stateFunctions.setPlayer2Name(guestName, guestId); // Guardar nombre e ID localmente
 
-                    if (responseData?.roomId && stateFunctions.getState().id) {
+                    const responseData = await stateFunctions.saveRoomData(null, null, guestId, guestName, roomId);
+
+                    if (responseData?.roomId) {
                         stateFunctions.setRoomId(responseData.roomId);
+                        stateFunctions.listenRoom(); // Comenzar a escuchar los cambios en la sala
                         router.goTo(`/short-id/${responseData.roomId}`);
                     } else if (errorMessage) {
                         errorMessage.textContent = "Error al unirse a la sala. Verifica el código o intenta nuevamente.";
-                        console.error("Error al unirse o ID del jugador no encontrado en el estado.", stateFunctions.getState());
+                        console.error("Error al unirse a la sala:", responseData);
                     }
                 } else {
                     if (errorMessage) {
