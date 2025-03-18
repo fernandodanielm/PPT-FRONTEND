@@ -120,12 +120,12 @@ export class IngresarASala extends HTMLElement {
             joinRoomButton.addEventListener("click", async () => {
                 const roomId = roomIdInput.value.trim();
                 const guestName = nameInput.value.trim();
+                const playerId = sessionStorage.getItem("playerId"); // Obtener el ID del sessionStorage
 
                 if (guestName && roomId) {
-                    const storageId = sessionStorage.getItem("playerId");
-                    if (storageId) {
-                        stateFunctions.setId(storageId);
-                        const response = await stateFunctions.saveRoomData(null, null, storageId, guestName, roomId);
+                    if (playerId) {
+                        stateFunctions.setId(playerId);
+                        const response = await stateFunctions.saveRoomData(null, null, playerId, guestName, roomId);
                         if (response?.roomId) {
                             stateFunctions.setRoomId(response.roomId);
                             router.goTo(`/short-id/${response.roomId}`);
