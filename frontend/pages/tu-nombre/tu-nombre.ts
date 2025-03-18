@@ -33,7 +33,7 @@ export class TuNombre extends HTMLElement {
                 const ownerId = (ownerIdInput as HTMLInputElement).value;
                 if (playerName) {
                     try {
-                        stateFunctions.setId(ownerId);
+                        stateFunctions.setId(ownerId); // <--------------------- ESTA ES LA MODIFICACIÓN IMPORTANTE
                         stateFunctions.setPlayer1Name(playerName, ownerId); // Pasar ownerId como userId
                         const response = await stateFunctions.saveRoomData(ownerId, playerName, null, null);
                         console.log("Respuesta completa del backend:", response); // Agrega esto para ver la estructura completa

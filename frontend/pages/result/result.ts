@@ -1,5 +1,6 @@
-import { stateFunctions } from "../../state";
+import { state, stateFunctions } from "../../state";
 import backgroundImage from "../../assets/piedrapapelotijera.jpg"; // Importa la imagen de fondo
+import { router } from "../../router"; // Importa el router
 
 export class ResultPage extends HTMLElement {
     constructor() {
@@ -20,39 +21,50 @@ export class ResultPage extends HTMLElement {
             return;
         }
 
-        const player1Move = currentGame.data.player1Move;
-        const player2Move = currentGame.data.player2Move;
-        const player1Name = currentGame.data.player1Name;
-        const player2Name = currentGame.data.player2Name;
+        const player1Move = currentGame.data.player1Play;
+        const player2Move = currentGame.data.player2Play;
+        const player1Name = currentState.player1Name;
+        const player2Name = currentState.player2Name;
+        const player1Id = currentState.player1Id;
+        const player2Id = currentState.player2Id;
+        const result = currentGame.data.result;
 
         let resultMessage = "";
 
-        if (player1Move && player2Move && currentGame.statistics) {
-            // Ambos movimientos están disponibles y hay estadísticas, podemos mostrar el resultado
-            const statistics = currentGame.statistics;
-
-            if (statistics.player1.wins > statistics.player2.wins) {
-                resultMessage = `${player1Name} gana!`;
-            } else if (statistics.player2.wins > statistics.player1.wins) {
-                resultMessage = `${player2Name} gana!`;
-            } else {
+        if (player1Move && player2Move && result !== undefined) {
+            if (result === 0) {
                 resultMessage = "¡Empate!";
+            } else if (result === 1) {
+                resultMessage = `${player1Name} gana!`;
+            } else if (result === 2) {
+                resultMessage = `${player2Name} gana!`;
             }
         } else {
-            // Uno o ambos movimientos son null, o no hay estadísticas
-            resultMessage = "Esperando movimientos...";
+            resultMessage = "Esperando resultado...";
         }
 
         this.innerHTML = `
             <div class="result-container">
                 <h1>Resultado</h1>
-                <p>${player1Name}: ${player1Move || "Esperando..."}</p>
-                <p>${player2Name}: ${player2Move || "Esperando..."}</p>
+                <div class="player-info">
+                    <p>Jugador 1:</p>
+                    <p>Nombre: ${player1Name || "Desconocido"}</p>
+                    <p>ID: ${player1Id || "No ID"}</p>
+                    <p>Movimiento: ${player1Move || "No jugó"}</p>
+                </div>
+                <div class="player-info">
+                    <p>Jugador 2:</p>
+                    <p>Nombre: ${player2Name || "Desconocido"}</p>
+                    <p>ID: ${player2Id || "No ID"}</p>
+                    <p>Movimiento: ${player2Move || "No jugó"}</p>
+                </div>
                 <h2>${resultMessage}</h2>
                 ${currentGame.statistics ? `
-                    <p>Estadísticas:</p>
-                    <p>${player1Name}: Victorias ${currentGame.statistics.player1.wins}, Derrotas ${currentGame.statistics.player1.losses}, Empates ${currentGame.statistics.player1.draws}</p>
-                    <p>${player2Name}: Victorias ${currentGame.statistics.player2.wins}, Derrotas ${currentGame.statistics.player2.losses}, Empates ${currentGame.statistics.player2.draws}</p>
+                    <div class="statistics">
+                        <h3>Estadísticas:</h3>
+                        <p>${player1Name}: Victorias ${currentGame.statistics.player1.wins}, Derrotas ${currentGame.statistics.player1.losses}, Empates ${currentGame.statistics.player1.draws}</p>
+                        <p>${player2Name}: Victorias ${currentGame.statistics.player2.wins}, Derrotas ${currentGame.statistics.player2.losses}, Empates ${currentGame.statistics.player2.draws}</p>
+                    </div>
                 ` : ''}
                 <button class="restart-button">Volver a jugar</button>
             </div>
@@ -60,10 +72,15 @@ export class ResultPage extends HTMLElement {
 
         const restartButton = this.querySelector(".restart-button");
         if (restartButton) {
-            restartButton.addEventListener("click", () => {
-                // Aquí debes implementar la lógica para reiniciar el juego en el backend
-                // y luego redirigir a /play
-                (window as any).goTo("/play");
+            restartButton.addEventListener("click", async () => {
+                if (currentState.roomId) {
+                    // Llama a una función en stateFunctions para resetear el juego en el backend
+                    await stateFunctions.resetGame(currentState.roomId);
+                    router.goTo("/play");
+                } else {
+                    alert("Error: No se encontró el ID de la sala para reiniciar.");
+                    router.goTo("/"); // O redirige a otra página apropiada
+                }
             });
         }
 
@@ -83,10 +100,41 @@ export class ResultPage extends HTMLElement {
                 color: white; /* Ajusta el color del texto para que sea legible sobre la imagen */
             }
 
+            .player-info {
+                margin-bottom: 15px;
+                padding: 15px;
+                border-radius: 8px;
+                background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para mejor legibilidad */
+            }
+
+            .player-info p {
+                margin: 5px 0;
+            }
+
+            h1, h2, h3 {
+                margin-bottom: 20px;
+            }
+
+            .statistics {
+                margin-top: 20px;
+                padding: 15px;
+                border-radius: 8px;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+
             .restart-button {
                 padding: 10px 20px;
                 font-size: 16px;
                 cursor: pointer;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                margin-top: 20px;
+            }
+
+            .restart-button:hover {
+                background-color: #0056b3;
             }
         `;
         this.appendChild(style);

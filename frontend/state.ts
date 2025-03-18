@@ -265,6 +265,28 @@ const stateFunctions = {
             return null;
         }
     },
+    async resetGame(roomId: string | null) {
+        if (!roomId) {
+            console.error("resetGame - No se proporcionó roomId.");
+            return;
+        }
+        try {
+            const response = await fetch(`<span class="math-inline">\{API\_BASE\_URL\}/rooms/</span>{roomId}/reset`, {
+                method: 'POST',
+            });
+            if (!response.ok) {
+                console.error("resetGame - Error al resetear la sala:", response.status);
+                // Manejar el error (mostrar un mensaje al usuario, etc.)
+            } else {
+                const data = await response.json();
+                console.log("resetGame - Sala reseteada:", data);
+                // Opcionalmente, podrías actualizar el estado local aquí si el backend devuelve información relevante
+            }
+        } catch (error) {
+            console.error("resetGame - Error de red al resetear la sala:", error);
+            // Manejar el error
+        }
+    },
 };
 
 export { state, stateFunctions };

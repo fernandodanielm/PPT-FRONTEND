@@ -1,6 +1,7 @@
 import backgroundImage from "../../assets/piedrapapelotijera.jpg";
 import { state, stateFunctions } from "../../state";
 import { router } from "../../router";
+import { v4 as uuidv4 } from "uuid"; // Importa uuid para generar un ID si no existe en el estado
 
 export class IngresarASala extends HTMLElement {
     shadow: ShadowRoot;
@@ -105,17 +106,26 @@ export class IngresarASala extends HTMLElement {
 
         if (unirseButtonElement && roomIdInputElement && nombreInputElement) {
             unirseButtonElement.addEventListener("click", async () => {
-                const guestName = nombreInputElement.value;
-                const roomId = roomIdInputElement.value;
-                const guestId = state.id || Math.random().toString(36).substring(2, 15);
+                const guestName = nombreInputElement.value.trim();
+                const roomId = roomIdInputElement.value.trim();
+                let guestId = state.id; // Intenta usar el ID del estado
 
-                stateFunctions.setPlayer2Name(guestName, guestId);
-                stateFunctions.setRoomId(roomId);
-                await stateFunctions.saveRoomData(null, null, guestId, guestName, roomId); // Pasar roomId
-                setTimeout(() => {
-                    stateFunctions.listenRoom();
-                    router.goTo(`/short-id/${roomId}`);
-                }, 100);
+                if (!guestId) {
+                    guestId = uuidv4(); // Genera un nuevo ID si no existe en el estado
+                    stateFunctions.setId(guestId); // Guarda el nuevo ID en el estado
+                }
+
+                if (guestName && roomId) {
+                    stateFunctions.setPlayer2Name(guestName, guestId);
+                    stateFunctions.setRoomId(roomId);
+                    await stateFunctions.saveRoomData(null, null, guestId, guestName, roomId); // Pasar roomId y guestId
+                    setTimeout(() => {
+                        stateFunctions.listenRoom();
+                        router.goTo(`/short-id/${roomId}`);
+                    }, 100);
+                } else {
+                    alert("Por favor, ingresa tu nombre y el código de la sala.");
+                }
             });
         }
     }

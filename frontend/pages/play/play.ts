@@ -4,17 +4,19 @@ import tijeraImage from "../../assets/tijera.png";
 import papelImage from "../../assets/papel.png";
 import backgroundImage from "../../assets/piedrapapelotijera.jpg";
 import { getDatabase, ref, onValue } from "firebase/database";
+import { router } from "../../router"; // Importa el router si aún no lo has hecho
 
 type Play = "piedra" | "papel" | "tijera";
 
 export class PlayPage extends HTMLElement {
     shadow: ShadowRoot | null;
     roomId: string | null = null;
-    playerNumber: 1 | 2 = 1;
+    playerNumber: 1 | 2 | undefined; // Ahora puede ser undefined inicialmente
     unsubscribe: (() => void) | null = null;
     myMove: Play | null = null;
     opponentMove: Play | null = null;
     timerInterval: NodeJS.Timeout | number | null = null;
+    timeLeft: number = 7;
 
     constructor() {
         super();
@@ -22,21 +24,85 @@ export class PlayPage extends HTMLElement {
     }
 
     connectedCallback() {
+        this.setPlayerNumber(); // Determinar el número de jugador al conectar
         this.render();
         this.subscribeToState();
+        this.startTimer();
     }
 
     disconnectedCallback() {
         if (this.unsubscribe) {
             this.unsubscribe();
         }
+        this.stopTimer();
+    }
+
+    setPlayerNumber() {
+        const currentState = stateFunctions.getState();
+        this.playerNumber = currentState.playerNumber;
+        this.roomId = currentState.roomId;
+        console.log("PlayPage - Player Number:", this.playerNumber, "Room ID:", this.roomId);
+        if (!this.playerNumber || !this.roomId) {
+            // Si no se ha establecido el número de jugador o el ID de la sala,
+            // podrías redirigir al usuario o mostrar un mensaje de error.
+            console.error("PlayPage - Player number o Room ID no definidos.");
+            // router.goTo("/"); // Ejemplo de redirección
+        }
     }
 
     subscribeToState() {
         this.unsubscribe = stateFunctions.subscribe(() => {
-            console.log("El estado ha cambiado, actualizando UI...");
+            console.log("PlayPage - El estado ha cambiado, actualizando UI...");
             this.updateUI();
         });
+    }
+
+    startTimer() {
+        this.timeLeft = 7;
+        const timerElement = this.shadow?.querySelector("#timer") as HTMLElement;
+        const timerContainer = this.shadow?.querySelector(".timer") as HTMLElement;
+        if (timerContainer) {
+            timerContainer.style.animation = `countdown ${this.timeLeft}s linear forwards`;
+        }
+
+        this.stopTimer(); // Asegurarse de que no haya un timer previo corriendo
+
+        this.timerInterval = setInterval(() => {
+            this.timeLeft--;
+            if (timerElement) {
+                timerElement.textContent = this.timeLeft.toString();
+            }
+            if (this.timeLeft === 0) {
+                this.stopTimer();
+                const moves = this.shadow?.querySelector(".moves") as HTMLElement | null;
+                this.checkAndHideMoves(moves);
+                this.sendAutomaticMove(); // Enviar un movimiento automático si el tiempo se agota
+            }
+        }, 1000);
+    }
+
+    stopTimer() {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+        const timerContainer = this.shadow?.querySelector(".timer") as HTMLElement;
+        if (timerContainer) {
+            timerContainer.style.animation = ''; // Resetear la animación
+        }
+    }
+
+    async sendAutomaticMove() {
+        const moves = ["piedra", "papel", "tijera"] as Play[];
+        const randomMove = moves[Math.floor(Math.random() * moves.length)];
+        console.log("PlayPage - Tiempo agotado, enviando movimiento automático:", randomMove);
+        if (this.roomId && this.playerNumber) {
+            await stateFunctions.setMove(randomMove);
+            this.myMove = randomMove;
+            this.updateUI();
+            const movesContainer = this.shadow?.querySelector(".moves") as HTMLElement | null;
+            this.checkAndHideMoves(movesContainer);
+        }
     }
 
     render() {
@@ -46,7 +112,7 @@ export class PlayPage extends HTMLElement {
                 <div class="play-container">
                     <h1>Elige tu jugada</h1>
                     <div class="timer">
-                        <span id="timer">7</span>
+                        <span id="timer">${this.timeLeft}</span>
                     </div>
                     <div class="moves">
                         <button id="piedra"><img src="${piedraImage}" alt="piedra"/></button>
@@ -63,27 +129,11 @@ export class PlayPage extends HTMLElement {
             `;
 
             const moves = shadowRoot.querySelector(".moves") as HTMLElement | null;
-            const timerElement = shadowRoot.querySelector("#timer") as HTMLElement;
-            const timerContainer = shadowRoot.querySelector(".timer") as HTMLElement;
             const goToResultButton = shadowRoot.getElementById("goToResultButton") as HTMLButtonElement;
-
-            let timeLeft = 7;
-            timerContainer.style.animation = `countdown ${timeLeft}s linear forwards`;
-
-            this.timerInterval = setInterval(() => {
-                timeLeft--;
-                if (timerElement) {
-                    timerElement.textContent = timeLeft.toString();
-                }
-                if (timeLeft === 0) {
-                    clearInterval(this.timerInterval!);
-                    this.checkAndHideMoves(moves);
-                }
-            }, 1000);
 
             moves?.addEventListener("click", async (e) => {
                 const target = (e.target as HTMLElement).closest("button") as HTMLButtonElement;
-                if (target) {
+                if (target && this.roomId && this.playerNumber && !this.myMove) {
                     const buttons = shadowRoot.querySelectorAll(".moves button");
                     buttons.forEach((button) => {
                         const img = button.querySelector("img");
@@ -94,12 +144,11 @@ export class PlayPage extends HTMLElement {
                         }
                     });
 
-                    const myMove = target.id as Play;
-                    if (this.roomId) {
-                        await stateFunctions.setMove(myMove);
-                        this.updateUI();
-                        this.checkAndHideMoves(moves);
-                    }
+                    this.myMove = target.id as Play;
+                    this.stopTimer();
+                    await stateFunctions.setMove(this.myMove);
+                    this.updateUI();
+                    this.checkAndHideMoves(moves);
                 }
             });
 
@@ -207,47 +256,41 @@ export class PlayPage extends HTMLElement {
             shadowRoot.appendChild(style);
         }
     }
+
     async updateUI() {
         const currentState = stateFunctions.getState();
-        const roomId = currentState.currentGame?.roomId;
-        if (roomId) {
-            const db = getDatabase();
-            const gameRef = ref(db, `games/${roomId}`);
-            onValue(gameRef, (snapshot) => {
-                const gameData = snapshot.val();
-                if (gameData) {
-                    if (gameData.gameOver) {
-                        const result = gameData.result;
-                        const tuJugadaElement = this.shadow?.querySelector("#tu-jugada");
-                        const jugadaOponenteElement = this.shadow?.querySelector("#jugada-oponente");
-                        const resultadoElement = this.shadow?.querySelector("#resultado");
-    
-                        if (tuJugadaElement) tuJugadaElement.textContent = this.playerNumber === 1 ? gameData.player1Move : gameData.player2Move;
-                        if (jugadaOponenteElement) jugadaOponenteElement.textContent = this.playerNumber === 1 ? gameData.player2Move : gameData.player1Move;
-    
-                        if (resultadoElement) {
-                            if (result === 0) {
-                                resultadoElement.textContent = "Empate";
-                            } else if (this.playerNumber === result) {
-                                resultadoElement.textContent = "Ganaste";
-                            } else {
-                                resultadoElement.textContent = "Perdiste";
-                            }
-                        }
+        const currentGameData = currentState.currentGame?.data;
+        const tuJugadaElement = this.shadow?.querySelector("#tu-jugada");
+        const jugadaOponenteElement = this.shadow?.querySelector("#jugada-oponente");
+        const resultadoElement = this.shadow?.querySelector("#resultado");
+
+        if (currentGameData) {
+            const player1Move = currentGameData.player1Play;
+            const player2Move = currentGameData.player2Play;
+
+            if (this.playerNumber === 1) {
+                if (tuJugadaElement) tuJugadaElement.textContent = this.myMove || player1Move || '';
+                if (jugadaOponenteElement) jugadaOponenteElement.textContent = player2Move || '';
+            } else if (this.playerNumber === 2) {
+                if (tuJugadaElement) tuJugadaElement.textContent = this.myMove || player2Move || '';
+                if (jugadaOponenteElement) jugadaOponenteElement.textContent = player1Move || '';
+            }
+
+            if (currentGameData.gameOver) {
+                this.stopTimer();
+                const result = currentGameData.result;
+                if (resultadoElement) {
+                    if (result === 0) {
+                        resultadoElement.textContent = "Empate";
+                    } else if (this.playerNumber === result) {
+                        resultadoElement.textContent = "Ganaste";
                     } else {
-                         const tuJugadaElement = this.shadow?.querySelector("#tu-jugada");
-                        const jugadaOponenteElement = this.shadow?.querySelector("#jugada-oponente");
-                        if (tuJugadaElement) tuJugadaElement.textContent = this.playerNumber === 1 ? gameData.player1Move || '' : gameData.player2Move || '';
-                        if (jugadaOponenteElement) jugadaOponenteElement.textContent = this.playerNumber === 1 ? gameData.player2Move || '' : gameData.player1Move || '';
+                        resultadoElement.textContent = "Perdiste";
                     }
-                } else {
-                    console.error("No se encontraron datos de la partida.");
-                    // Mostrar mensaje de error al usuario
                 }
-            }, (error) => {
-                console.error("Error al obtener datos de la partida:", error);
-                // Mostrar mensaje de error al usuario
-            });
+                const moves = this.shadow?.querySelector(".moves") as HTMLElement | null;
+                this.checkAndHideMoves(moves);
+            }
         }
     }
 
@@ -271,65 +314,14 @@ export class PlayPage extends HTMLElement {
         }
     }
 
-    animateMoves(myMove: Play) {
-        const currentGame = stateFunctions.getState().currentGame;
-        if (currentGame) {
-            const opponentMove = this.playerNumber === 1 ? currentGame.data.player2Move : currentGame.data.player1Move;
-
-            if (opponentMove) {
-                const myMoveImg = this.shadow?.querySelector(`#${myMove} img`) as HTMLImageElement;
-                const opponentMoveImg = this.shadow?.querySelector(`#${opponentMove} img`) as HTMLImageElement;
-
-                if (myMoveImg && opponentMoveImg) {
-                    myMoveImg.style.position = "absolute";
-                    opponentMoveImg.style.position = "absolute";
-
-                    const myMoveRect = myMoveImg.getBoundingClientRect();
-                    const opponentMoveRect = opponentMoveImg.getBoundingClientRect();
-
-                    myMoveImg.style.left = `${myMoveRect.left}px`;
-                    myMoveImg.style.top = `${myMoveRect.top}px`;
-                    opponentMoveImg.style.left = `${opponentMoveRect.left}px`;
-                    opponentMoveImg.style.top = `${opponentMoveRect.top}px`;
-
-                    const containerRect = this.shadow?.querySelector(".play-container")?.getBoundingClientRect();
-
-                    if (containerRect) {
-                        const containerCenterX = containerRect.left + containerRect.width / 2;
-                        const containerCenterY = containerRect.top + containerRect.height / 2;
-
-                        myMoveImg.style.transition = "transform 0.5s ease-in-out";
-                        opponentMoveImg.style.transition = "transform 0.5s ease-in-out";
-
-                        requestAnimationFrame(() => {
-                            myMoveImg.style.transform = `translate(${containerCenterX - myMoveRect.left - myMoveRect.width / 2}px, ${containerCenterY - myMoveRect.top - myMoveRect.height / 2}px)`;
-                            opponentMoveImg.style.transform = `translate(${containerCenterX - opponentMoveRect.left - opponentMoveRect.width / 2}px, ${containerCenterY - opponentMoveRect.top - opponentMoveRect.height / 2}px)`;
-                        });
-
-                        setTimeout(() => {
-                            myMoveImg.style.transition = "none";
-                            opponentMoveImg.style.transition = "none";
-                            myMoveImg.style.position = "static";
-                            opponentMoveImg.style.position = "static";
-                            myMoveImg.style.transform = "none";
-                            opponentMoveImg.style.transform = "none";
-                        }, 500);
-                    }
-                }
-            }
-        }
-    }
     redirectToResultPage() {
         const currentState = stateFunctions.getState();
-        if (currentState.currentGame && currentState.currentGame.data) {
-            const gameData = currentState.currentGame.data;
-            if (gameData.player1Move && gameData.player2Move) {
-                window.location.href = "/result";
-            }
+        if (currentState.currentGame && currentState.currentGame.data && currentState.currentGame.data.gameOver) {
+            router.goTo("/result");
+        } else {
+            alert("El juego aún no ha terminado.");
         }
     }
 }
-
-    
 
 customElements.define("play-page", PlayPage);

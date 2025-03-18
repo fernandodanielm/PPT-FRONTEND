@@ -56,8 +56,8 @@ export class ShortId extends HTMLElement {
                 // Asegúrate de que currentGame siempre tenga un roomId string
                 const currentGameUpdate: Partial<Game> = {
                     roomId: state.roomId,
-                    data: roomData ? roomData : { player1Name: null, player2Name: null }, // Asegúrate de que data tenga un valor por defecto
-                    statistics: roomData?.statistics || { player1: { wins: 0, losses: 0, draws: 0 }, player2: { wins: 0, losses: 0, draws: 0 } },
+                    data: roomData ? roomData.games?.current : { player1Name: null, player2Name: null }, // Accede a games?.current
+                    statistics: roomData?.games?.current?.statistics || { player1: { wins: 0, losses: 0, draws: 0 }, player2: { wins: 0, losses: 0, draws: 0 } },
                 };
 
                 stateFunctions.setState({
@@ -121,13 +121,13 @@ export class ShortId extends HTMLElement {
                 if (users.length === 1) {
                     const player1 = users[0] as { userName: string, id: string };
                     stateFunctions.setPlayer1Name(player1.userName, player1.id); // Pasar userId
-                    stateFunctions.setPlayer2Name(null, player1.id); // Pasar userId
+                    stateFunctions.setPlayer2Name(null, null);
                     stateFunctions.setState({
                         ...state,
                         currentGame: {
                             ...state.currentGame,
                             roomId: state.roomId, // Asegúrate de que roomId esté aquí
-                            data: { ...state.currentGame?.data, player1Name: player1.userName, player2Name: null, player1Play: data.player1Move, player2Play: data.player2Move, gameOver: data.gameOver },
+                            data: { ...state.currentGame?.data, player1Name: player1.userName, player2Name: null, player1Play: data.games?.current?.ownerPlay, player2Play: data.games?.current?.guestPlay, gameOver: data.games?.current?.gameOver },
                         },
                     });
                 } else if (users.length === 2) {
@@ -140,7 +140,7 @@ export class ShortId extends HTMLElement {
                         currentGame: {
                             ...state.currentGame,
                             roomId: state.roomId, // Asegúrate de que roomId esté aquí
-                            data: { ...state.currentGame?.data, player1Name: player1.userName, player2Name: player2.userName, player1Play: data.player1Move, player2Play: data.player2Move, gameOver: data.gameOver },
+                            data: { ...state.currentGame?.data, player1Name: player1.userName, player2Name: player2.userName, player1Play: data.games?.current?.ownerPlay, player2Play: data.games?.current?.guestPlay, gameOver: data.games?.current?.gameOver },
                         },
                     });
                 }
