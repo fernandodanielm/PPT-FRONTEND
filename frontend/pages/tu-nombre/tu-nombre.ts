@@ -5,8 +5,11 @@ import { router } from "../../router";
 import { v4 as uuidv4 } from "uuid";
 
 export class TuNombre extends HTMLElement {
+    shadow: ShadowRoot; // Declarar la propiedad shadow
+
     constructor() {
         super();
+        this.shadow = this.attachShadow({ mode: 'open' }); // Inicializar el Shadow DOM
     }
 
     connectedCallback() {
@@ -14,7 +17,54 @@ export class TuNombre extends HTMLElement {
     }
 
     render() {
-        this.innerHTML = `
+        this.shadow.innerHTML = `
+            <style>
+                .welcome-container {
+                    background-image: url(${backgroundImage});
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: sans-serif;
+                }
+                h1 {
+                    color: #333;
+                    margin-bottom: 20px;
+                }
+                input[type="text"] {
+                    padding: 10px;
+                    margin: 10px 0;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    width: 80%;
+                    max-width: 300px;
+                }
+                button {
+                    padding: 10px 20px;
+                    background-color: #007bff;
+                    color: #fff;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    width: 80%;
+                    max-width: 200px;
+                }
+                button:hover {
+                    background-color: #0056b3;
+                }
+                @media (max-width: 600px) {
+                    h1 {
+                        font-size: 1.5em;
+                    }
+                    input, button {
+                        width: 90%;
+                    }
+                }
+            </style>
             <div class="welcome-container">
                 <h1>Ingresa tu Nombre</h1>
                 <input type="text" id="nombreInput" placeholder="Tu nombre">
@@ -22,8 +72,8 @@ export class TuNombre extends HTMLElement {
             </div>
         `;
 
-        const nombreInput = this.querySelector("#nombreInput");
-        const comenzarButton = this.querySelector("#comenzarButton");
+        const nombreInput = this.shadow.querySelector("#nombreInput");
+        const comenzarButton = this.shadow.querySelector("#comenzarButton");
 
         if (comenzarButton && nombreInput) {
             comenzarButton.addEventListener("click", async () => {
@@ -61,57 +111,6 @@ export class TuNombre extends HTMLElement {
                 }
             });
         }
-
-        const style = document.createElement("style");
-        style.textContent = `
-            .welcome-container {
-                background-image: url(${backgroundImage});
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center;
-                height: 100vh;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                font-family: sans-serif;
-            }
-            h1 {
-                color: #333;
-                margin-bottom: 20px;
-            }
-            input[type="text"] {
-                padding: 10px;
-                margin: 10px 0;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-                width: 80%;
-                max-width: 300px;
-            }
-            button {
-                padding: 10px 20px;
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                width: 80%;
-                max-width: 200px;
-            }
-            button:hover {
-                background-color: #0056b3;
-            }
-            @media (max-width: 600px) {
-                h1 {
-                    font-size: 1.5em;
-                }
-                input, button {
-                    width: 90%;
-                }
-            }
-        `;
-
-        this.appendChild(style);
     }
 }
 

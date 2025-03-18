@@ -28,8 +28,8 @@ export class ResultPage extends HTMLElement {
         const player2Name = state.player2Name;
         const player1Id = state.player1Id;
         const player2Id = state.player2Id;
-        const player1Play = game?.data.player1Play;
-        const player2Play = game?.data.player2Play;
+        const ownerPlay = game?.data.ownerPlay; // Usar ownerPlay
+        const guestPlay = game?.data.guestPlay; // Usar guestPlay
         const result = game?.data.result;
         const statistics = game?.statistics;
 
@@ -107,17 +107,15 @@ export class ResultPage extends HTMLElement {
                     ${resultText ? `<p>${resultText}</p>` : '<p>Esperando resultado...</p>'}
 
                     <div class="player-info">
-                        <h3>Jugador 1:</h3>
-                        <p>Nombre: ${player1Name || "Desconocido"}</p>
+                        <h3>${player1Name || "Jugador 1"}</h3>
                         <p>ID: ${player1Id || "No ID"}</p>
-                        ${player1Play ? `<p>Movimiento: ${player1Play}</p>` : '<p>Movimiento: No jugó</p>'}
+                        ${ownerPlay ? `<p>Movimiento: ${ownerPlay}</p>` : '<p>Movimiento: No jugó</p>'}
                     </div>
 
                     <div class="player-info">
-                        <h3>Jugador 2:</h3>
-                        <p>Nombre: ${player2Name || "Desconocido"}</p>
+                        <h3>${player2Name || "Jugador 2"}</h3>
                         <p>ID: ${player2Id || "No ID"}</p>
-                        ${player2Play ? `<p>Movimiento: ${player2Play}</p>` : '<p>Movimiento: No jugó</p>'}
+                        ${guestPlay ? `<p>Movimiento: ${guestPlay}</p>` : '<p>Movimiento: No jugó</p>'}
                     </div>
 
                     ${statistics ? `
