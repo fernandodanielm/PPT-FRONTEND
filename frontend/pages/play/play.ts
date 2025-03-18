@@ -1,6 +1,10 @@
 // frontend/src/components/playpage.ts
 import { state, stateFunctions, Jugada } from "../../state";
 import { router } from "../../router";
+import backgroundImage from "../../assets/piedrapapelotijera.jpg"; // Asegúrate de que la ruta sea correcta
+import piedraImg from "../../assets/piedra.png"; // Asegúrate de que la ruta sea correcta
+import papelImg from "../../assets/papel.png"; // Asegúrate de que la ruta sea correcta
+import tijeraImg from "../../assets/tijera.png"; // Asegúrate de que la ruta sea correcta
 
 export class PlayPage extends HTMLElement {
     shadow: ShadowRoot;
@@ -25,14 +29,76 @@ export class PlayPage extends HTMLElement {
     render() {
         this.shadow.innerHTML = `
             <style>
-                /* Estilos aquí */
+                .container {
+                    background-image: url(${backgroundImage});
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 100vh;
+                    font-family: sans-serif;
+                    color: #333;
+                }
+                .title {
+                    font-size: 2.5em;
+                    margin-bottom: 30px;
+                    color: white;
+                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                }
+                .buttons-container {
+                    display: flex;
+                    gap: 20px;
+                    margin-bottom: 30px;
+                }
+                .move-button {
+                    padding: 10px;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    transition: opacity 0.3s ease;
+                    background-color: transparent; /* Fondo transparente para mostrar la imagen */
+                }
+                .move-button:hover {
+                    opacity: 0.8;
+                }
+                .move-button img {
+                    width: 80px; /* Ajusta el tamaño según necesites */
+                    height: 80px;
+                    display: block; /* Evita espacio extra debajo de la imagen */
+                }
+                .my-move {
+                    color: white;
+                    font-size: 1.5em;
+                    margin-bottom: 20px;
+                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+                }
+                #resultButton {
+                    padding: 12px 25px;
+                    font-size: 1em;
+                    background-color: #9b59b6;
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                }
             </style>
-            <div>
-                <h2>Elige tu jugada</h2>
-                <button id="piedra">Piedra</button>
-                <button id="papel">Papel</button>
-                <button id="tijera">Tijera</button>
-                ${this.myMove ? `<p>Tu jugada: ${this.myMove}</p>` : ''}
+            <div class="container">
+                <h2 class="title">Elige tu jugada</h2>
+                <div class="buttons-container">
+                    <button class="move-button" id="piedra">
+                        <img src="${piedraImg}" alt="Piedra">
+                    </button>
+                    <button class="move-button" id="papel">
+                        <img src="${papelImg}" alt="Papel">
+                    </button>
+                    <button class="move-button" id="tijera">
+                        <img src="${tijeraImg}" alt="Tijera">
+                    </button>
+                </div>
+                ${this.myMove ? `<p class="my-move">Tu jugada: ${this.myMove}</p>` : ''}
                 <button id="resultButton">Ver Resultado</button>
             </div>
         `;
@@ -40,20 +106,25 @@ export class PlayPage extends HTMLElement {
     }
 
     addListeners() {
-        this.shadow.querySelectorAll('button').forEach(button => {
+        this.shadow.querySelectorAll('.move-button').forEach(button => {
             button.addEventListener('click', (e) => {
                 const target = e.target as HTMLButtonElement;
                 const move = target.id as Jugada;
-                if (move === 'piedra' || move === 'papel' || move === 'tijera') {
-                    this.myMove = move;
-                    stateFunctions.setMove(move);
-                } else if (target.id === 'resultButton' && state.currentGame?.data.gameOver) {
+                this.myMove = move;
+                stateFunctions.setMove(move);
+            });
+        });
+
+        const resultButton = this.shadow.getElementById('resultButton');
+        if (resultButton) {
+            resultButton.addEventListener('click', () => {
+                if (state.currentGame?.data.gameOver) {
                     router.goTo('/result');
-                } else if (target.id === 'resultButton' && !state.currentGame?.data.gameOver) {
+                } else {
                     alert('El juego aún no termina.');
                 }
             });
-        });
+        }
     }
 }
 
