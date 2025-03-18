@@ -1,11 +1,9 @@
-// Instructions.ts
+// instructions.ts
 import backgroundImage from "../../assets/piedrapapelotijera.jpg";
-import { state, stateFunctions } from "../../state";
 import { router } from "../../router";
 
 export class InstructionsPage extends HTMLElement {
     shadow: ShadowRoot;
-    unsubscribe: (() => void) | null = null;
 
     constructor() {
         super();
@@ -14,31 +12,13 @@ export class InstructionsPage extends HTMLElement {
 
     connectedCallback() {
         this.render();
-        this.subscribeToState();
-    }
-
-    disconnectedCallback() {
-        this.unsubscribeFromState();
-    }
-
-    subscribeToState() {
-        this.unsubscribe = stateFunctions.subscribe(() => {
-            this.render();
-        });
-    }
-
-    unsubscribeFromState() {
-        if (this.unsubscribe) {
-            this.unsubscribe();
-            this.unsubscribe = null;
-        }
+        this.addEventListeners();
     }
 
     render() {
-        const currentState = stateFunctions.getState();
         this.shadow.innerHTML = `
             <style>
-                .container {
+                .instructions-container {
                     background-image: url(${backgroundImage});
                     background-size: cover;
                     background-repeat: no-repeat;
@@ -47,57 +27,73 @@ export class InstructionsPage extends HTMLElement {
                     flex-direction: column;
                     align-items: center;
                     justify-content: center;
-                    height: 100vh;
-                    font-family: sans-serif;
-                }
-                .instructions {
-                    font-size: 24px;
-                    font-weight: bold;
-                    margin-bottom: 20px;
-                    text-align: center;
+                    min-height: 100vh;
                     padding: 20px;
-                    background-color: rgba(255, 255, 255, 0.8);
-                    border-radius: 10px;
+                    box-sizing: border-box;
+                    font-family: sans-serif;
+                    color: #333;
+                    text-align: center;
                 }
-                .play-button {
+
+                .instructions-content {
+                    background-color: rgba(255, 255, 255, 0.8);
+                    padding: 30px;
+                    border-radius: 10px;
+                    max-width: 600px;
+                    width: 100%;
+                }
+
+                h2 {
+                    font-size: 2.5em;
+                    margin-bottom: 20px;
+                }
+
+                p {
+                    font-size: 1.2em;
+                    line-height: 1.6;
+                    margin-bottom: 15px;
+                    text-align: left;
+                }
+
+                .back-button {
                     padding: 10px 20px;
                     font-size: 16px;
-                    background-color: #4CAF50;
+                    background-color: #007bff;
                     color: white;
                     border: none;
                     border-radius: 5px;
                     cursor: pointer;
-                }
-                .play-button:hover {
-                    background-color: #3e8e41;
-                }
-                .player-info {
-                    font-size: 16px;
                     margin-top: 20px;
-                    background-color: rgba(255, 255, 255, 0.8);
-                    padding: 10px;
-                    border-radius: 5px;
+                }
+
+                .back-button:hover {
+                    background-color: #0056b3;
                 }
             </style>
-            <div class="container">
-                <div class="instructions">
-                    <p>Presioná jugar y elegí piedra, papel o tijera antes de que pasen los 3 segundos.</p>
-                </div>
-                <button class="play-button">JUGAR</button>
-                <div class="player-info">
-                    <p>Player 1 Name: ${currentState.player1Name || "Esperando..."}</p>
-                    <p>Player 1 ID: ${currentState.player1Id || "No ID"}</p>
-                    <p>Player 2 Name: ${currentState.player2Name || "Esperando..."}</p>
-                    <p>Player 2 ID: ${currentState.player2Id || "No ID"}</p>
-                    <p>Room ID: ${currentState.roomId || "No ID"}</p>
+            <div class="instructions-container">
+                <div class="instructions-content">
+                    <h2>¿Cómo Jugar Piedra, Papel o Tijera?</h2>
+                    <p>El juego es simple y se juega entre dos personas.</p>
+                    <p>Cada jugador elige simultáneamente una de tres opciones: piedra, papel o tijera.</p>
+                    <h3>Las reglas son las siguientes:</h3>
+                    <ul>
+                        <li><strong>Piedra</strong> vence a <strong>Tijera</strong> (la rompe).</li>
+                        <li><strong>Tijera</strong> vence a <strong>Papel</strong> (lo corta).</li>
+                        <li><strong>Papel</strong> vence a <strong>Piedra</strong> (la envuelve).</li>
+                    </ul>
+                    <p>Si ambos jugadores eligen la misma opción, es un empate.</p>
+                    <p>¡El objetivo es ganar la mayoría de las rondas!</p>
+                    <button class="back-button" id="backButton">Volver</button>
                 </div>
             </div>
         `;
+    }
 
-        const playButton = this.shadow.querySelector(".play-button");
-        if (playButton) {
-            playButton.addEventListener("click", () => {
-                router.goTo("/play"); // Redirigir a la página de juego usando router
+    addEventListeners() {
+        const backButton = this.shadow.getElementById("backButton");
+        if (backButton) {
+            backButton.addEventListener("click", () => {
+                window.history.back();
             });
         }
     }

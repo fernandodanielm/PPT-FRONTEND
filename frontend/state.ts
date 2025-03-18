@@ -8,7 +8,14 @@ export type Jugada = "piedra" | "papel" | "tijera";
 
 export interface Game {
     roomId: string;
-    data: any;
+    data: {
+        player1Name: string | null;
+        player2Name: string | null;
+        player1Play: Jugada | null;
+        player2Play: Jugada | null;
+        gameOver: boolean;
+        result: "draw" | "ownerWins" | "guestWins" | null;
+    };
     statistics?: {
         player1: { wins: number; losses: number; draws: number };
         player2: { wins: number; losses: number; draws: number };
@@ -125,8 +132,8 @@ const stateFunctions = {
                         data: {
                             player1Name: player1Name,
                             player2Name: player2Name,
-                            player1Play: data.ownerPlay, // Usar ownerPlay
-                            player2Play: data.guestPlay, // Usar guestPlay
+                            player1Play: data.player1Move, // Usar player1Move
+                            player2Play: data.player2Move, // Usar player2Move
                             gameOver: data.gameOver,
                             result: data.result, // Incluir el resultado
                         },
@@ -271,7 +278,7 @@ const stateFunctions = {
             return;
         }
         try {
-            const response = await fetch(`<span class="math-inline">\{API\_BASE\_URL\}/rooms/</span>{roomId}/reset`, {
+            const response = await fetch(`${API_BASE_URL}/api/rooms/${roomId}/reset`, {
                 method: 'POST',
             });
             if (!response.ok) {

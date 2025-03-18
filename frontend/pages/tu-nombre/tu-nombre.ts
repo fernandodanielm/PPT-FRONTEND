@@ -33,15 +33,15 @@ export class TuNombre extends HTMLElement {
                 const ownerId = (ownerIdInput as HTMLInputElement).value;
                 if (playerName) {
                     try {
-                        stateFunctions.setId(ownerId); // <--------------------- ESTA ES LA MODIFICACIÓN IMPORTANTE
-                        stateFunctions.setPlayer1Name(playerName, ownerId); // Pasar ownerId como userId
+                        stateFunctions.setId(ownerId);
+                        stateFunctions.setPlayer1Name(playerName, ownerId);
                         const response = await stateFunctions.saveRoomData(ownerId, playerName, null, null);
-                        console.log("Respuesta completa del backend:", response); // Agrega esto para ver la estructura completa
+                        console.log("Respuesta completa del backend:", response);
                         if (response && response.roomId) {
                             const roomId = response.roomId;
-                            console.log("Valor de roomId recibido del backend:", roomId, typeof roomId); // Agrega este log
+                            console.log("Valor de roomId recibido del backend:", roomId, typeof roomId);
                             stateFunctions.setRoomId(roomId);
-                            stateFunctions.listenRoom(); // Llama a listenRoom inmediatamente después de setRoomId
+                            stateFunctions.listenRoom();
                             setTimeout(() => {
                                 router.goTo(`/short-id/${roomId}`);
                             }, 100);

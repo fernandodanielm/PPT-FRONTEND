@@ -1,10 +1,10 @@
 // router.ts
 import { state, stateFunctions } from "./state";
-import { ShortId } from "./pages/short-id/short-id";
+import { ShortIdPage } from "./pages/short-id/short-id";
 import { InstructionsPage } from "./pages/instructions/instructions";
 import { PlayPage } from "./pages/play/play";
 import { TuNombre } from "./pages/tu-nombre/tu-nombre";
-import { ResultPage } from "./pages/result/result";
+import { ResultPage } from "./pages/result/result"
 import { WelcomePage } from "./pages/welcome/welcome";
 import { IngresarASala } from "./pages/ingresar-a-sala/ingresar-a-una-sala";
 
@@ -38,7 +38,7 @@ const routes: RoutePath[] = [
     pathRegex: /^\/short-id\/(?<roomId>[a-zA-Z0-9]+)$/,
     render: (params) => {
       const roomId = params?.roomId; // Obtener roomId del objeto params
-      return new ShortId(); // Pasar roomId al constructor de ShortId
+      return new ShortIdPage(); // Pasar roomId al constructor de ShortId
     },
   },
   {
