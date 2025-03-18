@@ -205,58 +205,33 @@ const stateFunctions = {
         const currentState = stateFunctions.getState();
         const roomId = currentState.roomId;
         const playerNumber = currentState.playerNumber;
-
+    
         if (!roomId) {
             console.error("No se encontró el roomId");
             return;
         }
-
+    
         if (playerNumber === undefined) {
             console.error("No se ha asignado un número de jugador.");
             return;
         }
-
-        const gameRef = ref(rtdb, `rooms/${roomId}/games/current`);
-
-        // **INCLUSIÓN (A PETICIÓN) DE onValue DENTRO DE setMove - NO RECOMENDADO**
-        onValue(gameRef, (snapshot) => {
-            const data = snapshot.val();
-            console.log("Datos recibidos DENTRO de setMove:", data);
-            if (data) {
-                stateFunctions.setState({
-                    ...state,
-                    currentGame: {
-                        roomId: state.roomId, // Asegúrate de incluir roomId del estado
-                        data: {
-                            player1Name: state.player1Name,
-                            player2Name: state.player2Name,
-                            player1Move: data.player1Move,
-                            player2Move: data.player2Move,
-                            gameOver: data.gameOver,
-                            result: data.result,
-                        },
-                        statistics: state.currentGame?.statistics || { player1: { wins: 0, losses: 0, draws: 0 }, player2: { wins: 0, losses: 0, draws: 0 } },
-                    },
-                });
-            }
-        });
-
+    
         try {
             console.log(`Enviando movimiento: ${move} para el jugador ${playerNumber} en la sala ${roomId}`);
-            const response = await fetch(`${API_BASE_URL}/api/rooms/${roomId}/move`, {
+            const response = await fetch(`<span class="math-inline">\{API\_BASE\_URL\}/api/rooms/</span>{roomId}/move`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ playerNumber, move }),
             });
-
+    
             if (!response.ok) {
                 console.error("Error al enviar el movimiento al backend:", response.status, await response.text());
             } else {
                 const data = await response.json();
                 console.log("Respuesta del backend al enviar el movimiento:", data);
-                // Aquí podrías actualizar el estado local si el backend responde con información adicional
+                // Aquí podrías reaccionar a data.message o data.result si es necesario para feedback inmediato
             }
             console.log("Movimiento enviado con éxito (o se intentó)");
         } catch (error) {

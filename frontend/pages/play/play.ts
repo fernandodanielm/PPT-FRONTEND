@@ -5,8 +5,8 @@ import backgroundImage from "../../assets/piedrapapelotijera.jpg"; // Asegúrate
 import piedraImg from "../../assets/piedra.png"; // Asegúrate de que la ruta sea correcta
 import papelImg from "../../assets/papel.png"; // Asegúrate de que la ruta sea correcta
 import tijeraImg from "../../assets/tijera.png"; // Asegúrate de que la ruta sea correcta
-import { ref, onValue } from "firebase/database";
-import { rtdb } from "../../utils/rtdb";
+// import { ref, onValue } from "firebase/database"; // Eliminamos las importaciones no utilizadas
+// import { rtdb } from "../../utils/rtdb"; // Eliminamos las importaciones no utilizadas
 
 export class PlayPage extends HTMLElement {
     shadow: ShadowRoot;
@@ -21,48 +21,45 @@ export class PlayPage extends HTMLElement {
     connectedCallback() {
         this.render();
         this.unsubscribe = stateFunctions.subscribe(() => this.render());
-        this.setupRealtimeListeners(); // Llamada para configurar los listeners en tiempo real
+        // this.setupRealtimeListeners(); // Eliminamos la llamada
     }
 
     disconnectedCallback() {
         this.unsubscribe?.();
-        this.removeRealtimeListeners(); // Limpiar los listeners al desconectar
+        // this.removeRealtimeListeners(); // Eliminamos la llamada
     }
 
-    realtimeUnsubscribe: (() => void) | undefined;
+    // realtimeUnsubscribe: (() => void) | undefined; // Eliminamos la propiedad
 
-    setupRealtimeListeners() {
-        if (state.roomId) {
-            const gameRef = ref(rtdb, `rooms/${state.roomId}/games/current`);
-            this.realtimeUnsubscribe = onValue(gameRef, (snapshot) => {
-                const data = snapshot.val();
-                console.log("Datos recibidos en PlayPage (onValue):", data);
-                if (data) {
-                    // No necesitas llamar a stateFunctions.setState aquí directamente,
-                    // ya que el listener en state.ts ya está haciendo eso.
-                    // Sin embargo, podrías reaccionar a los cambios si es necesario
-                    this.render(); // Forzar un re-render para asegurar que la UI se actualice
-                }
-            });
-        } else {
-            console.warn("No se puede configurar el listener en PlayPage, roomId no está definido.");
-        }
-    }
+    // setupRealtimeListeners() { // Eliminamos la función
+    //     if (state.roomId) {
+    //         const gameRef = ref(rtdb, `rooms/${state.roomId}/games/current`);
+    //         this.realtimeUnsubscribe = onValue(gameRef, (snapshot) => {
+    //             const data = snapshot.val();
+    //             console.log("Datos recibidos en PlayPage (onValue):", data);
+    //             if (data) {
+    //                 this.render();
+    //             }
+    //         });
+    //     } else {
+    //         console.warn("No se puede configurar el listener en PlayPage, roomId no está definido.");
+    //     }
+    // }
 
-    removeRealtimeListeners() {
-        if (this.realtimeUnsubscribe) {
-            this.realtimeUnsubscribe();
-            this.realtimeUnsubscribe = undefined;
-            console.log("Listeners en PlayPage removidos.");
-        }
-    }
+    // removeRealtimeListeners() { // Eliminamos la función
+    //     if (this.realtimeUnsubscribe) {
+    //         this.realtimeUnsubscribe();
+    //         this.realtimeUnsubscribe = undefined;
+    //         console.log("Listeners en PlayPage removidos.");
+    //     }
+    // }
 
     render() {
         const currentGame = state.currentGame;
         const playerNumber = state.playerNumber;
         let opponentMove: Jugada | null = null;
 
-        if (currentGame) {
+        if (currentGame?.data) {
             if (playerNumber === 1) {
                 opponentMove = currentGame.data.player2Move;
             } else if (playerNumber === 2) {
@@ -149,7 +146,7 @@ export class PlayPage extends HTMLElement {
                 </div>
                 ${this.myMove ? `<p class="my-move">Tu jugada: ${this.myMove}</p>` : ''}
                 ${opponentMove ? `<p class="opponent-move">Jugada del oponente: ${opponentMove}</p>` : '<p class="opponent-move">Esperando jugada del oponente...</p>'}
-                <button id="resultButton">Ver Resultado</button>
+                <button id="resultButton" ${currentGame?.data.gameOver ? '' : 'disabled'}>Ver Resultado</button>
             </div>
         `;
         this.addListeners();
