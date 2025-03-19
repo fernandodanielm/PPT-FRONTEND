@@ -22,7 +22,80 @@ export class IngresarASala extends HTMLElement {
     render() {
         this.shadow.innerHTML = `
             <style>
-                // ... (estilos CSS) ...
+                .container {
+                    background-image: url(${backgroundImage});
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 100vh;
+                    padding: 20px;
+                    box-sizing: border-box;
+                    font-family: sans-serif;
+                    color: #333;
+                    text-align: center;
+                }
+
+                .form-container {
+                    background-color: rgba(255, 255, 255, 0.8);
+                    padding: 30px;
+                    border-radius: 10px;
+                    max-width: 400px;
+                    width: 100%;
+                }
+
+                h2 {
+                    font-size: 2.5em;
+                    margin-bottom: 20px;
+                }
+
+                label {
+                    display: block;
+                    margin-bottom: 10px;
+                    font-size: 1.2em;
+                    text-align: left;
+                }
+
+                input[type="text"] {
+                    width: calc(100% - 22px);
+                    padding: 10px;
+                    margin-bottom: 20px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    font-size: 1em;
+                }
+
+                button {
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+
+                button:hover {
+                    background-color: #0056b3;
+                }
+
+                .back-button {
+                    background-color: #6c757d;
+                }
+
+                .back-button:hover {
+                    background-color: #5a6268;
+                }
+
+                .error-message {
+                    color: red;
+                    margin-top: 10px;
+                }
             </style>
             <div class="container">
                 <div class="form-container">
@@ -71,7 +144,6 @@ export class IngresarASala extends HTMLElement {
                         if (!response.ok) {
                             const errorText = await response.text();
                             console.error("Error al unirse a la sala:", response.status, errorText);
-                            console.log("Respuesta completa del backend:", await response.clone().text());
                             if (errorMessage) {
                                 if (response.status === 404) {
                                     errorMessage.textContent = "Sala no encontrada. Verifica el código.";
