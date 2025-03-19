@@ -40,7 +40,6 @@ type State = {
     currentGame: Game | null;
     playerNumber: 1 | 2 | undefined;
     id: string | null;
-    rtdbRoomId: string;
     setCurrentGame: (game: Game | null) => void;
     player1Id: string | null;
     player2Id: string | null;
@@ -56,7 +55,6 @@ const state: State = {
     currentGame: null,
     playerNumber: undefined,
     id: null,
-    rtdbRoomId: "",
     setCurrentGame: (game: Game | null) => {
         state.currentGame = game;
     },
@@ -127,7 +125,7 @@ const stateFunctions = {
 
     listenRoom() {
         console.log("Valor de state.roomId al inicio de listenRoom:", state.roomId, typeof state.roomId);
-        console.log("state.id:", state.id); // Verificar state.id al inicio
+        console.log("state.id:", state.id);
         if (!state.roomId) {
             console.error("No hay roomId para escuchar.");
             return;
@@ -140,16 +138,12 @@ const stateFunctions = {
             console.log("Datos recibidos de la base de datos (games/current):", data);
     
             if (data) {
-                const player1Name = state.player1Name;
-                const player2Name = state.player2Name;
-    
                 stateFunctions.setState({
-                    ...state,
                     currentGame: {
                         roomId: state.roomId,
                         data: {
-                            player1Name: player1Name,
-                            player2Name: player2Name,
+                            player1Name: state.player1Name,
+                            player2Name: state.player2Name,
                             player1Move: data.player1Move,
                             player2Move: data.player2Move,
                             gameOver: data.gameOver,
@@ -174,12 +168,7 @@ const stateFunctions = {
                 const users: { userName: string | null, role: string, id: string }[] = [];
     
                 usersData.forEach(([userId, userData]) => {
-                    if (
-                        typeof userData === 'object' &&
-                        userData !== null &&
-                        'userName' in userData &&
-                        'role' in userData
-                    ) {
+                    if (typeof userData === 'object' && userData !== null && 'userName' in userData && 'role' in userData) {
                         users.push({
                             userName: userData.userName as string | null,
                             role: userData.role as string,
@@ -190,14 +179,14 @@ const stateFunctions = {
                     }
                 });
     
-                console.log("users:", users); // Verificar los usuarios recibidos
+                console.log("users:", users);
     
                 if (users.length === 1) {
                     const player1 = users[0];
                     stateFunctions.setPlayer1Name(player1.userName || null, player1.id);
                     stateFunctions.setPlayer2Name(null, null);
                     stateFunctions.setPlayerNumber(state.id === player1.id ? 1 : undefined);
-                    console.log("state.playerNumber (1 usuario):", state.playerNumber); // Verificar playerNumber
+                    console.log("state.playerNumber (1 usuario):", state.playerNumber);
                 } else if (users.length === 2) {
                     const player1 = users.find(user => user.role === 'owner');
                     const player2 = users.find(user => user.role === 'guest');
@@ -211,13 +200,13 @@ const stateFunctions = {
                         } else {
                             stateFunctions.setPlayerNumber(undefined);
                         }
-                        console.log("state.playerNumber (2 usuarios):", state.playerNumber); // Verificar playerNumber
+                        console.log("state.playerNumber (2 usuarios):", state.playerNumber);
                     }
                 } else {
                     stateFunctions.setPlayer1Name(null, null);
                     stateFunctions.setPlayer2Name(null, null);
                     stateFunctions.setPlayerNumber(undefined);
-                    console.log("state.playerNumber (otros casos):", state.playerNumber); // Verificar playerNumber
+                    console.log("state.playerNumber (otros casos):", state.playerNumber);
                 }
                 console.log("Estado actualizado con users:", state);
             } else {
@@ -225,7 +214,7 @@ const stateFunctions = {
                 stateFunctions.setPlayer1Name(null, null);
                 stateFunctions.setPlayer2Name(null, null);
                 stateFunctions.setPlayerNumber(undefined);
-                console.log("state.playerNumber (no hay usuarios):", state.playerNumber); // Verificar playerNumber
+                console.log("state.playerNumber (no hay usuarios):", state.playerNumber);
             }
         });
     },
@@ -234,17 +223,17 @@ const stateFunctions = {
         const currentState = stateFunctions.getState();
         const roomId = currentState.roomId;
         const playerNumber = currentState.playerNumber;
-
+    
         if (!roomId) {
             console.error("No se encontró el roomId");
             return;
         }
-
+    
         if (playerNumber === undefined) {
             console.error("No se ha asignado un número de jugador.");
             return;
         }
-
+    
         try {
             console.log(`Enviando movimiento: ${move} para el jugador ${playerNumber} en la sala ${roomId}`);
             const response = await fetch(`${API_BASE_URL}/api/rooms/${roomId}/move`, {
@@ -257,11 +246,43 @@ const stateFunctions = {
                     move: move,
                 }),
             });
-
+    
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error("Error al enviar el movimiento:", errorData);
             } else {
+                // Actualiza el estado con el movimiento enviado
+                if (playerNumber === 1) {
+                    stateFunctions.setState({
+                        currentGame: {
+                            roomId: currentState.currentGame?.roomId ?? "",
+                            data: {
+                                player1Name: currentState.currentGame?.data.player1Name ?? null,
+                                player2Name: currentState.currentGame?.data.player2Name ?? null,
+                                player1Move: move,
+                                player2Move: currentState.currentGame?.data.player2Move ?? null,
+                                gameOver: currentState.currentGame?.data.gameOver ?? false,
+                                result: currentState.currentGame?.data.result ?? null,
+                            },
+                            statistics: currentState.currentGame?.statistics ?? { player1: { wins: 0, losses: 0, draws: 0 }, player2: { wins: 0, losses: 0, draws: 0 } },
+                        },
+                    });
+                } else if (playerNumber === 2) {
+                    stateFunctions.setState({
+                        currentGame: {
+                            roomId: currentState.currentGame?.roomId ?? "",
+                            data: {
+                                player1Name: currentState.currentGame?.data.player1Name ?? null,
+                                player2Name: currentState.currentGame?.data.player2Name ?? null,
+                                player1Move: currentState.currentGame?.data.player1Move ?? null,
+                                player2Move: move,
+                                gameOver: currentState.currentGame?.data.gameOver ?? false,
+                                result: currentState.currentGame?.data.result ?? null,
+                            },
+                            statistics: currentState.currentGame?.statistics ?? { player1: { wins: 0, losses: 0, draws: 0 }, player2: { wins: 0, losses: 0, draws: 0 } },
+                        },
+                    });
+                }
                 console.log("Movimiento enviado con éxito.");
             }
         } catch (error) {

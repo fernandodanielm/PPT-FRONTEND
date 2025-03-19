@@ -129,14 +129,14 @@ export class PlayPage extends HTMLElement {
             <div class="container">
                 <h2 class="title">Elige tu jugada</h2>
                 <div class="buttons-container">
-                    <button class="move-button ${this.areButtonsDisabled ? 'disabled' : ''}" id="piedra" ${this.areButtonsDisabled ? 'disabled' : ''}>
-                        <img src="${piedraImg}" alt="Piedra">
+                    <button class="move-button ${this.areButtonsDisabled ? 'disabled' : ''}" id="piedra" <span class="math-inline">\{this\.areButtonsDisabled ? 'disabled' \: ''\}\>
+<img src\="</span>{piedraImg}" alt="Piedra">
                     </button>
-                    <button class="move-button ${this.areButtonsDisabled ? 'disabled' : ''}" id="papel" ${this.areButtonsDisabled ? 'disabled' : ''}>
-                        <img src="${papelImg}" alt="Papel">
+                    <button class="move-button ${this.areButtonsDisabled ? 'disabled' : ''}" id="papel" <span class="math-inline">\{this\.areButtonsDisabled ? 'disabled' \: ''\}\>
+<img src\="</span>{papelImg}" alt="Papel">
                     </button>
-                    <button class="move-button ${this.areButtonsDisabled ? 'disabled' : ''}" id="tijera" ${this.areButtonsDisabled ? 'disabled' : ''}>
-                        <img src="${tijeraImg}" alt="Tijera">
+                    <button class="move-button ${this.areButtonsDisabled ? 'disabled' : ''}" id="tijera" <span class="math-inline">\{this\.areButtonsDisabled ? 'disabled' \: ''\}\>
+<img src\="</span>{tijeraImg}" alt="Tijera">
                     </button>
                 </div>
                 ${this.myMove ? `<p class="my-move">Tu jugada: ${this.myMove}</p>` : ''}
@@ -159,7 +159,7 @@ export class PlayPage extends HTMLElement {
                     console.log("Enviando jugada:", move, "PlayerNumber:", state.playerNumber);
 
                     try {
-                        const response = await fetch(`${API_BASE_URL}/api/rooms/${state.roomId}/move`, {
+                        const response = await fetch(`<span class="math-inline">\{API\_BASE\_URL\}/api/rooms/</span>{state.roomId}/move`, {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json',
