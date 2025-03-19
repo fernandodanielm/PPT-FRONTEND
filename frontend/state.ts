@@ -127,21 +127,22 @@ const stateFunctions = {
 
     listenRoom() {
         console.log("Valor de state.roomId al inicio de listenRoom:", state.roomId, typeof state.roomId);
+        console.log("state.id:", state.id); // Verificar state.id al inicio
         if (!state.roomId) {
             console.error("No hay roomId para escuchar.");
             return;
         }
-
+    
         const roomRef = ref(database, `rooms/${state.roomId}/games/current`);
-
+    
         onValue(roomRef, (snapshot) => {
             const data = snapshot.val();
             console.log("Datos recibidos de la base de datos (games/current):", data);
-
+    
             if (data) {
                 const player1Name = state.player1Name;
                 const player2Name = state.player2Name;
-
+    
                 stateFunctions.setState({
                     ...state,
                     currentGame: {
@@ -164,14 +165,14 @@ const stateFunctions = {
         }, (error) => {
             console.error("Error al escuchar la sala (games/current):", error);
         });
-
+    
         const usersRef = ref(database, `rooms/${state.roomId}/users`);
         onValue(usersRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
                 const usersData = Object.entries(data);
                 const users: { userName: string | null, role: string, id: string }[] = [];
-
+    
                 usersData.forEach(([userId, userData]) => {
                     if (
                         typeof userData === 'object' &&
@@ -188,24 +189,35 @@ const stateFunctions = {
                         console.warn("Datos de usuario con estructura inesperada:", userData);
                     }
                 });
-
+    
+                console.log("users:", users); // Verificar los usuarios recibidos
+    
                 if (users.length === 1) {
                     const player1 = users[0];
                     stateFunctions.setPlayer1Name(player1.userName || null, player1.id);
                     stateFunctions.setPlayer2Name(null, null);
                     stateFunctions.setPlayerNumber(state.id === player1.id ? 1 : undefined);
+                    console.log("state.playerNumber (1 usuario):", state.playerNumber); // Verificar playerNumber
                 } else if (users.length === 2) {
                     const player1 = users.find(user => user.role === 'owner');
                     const player2 = users.find(user => user.role === 'guest');
                     if (player1 && player2) {
                         stateFunctions.setPlayer1Name(player1.userName || null, player1.id);
                         stateFunctions.setPlayer2Name(player2.userName || null, player2.id);
-                        stateFunctions.setPlayerNumber(state.id === player1.id ? 1 : (state.id === player2.id ? 2 : undefined));
+                        if (state.id === player1.id) {
+                            stateFunctions.setPlayerNumber(1);
+                        } else if (state.id === player2.id) {
+                            stateFunctions.setPlayerNumber(2);
+                        } else {
+                            stateFunctions.setPlayerNumber(undefined);
+                        }
+                        console.log("state.playerNumber (2 usuarios):", state.playerNumber); // Verificar playerNumber
                     }
                 } else {
                     stateFunctions.setPlayer1Name(null, null);
                     stateFunctions.setPlayer2Name(null, null);
                     stateFunctions.setPlayerNumber(undefined);
+                    console.log("state.playerNumber (otros casos):", state.playerNumber); // Verificar playerNumber
                 }
                 console.log("Estado actualizado con users:", state);
             } else {
@@ -213,6 +225,7 @@ const stateFunctions = {
                 stateFunctions.setPlayer1Name(null, null);
                 stateFunctions.setPlayer2Name(null, null);
                 stateFunctions.setPlayerNumber(undefined);
+                console.log("state.playerNumber (no hay usuarios):", state.playerNumber); // Verificar playerNumber
             }
         });
     },

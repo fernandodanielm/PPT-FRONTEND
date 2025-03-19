@@ -1,13 +1,12 @@
 import { ref, onValue, off } from "firebase/database";
 import { state, stateFunctions } from "../state";
 import { router } from "../router";
-import { database } from "./rtdb"; // Importa database desde el frontend SDK
+import { database } from "./rtdb";
 
 async function updateGameState(data: any) {
     const { owner, guest, scoreboard } = data || {};
-    const currentState = stateFunctions.getState(); // Usa stateFunctions.getState()
+    const currentState = stateFunctions.getState();
 
-    // Actualiza las propiedades guest, owner y scoreboard
     stateFunctions.setState({
         owner: {
             ...currentState.owner,
@@ -25,28 +24,34 @@ async function updateGameState(data: any) {
 }
 
 export const onValueCallbackChoice = async (snapshot: any) => {
-    const data = snapshot.val();
-    await updateGameState(data);
-    if (areBothChoicesMade()) { // Usa la función areBothChoicesMade
-        // En el unico caso que voy es si ambos ya seleccionaron
-        const currentState = stateFunctions.getState(); // Usa stateFunctions.getState()
-        const rtdbRoomId = currentState.rtdbRoomId;
-        const dbRef = ref(database, `roomsPPT/${rtdbRoomId}`);
-        off(dbRef, "value", onValueCallbackChoice);
-        router.goTo("/game"); // Usa router.goTo
+    try {
+        const data = snapshot.val();
+        await updateGameState(data);
+        console.log("Datos recibidos de Firebase:", data);
+
+        if (areBothChoicesMade()) {
+            const currentState = stateFunctions.getState();
+            const roomId = currentState.roomId; // Usamos roomId en lugar de rtdbRoomId
+            const dbRef = ref(database, `roomsPPT/${roomId}`); // Usamos roomId aquí
+            off(dbRef, "value", onValueCallbackChoice);
+            console.log("Ambos jugadores han elegido. Navegando a /game.");
+            router.goTo("/game");
+        }
+    } catch (error) {
+        console.error("Error en onValueCallbackChoice:", error);
     }
 };
 
 export function initFirebase() {
-    // Inicializa Firebase y espera el nuevo estado para ver si ya hubo seleccion del otro player
-    const currentState = stateFunctions.getState(); // Usa stateFunctions.getState()
-    const rtdbRoomId = currentState.rtdbRoomId;
-    const dbRef = ref(database, `roomsPPT/${rtdbRoomId}`);
+    const currentState = stateFunctions.getState();
+    const roomId = currentState.roomId; // Usamos roomId aquí
+    const dbRef = ref(database, `roomsPPT/${roomId}`); // Usamos roomId aquí
+    console.log("Inicializando Firebase con roomId:", roomId);
     onValue(dbRef, onValueCallbackChoice);
 }
 
-// Función para verificar si ambos jugadores han hecho sus elecciones
 function areBothChoicesMade(): boolean {
     const currentState = stateFunctions.getState();
-    return currentState.currentGame?.data.player1Move !== null && currentState.currentGame?.data.player2Move !== null;
+    console.log("currentGame?.data:", currentState.currentGame?.data);
+    return currentState.currentGame?.data?.player1Move !== null && currentState.currentGame?.data?.player2Move !== null;
 }

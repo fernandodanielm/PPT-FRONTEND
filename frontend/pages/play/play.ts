@@ -33,6 +33,9 @@ export class PlayPage extends HTMLElement {
         const playerNumber = currentState.playerNumber;
         let opponentMove: Jugada | null = null;
 
+        console.log("Renderizando PlayPage. PlayerNumber:", playerNumber);
+        console.log("CurrentGame Data:", currentGame?.data);
+
         if (!currentGame?.data) {
             return `<div class="container"><h2>Cargando juego...</h2></div>`;
         }
@@ -153,6 +156,8 @@ export class PlayPage extends HTMLElement {
                     this.myMove = move;
                     this.areButtonsDisabled = true;
 
+                    console.log("Enviando jugada:", move, "PlayerNumber:", state.playerNumber);
+
                     try {
                         const response = await fetch(`${API_BASE_URL}/api/rooms/${state.roomId}/move`, {
                             method: 'PUT',
@@ -176,6 +181,7 @@ export class PlayPage extends HTMLElement {
                         }
 
                         stateFunctions.setMove(move);
+                        console.log("Jugada enviada con éxito.");
                     } catch (error) {
                         console.error("Error en la solicitud para enviar la jugada:", error);
                         alert("Ocurrió un error al enviar la jugada. Inténtalo de nuevo.");
@@ -191,6 +197,7 @@ export class PlayPage extends HTMLElement {
         if (resultButton) {
             resultButton.addEventListener('click', () => {
                 if (state.currentGame?.data.gameOver) {
+                    console.log("Navegando a la página de resultados.");
                     router.goTo('/result');
                 } else {
                     alert('Espera a que ambos jugadores hagan su movimiento.');
