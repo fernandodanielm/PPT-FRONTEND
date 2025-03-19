@@ -1,10 +1,10 @@
 // tu-nombre.ts
 import backgroundImage from "../../assets/piedrapapelotijera.jpg";
-import { state, stateFunctions, Player } from "../../state"; // Importa Player
+import { state, stateFunctions, Player } from "../../state";
 import { router } from "../../router";
 import { v4 as uuidv4 } from "uuid";
 
-const API_BASE_URL = "https://ppt-backend-1.onrender.com";
+const API_BASE_URL = "https://ppt-backend-1.onrender.com"; // Verifica que esta URL sea correcta
 
 export class TuNombre extends HTMLElement {
     shadow: ShadowRoot;
@@ -85,14 +85,14 @@ export class TuNombre extends HTMLElement {
                         const ownerId = uuidv4();
                         const owner: Player = { name: playerName, id: ownerId };
 
-                        stateFunctions.setState({ 
-                            id: ownerId, 
-                            player1Name: playerName, 
+                        stateFunctions.setState({
+                            id: ownerId,
+                            player1Name: playerName,
                             player1Id: ownerId,
                             owner: owner
                         });
 
-                        const response = await fetch(`${API_BASE_URL}/api/rooms`, {
+                        const response = await fetch(`${API_BASE_URL}/api/guardardatos`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -105,8 +105,9 @@ export class TuNombre extends HTMLElement {
 
                         if (!response.ok) {
                             const errorText = await response.text();
-                            console.error("Error al crear la sala:", errorText);
-                            alert("Error al crear la sala. Inténtalo de nuevo.");
+                            console.error("Error al guardar datos:", response.status, errorText);
+                            console.log("Respuesta completa del backend:", await response.clone().text());
+                            alert(`Error al guardar datos. Código de estado: ${response.status}. Inténtalo de nuevo.`);
                             return;
                         }
 
@@ -120,11 +121,12 @@ export class TuNombre extends HTMLElement {
                                 router.goTo(`/short-id/${roomId}`);
                             }, 100);
                         } else {
-                            alert("Error al crear la sala. La respuesta del servidor fue inesperada.");
+                            console.error("Respuesta inesperada del backend:", roomData);
+                            alert("Error al guardar datos. La respuesta del servidor fue inesperada.");
                         }
                     } catch (error) {
-                        console.error("Error al crear la sala:", error);
-                        alert("Ocurrió un error al crear la sala. Inténtalo de nuevo.");
+                        console.error("Error al guardar datos:", error);
+                        alert("Ocurrió un error al guardar datos. Inténtalo de nuevo.");
                     }
                 } else {
                     alert("Por favor, ingresa tu nombre.");
