@@ -1,10 +1,10 @@
 // tu-nombre.ts
 import backgroundImage from "../../assets/piedrapapelotijera.jpg";
-import { state, stateFunctions } from "../../state";
+import { state, stateFunctions, Player } from "../../state"; // Importa Player
 import { router } from "../../router";
 import { v4 as uuidv4 } from "uuid";
 
-const API_BASE_URL = "https://ppt-backend-1.onrender.com"; // Asegúrate de que esta URL sea correcta
+const API_BASE_URL = "https://ppt-backend-1.onrender.com";
 
 export class TuNombre extends HTMLElement {
     shadow: ShadowRoot;
@@ -83,7 +83,14 @@ export class TuNombre extends HTMLElement {
                 if (playerName) {
                     try {
                         const ownerId = uuidv4();
-                        stateFunctions.setState({ id: ownerId, player1Name: playerName, player1Id: ownerId });
+                        const owner: Player = { name: playerName, id: ownerId };
+
+                        stateFunctions.setState({ 
+                            id: ownerId, 
+                            player1Name: playerName, 
+                            player1Id: ownerId,
+                            owner: owner
+                        });
 
                         const response = await fetch(`${API_BASE_URL}/api/rooms`, {
                             method: 'POST',
@@ -97,8 +104,8 @@ export class TuNombre extends HTMLElement {
                         });
 
                         if (!response.ok) {
-                            const errorData = await response.json();
-                            console.error("Error al crear la sala:", errorData);
+                            const errorText = await response.text();
+                            console.error("Error al crear la sala:", errorText);
                             alert("Error al crear la sala. Inténtalo de nuevo.");
                             return;
                         }

@@ -3,7 +3,7 @@ import { state, stateFunctions } from "../../state";
 import { router } from "../../router";
 import backgroundImage from "../../assets/piedrapapelotijera.jpg";
 
-const API_BASE_URL = "https://ppt-backend-1.onrender.com"; // Asegúrate de que esta URL sea correcta
+const API_BASE_URL = "https://ppt-backend-1.onrender.com";
 
 export class ResultPage extends HTMLElement {
     shadow: ShadowRoot;
@@ -24,11 +24,12 @@ export class ResultPage extends HTMLElement {
     }
 
     render() {
-        const game = state.currentGame;
-        const player1Name = state.player1Name;
-        const player2Name = state.player2Name;
-        const player1Id = state.player1Id;
-        const player2Id = state.player2Id;
+        const currentState = stateFunctions.getState();
+        const game = currentState.currentGame;
+        const player1Name = currentState.player1Name;
+        const player2Name = currentState.player2Name;
+        const player1Id = currentState.player1Id;
+        const player2Id = currentState.player2Id;
         const player1Move = game?.data.player1Move;
         const player2Move = game?.data.player2Move;
         const result = game?.data.result;
@@ -139,17 +140,7 @@ export class ResultPage extends HTMLElement {
         if (playAgainButton) {
             playAgainButton.addEventListener('click', async () => {
                 try {
-                    const response = await fetch(`${API_BASE_URL}/api/rooms/${state.roomId}/reset`, {
-                        method: 'POST',
-                    });
-
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        console.error("Error al reiniciar el juego:", errorData);
-                        alert("Error al reiniciar el juego. Inténtalo de nuevo.");
-                        return;
-                    }
-
+                    await stateFunctions.resetGame(state.roomId);
                     router.goTo('/play');
                 } catch (error) {
                     console.error("Error en la solicitud para reiniciar el juego:", error);

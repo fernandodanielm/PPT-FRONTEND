@@ -1,11 +1,21 @@
 // frontend/src/state.ts
 import { ref, onValue, push, update, get } from "firebase/database";
-import { rtdb } from "./utils/rtdb";
+import { database } from "./utils/rtdb";
 import { v4 as uuidv4 } from 'uuid';
 
 const API_BASE_URL = "https://ppt-backend-1.onrender.com";
 
 export type Jugada = "piedra" | "papel" | "tijera";
+
+export interface Player { // Agrega 'export' aquí
+    name: string | null;
+    id: string | null;
+}
+
+export interface Scoreboard {
+    player1: { wins: number; losses: number; draws: number };
+    player2: { wins: number; losses: number; draws: number };
+}
 
 export interface Game {
     roomId: string;
@@ -34,6 +44,9 @@ type State = {
     setCurrentGame: (game: Game | null) => void;
     player1Id: string | null;
     player2Id: string | null;
+    owner: Player | null;
+    guest: Player | null;
+    scoreboard: Scoreboard | null;
 };
 
 const state: State = {
@@ -49,6 +62,9 @@ const state: State = {
     },
     player1Id: null,
     player2Id: null,
+    owner: null,
+    guest: null,
+    scoreboard: null,
 };
 
 const listeners: ((currentState: State) => void)[] = [];
@@ -94,7 +110,7 @@ const stateFunctions = {
     async getRoomData(roomId: string) {
         try {
             console.log("getRoomData buscando roomId:", roomId);
-            const roomRef = ref(rtdb, `rooms/${roomId}/games/current`);
+            const roomRef = ref(database, `rooms/${roomId}/games/current`);
             const snapshot = await get(roomRef);
             const roomData = snapshot.val();
             if (roomData) {
@@ -116,7 +132,7 @@ const stateFunctions = {
             return;
         }
 
-        const roomRef = ref(rtdb, `rooms/${state.roomId}/games/current`);
+        const roomRef = ref(database, `rooms/${state.roomId}/games/current`);
 
         onValue(roomRef, (snapshot) => {
             const data = snapshot.val();
@@ -149,7 +165,7 @@ const stateFunctions = {
             console.error("Error al escuchar la sala (games/current):", error);
         });
 
-        const usersRef = ref(rtdb, `rooms/${state.roomId}/users`);
+        const usersRef = ref(database, `rooms/${state.roomId}/users`);
         onValue(usersRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {

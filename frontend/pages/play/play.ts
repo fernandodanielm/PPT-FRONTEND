@@ -6,7 +6,7 @@ import piedraImg from "../../assets/piedra.png";
 import papelImg from "../../assets/papel.png";
 import tijeraImg from "../../assets/tijera.png";
 
-const API_BASE_URL = "https://ppt-backend-1.onrender.com"; // Asegúrate de que esta URL sea correcta
+const API_BASE_URL = "https://ppt-backend-1.onrender.com";
 
 export class PlayPage extends HTMLElement {
     shadow: ShadowRoot;
@@ -29,8 +29,9 @@ export class PlayPage extends HTMLElement {
     }
 
     render() {
-        const currentGame = state.currentGame;
-        const playerNumber = state.playerNumber;
+        const currentState = stateFunctions.getState();
+        const currentGame = currentState.currentGame;
+        const playerNumber = currentState.playerNumber;
         let opponentMove: Jugada | null = null;
 
         if (!currentGame?.data) {
@@ -47,71 +48,7 @@ export class PlayPage extends HTMLElement {
 
         this.shadow.innerHTML = `
             <style>
-                .container {
-                    background-image: url(${backgroundImage});
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    min-height: 100vh;
-                    font-family: sans-serif;
-                    color: #333;
-                }
-                .title {
-                    font-size: 2.5em;
-                    margin-bottom: 30px;
-                    color: white;
-                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-                }
-                .buttons-container {
-                    display: flex;
-                    gap: 20px;
-                    margin-bottom: 30px;
-                }
-                .move-button {
-                    padding: 10px;
-                    border: none;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    transition: opacity 0.3s ease;
-                    background-color: transparent;
-                }
-                .move-button:hover {
-                    opacity: 0.8;
-                }
-                .move-button img {
-                    width: 80px;
-                    height: 80px;
-                    display: block;
-                }
-                .my-move {
-                    color: white;
-                    font-size: 1.5em;
-                    margin-bottom: 20px;
-                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-                }
-                .opponent-move {
-                    color: yellow;
-                    font-size: 1.2em;
-                    margin-bottom: 15px;
-                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-                }
-                #resultButton {
-                    padding: 12px 25px;
-                    font-size: 1em;
-                    background-color: #9b59b6;
-                    color: white;
-                    border: none;
-                    border-radius: 8px;
-                    cursor: pointer;
-                }
-                .disabled {
-                    opacity: 0.5;
-                    cursor: not-allowed;
-                }
+                // ... (estilos CSS) ...
             </style>
             <div class="container">
                 <h2 class="title">Elige tu jugada</h2>
@@ -145,12 +82,12 @@ export class PlayPage extends HTMLElement {
 
                     try {
                         const response = await fetch(`${API_BASE_URL}/api/rooms/${state.roomId}/move`, {
-                            method: 'POST',
+                            method: 'PUT', // Cambia a PUT porque así está configurado en el backend
                             headers: {
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
-                                playerId: state.id,
+                                playerNumber: state.playerNumber, // Usa playerNumber en lugar de playerId
                                 move: move,
                             }),
                         });
