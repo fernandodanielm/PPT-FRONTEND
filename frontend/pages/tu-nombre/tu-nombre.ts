@@ -4,12 +4,14 @@ import { state, stateFunctions } from "../../state";
 import { router } from "../../router";
 import { v4 as uuidv4 } from "uuid";
 
+const API_BASE_URL = "https://ppt-backend-1.onrender.com"; // Asegúrate de que esta URL sea correcta
+
 export class TuNombre extends HTMLElement {
-    shadow: ShadowRoot; // Declarar la propiedad shadow
+    shadow: ShadowRoot;
 
     constructor() {
         super();
-        this.shadow = this.attachShadow({ mode: 'open' }); // Inicializar el Shadow DOM
+        this.shadow = this.attachShadow({ mode: 'open' });
     }
 
     connectedCallback() {
@@ -80,22 +82,33 @@ export class TuNombre extends HTMLElement {
                 const playerName = (nombreInput as HTMLInputElement).value.trim();
                 if (playerName) {
                     try {
-                        // Generar un ID único para el owner en el frontend
                         const ownerId = uuidv4();
-                        stateFunctions.setId(ownerId);
-                        stateFunctions.setPlayer1Name(playerName, ownerId);
+                        stateFunctions.setState({ id: ownerId, player1Name: playerName, player1Id: ownerId });
 
-                        // Enviar los datos al backend para crear la sala y guardar la información del owner
-                        const response = await stateFunctions.saveRoomData(ownerId, playerName, null, null);
-                        console.log("Respuesta completa del backend (creación de sala):", response);
+                        const response = await fetch(`${API_BASE_URL}/api/rooms`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                ownerId: ownerId,
+                                ownerName: playerName,
+                            }),
+                        });
 
-                        if (response && response.roomId) {
-                            const roomId = response.roomId;
-                            console.log("Valor de roomId recibido del backend:", roomId, typeof roomId);
-                            stateFunctions.setRoomId(roomId);
-                            stateFunctions.listenRoom(); // Comenzar a escuchar los cambios en la sala
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            console.error("Error al crear la sala:", errorData);
+                            alert("Error al crear la sala. Inténtalo de nuevo.");
+                            return;
+                        }
 
-                            // Redirigir a la página de la sala después de un breve delay para asegurar que el estado se actualice
+                        const roomData = await response.json();
+                        if (roomData && roomData.roomId) {
+                            const roomId = roomData.roomId;
+                            stateFunctions.setState({ roomId: roomId });
+                            stateFunctions.listenRoom();
+
                             setTimeout(() => {
                                 router.goTo(`/short-id/${roomId}`);
                             }, 100);

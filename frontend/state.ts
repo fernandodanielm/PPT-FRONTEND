@@ -223,50 +223,37 @@ const stateFunctions = {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ playerNumber, move }),
+                body: JSON.stringify({
+                    playerNumber: playerNumber,
+                    move: move,
+                }),
             });
 
             if (!response.ok) {
-                console.error("Error al enviar el movimiento al backend:", response.status, await response.text());
-                // Aquí podrías agregar lógica para re-habilitar los botones en caso de error
                 const errorData = await response.json();
-                if (errorData.message === "Movimiento inválido.") {
-                    // Opcional: Mostrar un mensaje al usuario indicando que su movimiento fue inválido.
-                }
-                const playPage = document.querySelector('play-page');
-                if (playPage) {
-                    (playPage as any).areButtonsDisabled = false;
-                    (playPage as any).render(); // Re-renderizar para habilitar los botones
-                }
+                console.error("Error al enviar el movimiento:", errorData);
             } else {
-                const data = await response.json();
-                console.log("Respuesta del backend al enviar el movimiento:", data);
-                // El backend ahora maneja la lógica de gameOver, el frontend reacciona a los cambios en listenRoom
+                console.log("Movimiento enviado con éxito.");
             }
-            console.log("Movimiento enviado con éxito (o se intentó)");
         } catch (error) {
-            console.error("Error de red al enviar el movimiento:", error);
-            const playPage = document.querySelector('play-page');
-            if (playPage) {
-                (playPage as any).areButtonsDisabled = false;
-                (playPage as any).render(); // Re-renderizar para habilitar los botones
-            }
+            console.error("Error en la solicitud:", error);
         }
     },
+    setRoomId: (roomId: string) => {
+        state.roomId = roomId;
+        stateFunctions.setState(state); // Actualiza el estado
+      },
     setId: (id: string | null) => {
         stateFunctions.setState({ id });
     },
-    setPlayer1Name: (name: string | null, id: string | null) => {
+    setPlayer1Name(name: string | null, id: string | null) {
         stateFunctions.setState({ player1Name: name, player1Id: id });
     },
-    setPlayer2Name: (name: string | null, id: string | null) => {
+    setPlayer2Name(name: string | null, id: string | null) {
         stateFunctions.setState({ player2Name: name, player2Id: id });
     },
-    setPlayerNumber: (number: 1 | 2 | undefined) => {
+    setPlayerNumber(number: 1 | 2 | undefined) {
         stateFunctions.setState({ playerNumber: number });
-    },
-    setRoomId: (roomId: string) => {
-        stateFunctions.setState({ roomId });
     },
     async saveRoomData(ownerId: string | null, ownerName: string | null, guestId: string | null, guestName: string | null, roomId?: string) {
         try {

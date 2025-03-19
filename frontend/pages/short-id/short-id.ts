@@ -1,12 +1,11 @@
 // frontend/src/components/short-id.ts
 import { state, stateFunctions } from "../../state";
-import { rtdb } from "../../utils/rtdb";
-import { ref, onValue } from "firebase/database";
 import { router } from "../../router";
-import backgroundImage from "../../assets/piedrapapelotijera.jpg"; // Asegúrate de que la ruta sea correcta
+import backgroundImage from "../../assets/piedrapapelotijera.jpg";
 
 export class ShortIdPage extends HTMLElement {
     shadow: ShadowRoot;
+    unsubscribe: (() => void) | undefined;
 
     constructor() {
         super();
@@ -15,31 +14,25 @@ export class ShortIdPage extends HTMLElement {
 
     connectedCallback() {
         this.render();
-        // **Importante:** Escuchar la sala ANTES de suscribirse al estado
         stateFunctions.listenRoom();
         this.unsubscribe = stateFunctions.subscribe(() => this.render());
-        this.checkPlayerId(); // Verificar si el ID del jugador está presente
+        this.checkPlayerId();
     }
 
     disconnectedCallback() {
         this.unsubscribe?.();
     }
 
-    unsubscribe: (() => void) | undefined;
-
     checkPlayerId() {
         const currentState = stateFunctions.getState();
         if (!currentState.id) {
             console.error("ShortIdPage: No se encontró el ID del jugador en el estado.");
-            // **Posible solución:** Si el ID no está, podrías intentar recuperarlo de sessionStorage
             const playerIdFromSession = sessionStorage.getItem("playerId");
             if (playerIdFromSession) {
-                stateFunctions.setId(playerIdFromSession);
+                stateFunctions.setState({ id: playerIdFromSession });
                 console.log("ShortIdPage: ID del jugador recuperado de sessionStorage:", playerIdFromSession);
-                // **Opcional:** Volver a renderizar para que la información se actualice
                 this.render();
             } else {
-                // **Si aún no hay ID, considera redirigir a la página de inicio para que el usuario cree/ingrese de nuevo**
                 console.warn("ShortIdPage: No se encontró ID ni en el estado ni en sessionStorage. Redirigiendo a /tu-nombre.");
                 router.goTo('/tu-nombre');
             }
@@ -53,6 +46,7 @@ export class ShortIdPage extends HTMLElement {
         const player1Name = currentState.player1Name || 'Esperando Jugador 1';
         const player2Name = currentState.player2Name || 'Esperando Jugador 2';
         const currentRoomId = currentState.roomId;
+        const playerNumber = currentState.playerNumber;
 
         this.shadow.innerHTML = `
             <style>
@@ -66,11 +60,10 @@ export class ShortIdPage extends HTMLElement {
                     justify-content: center;
                     font-family: sans-serif;
                 }
-
                 .room-container {
                     width: 322px;
                     height: auto;
-                    background-color: white; /* Fondo blanco para el contenido */
+                    background-color: white;
                     padding: 20px;
                     border-radius: 10px;
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -78,7 +71,6 @@ export class ShortIdPage extends HTMLElement {
                     flex-direction: column;
                     align-items: center;
                 }
-
                 .title-container {
                     width: 100%;
                     display: flex;
@@ -86,28 +78,24 @@ export class ShortIdPage extends HTMLElement {
                     align-items: center;
                     margin-bottom: 20px;
                 }
-
                 h1 {
                     color: #009048;
                     margin: 0;
                     font-size: 3em;
                     text-align: center;
                 }
-
                 .room-info {
                     font-size: 1.5em;
                     color: #333;
                     margin-bottom: 15px;
                     text-align: center;
                 }
-
                 .players-info {
                     font-size: 1.2em;
                     color: #555;
                     margin-bottom: 10px;
                     text-align: center;
                 }
-
                 .instructions-button, .play-button {
                     width: 322px;
                     height: 60px;
@@ -119,7 +107,6 @@ export class ShortIdPage extends HTMLElement {
                     margin: 10px 0;
                     cursor: pointer;
                 }
-
                 .instructions-button:hover, .play-button:hover {
                     background-color: #1E60C7;
                 }
@@ -140,7 +127,7 @@ export class ShortIdPage extends HTMLElement {
                     <button id="instructions-button" class="instructions-button">
                         Instrucciones
                     </button>
-                    ${currentState.player1Name && currentState.player2Name ? `
+                    ${player1Name && player2Name ? `
                         <button id="play-button" class="play-button">
                             Jugar
                         </button>
@@ -169,5 +156,3 @@ export class ShortIdPage extends HTMLElement {
 }
 
 customElements.define('short-id-page', ShortIdPage);
-
-// Exporta la clase ShortIdPage

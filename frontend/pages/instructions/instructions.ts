@@ -83,7 +83,7 @@ export class InstructionsPage extends HTMLElement {
                     </ul>
                     <p>Si ambos jugadores eligen la misma opción, es un empate.</p>
                     <p>¡El objetivo es ganar la mayoría de las rondas!</p>
-                    <button class="back-button" id="backButton">Volver</button>
+                    <button class="back-button" id="backButton" aria-label="Volver">Volver</button>
                 </div>
             </div>
         `;
@@ -93,7 +93,7 @@ export class InstructionsPage extends HTMLElement {
         const backButton = this.shadow.getElementById("backButton");
         if (backButton) {
             backButton.addEventListener("click", () => {
-                window.history.back();
+                router.goTo("/"); // Usar router.goTo en lugar de window.history.back()
             });
         }
     }

@@ -6,12 +6,13 @@ import piedraImg from "../../assets/piedra.png";
 import papelImg from "../../assets/papel.png";
 import tijeraImg from "../../assets/tijera.png";
 
-export class PlayPage extends HTMLElement {
+const API_BASE_URL = "https://ppt-backend-1.onrender.com"; // Asegúrate de que esta URL sea correcta
 
+export class PlayPage extends HTMLElement {
     shadow: ShadowRoot;
     myMove: Jugada | null = null;
     unsubscribe: (() => void) | undefined;
-    areButtonsDisabled: boolean = false; // Nuevo estado para controlar la habilitación de botones
+    areButtonsDisabled: boolean = false;
 
     constructor() {
         super();
@@ -135,13 +136,43 @@ export class PlayPage extends HTMLElement {
 
     addListeners() {
         this.shadow.querySelectorAll('.move-button').forEach(button => {
-            button.addEventListener('click', (e) => {
+            button.addEventListener('click', async (e) => {
                 if (!this.areButtonsDisabled) {
                     const target = e.target as HTMLButtonElement;
                     const move = target.id as Jugada;
                     this.myMove = move;
-                    this.areButtonsDisabled = true; // Deshabilitar botones al hacer clic
-                    stateFunctions.setMove(move);
+                    this.areButtonsDisabled = true;
+
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/api/rooms/${state.roomId}/move`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                playerId: state.id,
+                                move: move,
+                            }),
+                        });
+
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            console.error("Error al enviar la jugada:", errorData);
+                            alert("Error al enviar la jugada. Inténtalo de nuevo.");
+                            this.areButtonsDisabled = false;
+                            this.myMove = null;
+                            this.render();
+                            return;
+                        }
+
+                        stateFunctions.setMove(move);
+                    } catch (error) {
+                        console.error("Error en la solicitud para enviar la jugada:", error);
+                        alert("Ocurrió un error al enviar la jugada. Inténtalo de nuevo.");
+                        this.areButtonsDisabled = false;
+                        this.myMove = null;
+                        this.render();
+                    }
                 }
             });
         });

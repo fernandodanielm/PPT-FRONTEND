@@ -1,8 +1,10 @@
 // frontend/src/pages/ingresar-a-una-sala.ts
 import backgroundImage from "../../assets/piedrapapelotijera.jpg";
-import { stateFunctions } from "../../state";
+import { state, stateFunctions } from "../../state";
 import { router } from "../../router";
-import { v4 as uuidv4 } from "uuid"; // Importa la librería para generar UUIDs
+import { v4 as uuidv4 } from "uuid";
+
+const API_BASE_URL = "https://ppt-backend-1.onrender.com"; // Asegúrate de que esta URL sea correcta
 
 export class IngresarASala extends HTMLElement {
     shadow: ShadowRoot;
@@ -123,20 +125,39 @@ export class IngresarASala extends HTMLElement {
                 const guestName = nameInput.value.trim();
 
                 if (guestName && roomId) {
-                    // Generar un ID único para el guest en el frontend
                     const guestId = uuidv4();
                     stateFunctions.setId(guestId);
-                    stateFunctions.setPlayer2Name(guestName, guestId); // Guardar nombre e ID localmente
+                    stateFunctions.setPlayer2Name(guestName, guestId);
 
-                    const responseData = await stateFunctions.saveRoomData(null, null, guestId, guestName, roomId);
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/api/rooms/${roomId}/join`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                guestId: guestId,
+                                guestName: guestName,
+                            }),
+                        });
 
-                    if (responseData?.roomId) {
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            console.error("Error al unirse a la sala:", errorData);
+                            if (errorMessage) {
+                                errorMessage.textContent = "Error al unirse a la sala. Verifica el código o intenta nuevamente.";
+                            }
+                            return;
+                        }
+
+                        const responseData = await response.json();
                         stateFunctions.setRoomId(responseData.roomId);
-                        stateFunctions.listenRoom(); // Comenzar a escuchar los cambios en la sala
                         router.goTo(`/short-id/${responseData.roomId}`);
-                    } else if (errorMessage) {
-                        errorMessage.textContent = "Error al unirse a la sala. Verifica el código o intenta nuevamente.";
-                        console.error("Error al unirse a la sala:", responseData);
+                    } catch (error) {
+                        console.error("Error en la solicitud para unirse a la sala:", error);
+                        if (errorMessage) {
+                            errorMessage.textContent = "Ocurrió un error al unirse a la sala. Inténtalo de nuevo.";
+                        }
                     }
                 } else {
                     if (errorMessage) {
@@ -148,7 +169,7 @@ export class IngresarASala extends HTMLElement {
 
         if (backButton) {
             backButton.addEventListener("click", () => {
-                window.history.back();
+                router.goTo("/"); // Usar router.goTo en lugar de window.history.back()
             });
         }
 

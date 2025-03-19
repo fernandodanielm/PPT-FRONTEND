@@ -1,14 +1,13 @@
 // frontend/src/components/resultpage.ts
 import { state, stateFunctions } from "../../state";
 import { router } from "../../router";
-import backgroundImage from "../../assets/piedrapapelotijera.jpg"; // Asegúrate de que la ruta sea correcta
-import { ref, onValue } from "firebase/database";
-import { rtdb } from "../../utils/rtdb";
+import backgroundImage from "../../assets/piedrapapelotijera.jpg";
+
+const API_BASE_URL = "https://ppt-backend-1.onrender.com"; // Asegúrate de que esta URL sea correcta
 
 export class ResultPage extends HTMLElement {
     shadow: ShadowRoot;
     unsubscribe: (() => void) | undefined;
-    realtimeUnsubscribe: (() => void) | undefined;
 
     constructor() {
         super();
@@ -18,35 +17,10 @@ export class ResultPage extends HTMLElement {
     connectedCallback() {
         this.render();
         this.unsubscribe = stateFunctions.subscribe(() => this.render());
-        this.setupRealtimeListeners();
     }
 
     disconnectedCallback() {
         this.unsubscribe?.();
-        this.removeRealtimeListeners();
-    }
-
-    setupRealtimeListeners() {
-        if (state.roomId) {
-            const gameRef = ref(rtdb, `rooms/${state.roomId}/games/current`);
-            this.realtimeUnsubscribe = onValue(gameRef, (snapshot) => {
-                const data = snapshot.val();
-                console.log("Datos recibidos en ResultPage (onValue):", data);
-                if (data) {
-                    this.render(); // Forzar re-render para reflejar los cambios (el estado ya se actualiza en state.ts)
-                }
-            });
-        } else {
-            console.warn("No se puede configurar el listener en ResultPage, roomId no está definido.");
-        }
-    }
-
-    removeRealtimeListeners() {
-        if (this.realtimeUnsubscribe) {
-            this.realtimeUnsubscribe();
-            this.realtimeUnsubscribe = undefined;
-            console.log("Listeners en ResultPage removidos.");
-        }
     }
 
     render() {
@@ -55,11 +29,10 @@ export class ResultPage extends HTMLElement {
         const player2Name = state.player2Name;
         const player1Id = state.player1Id;
         const player2Id = state.player2Id;
-        const player1Move = game?.data.player1Move; // Usar player1Move
-        const player2Move = game?.data.player2Move; // Usar player2Move
+        const player1Move = game?.data.player1Move;
+        const player2Move = game?.data.player2Move;
         const result = game?.data.result;
         const statistics = game?.statistics;
-        const playerNumber = state.playerNumber;
 
         let resultText = '';
         if (result === 'ownerWins') {
@@ -164,9 +137,24 @@ export class ResultPage extends HTMLElement {
     addListeners() {
         const playAgainButton = this.shadow.getElementById('playAgainButton');
         if (playAgainButton) {
-            playAgainButton.addEventListener('click', () => {
-                stateFunctions.resetGame(state.roomId);
-                router.goTo('/play');
+            playAgainButton.addEventListener('click', async () => {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/rooms/${state.roomId}/reset`, {
+                        method: 'POST',
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.error("Error al reiniciar el juego:", errorData);
+                        alert("Error al reiniciar el juego. Inténtalo de nuevo.");
+                        return;
+                    }
+
+                    router.goTo('/play');
+                } catch (error) {
+                    console.error("Error en la solicitud para reiniciar el juego:", error);
+                    alert("Ocurrió un error al reiniciar el juego. Inténtalo de nuevo.");
+                }
             });
         }
     }
