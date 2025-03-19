@@ -1,4 +1,3 @@
-// frontend/src/components/playpage.ts
 import { state, stateFunctions, Jugada } from "../../state";
 import { router } from "../../router";
 import backgroundImage from "../../assets/piedrapapelotijera.jpg";
@@ -48,7 +47,81 @@ export class PlayPage extends HTMLElement {
 
         this.shadow.innerHTML = `
             <style>
-                // ... (estilos CSS) ...
+                .container {
+                    background-image: url(${backgroundImage});
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 100vh;
+                    padding: 20px;
+                    box-sizing: border-box;
+                    font-family: sans-serif;
+                    color: #333;
+                    text-align: center;
+                }
+
+                .title {
+                    font-size: 2.5em;
+                    margin-bottom: 20px;
+                }
+
+                .buttons-container {
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: 20px;
+                }
+
+                .move-button {
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    padding: 10px 20px;
+                    margin: 0 10px;
+                    cursor: pointer;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .move-button img {
+                    width: 50px;
+                    height: 50px;
+                    margin-bottom: 5px;
+                }
+
+                .move-button:hover {
+                    background-color: #0056b3;
+                }
+
+                .move-button:disabled {
+                    background-color: #ccc;
+                    cursor: not-allowed;
+                }
+
+                .my-move, .opponent-move {
+                    font-size: 1.2em;
+                    margin-bottom: 10px;
+                }
+
+                #resultButton {
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    background-color: #28a745;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+
+                #resultButton:disabled {
+                    background-color: #ccc;
+                    cursor: not-allowed;
+                }
             </style>
             <div class="container">
                 <h2 class="title">Elige tu jugada</h2>
@@ -82,12 +155,12 @@ export class PlayPage extends HTMLElement {
 
                     try {
                         const response = await fetch(`${API_BASE_URL}/api/rooms/${state.roomId}/move`, {
-                            method: 'PUT', // Cambia a PUT porque así está configurado en el backend
+                            method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
-                                playerNumber: state.playerNumber, // Usa playerNumber en lugar de playerId
+                                playerNumber: state.playerNumber,
                                 move: move,
                             }),
                         });
@@ -95,7 +168,7 @@ export class PlayPage extends HTMLElement {
                         if (!response.ok) {
                             const errorData = await response.json();
                             console.error("Error al enviar la jugada:", errorData);
-                            alert("Error al enviar la jugada. Inténtalo de nuevo.");
+                            alert(`Error al enviar la jugada: ${errorData.message || 'Inténtalo de nuevo.'}`);
                             this.areButtonsDisabled = false;
                             this.myMove = null;
                             this.render();
